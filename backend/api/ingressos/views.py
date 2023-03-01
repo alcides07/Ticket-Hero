@@ -12,5 +12,8 @@ class ClienteViewSet(viewsets.ModelViewSet):
     queryset = Cliente.objects.all()
     serializer_class = ClienteSerializer
 
-    def teste(self, request):
-        return Response(Cliente.objects.all(), status=status.HTTP_201_CREATED)
+    # @action(detail=False, methods=['get'], url_path='', permission_classes=[])
+    # def resposta(self, request, pk=None):
+    #     queryset = Cliente.objects.all()
+    #     serializer = ClienteSerializer(queryset, many=True)
+    #     return Response(serializer.data)

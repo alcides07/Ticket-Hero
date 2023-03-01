@@ -5,8 +5,7 @@ from django.shortcuts import get_object_or_404
 from datetime import datetime
 from .models import (Cliente, Organizador, Evento, Categoria, CompraIngresso)
 
-
-class ClienteSerializer(serializers.Serializer):
+class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
         fields = "__all__"
