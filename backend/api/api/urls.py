@@ -20,6 +20,10 @@ schema_view = swagger_get_schema_view(
 )
 
 router.register(r'cliente', views.ClienteViewSet)
+router.register(r'organizador', views.OrganizadorViewSet)
+router.register(r'evento', views.EventoViewSet)
+router.register(r'categoria', views.CategoriaViewSet)
+router.register(r'venda', views.VendaViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

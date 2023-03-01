@@ -9,3 +9,26 @@ class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
         fields = "__all__"
+
+class OrganizadorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organizador
+        fields = "__all__"
+
+class EventoSerializer(serializers.ModelSerializer):
+    # def save(self):
+    #     nome = self.validated_data['nome']
+
+    class Meta:
+        model = Evento
+        fields = "__all__"
+
+class CategoriaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Categoria
+        fields = "__all__"
+
+class VendaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CompraIngresso
+        fields = "__all__"

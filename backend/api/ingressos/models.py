@@ -12,7 +12,6 @@ class Organizador(models.Model):
     class Meta:
         verbose_name_plural = "Organizadores"
 
-
 class Cliente(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nomeCompleto = models.CharField(max_length=200)
