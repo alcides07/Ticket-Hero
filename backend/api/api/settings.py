@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'ingressos',
     'corsheaders',
     'drf_yasg',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [

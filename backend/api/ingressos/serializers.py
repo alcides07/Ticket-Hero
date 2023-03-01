@@ -5,6 +5,10 @@ from django.shortcuts import get_object_or_404
 from datetime import datetime
 from .models import (Cliente, Organizador, Evento, Categoria, CompraIngresso)
 
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField()
+
 class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
@@ -16,9 +20,6 @@ class OrganizadorSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class EventoSerializer(serializers.ModelSerializer):
-    # def save(self):
-    #     nome = self.validated_data['nome']
-
     class Meta:
         model = Evento
         fields = "__all__"

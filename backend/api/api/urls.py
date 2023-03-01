@@ -24,6 +24,7 @@ router.register(r'organizador', views.OrganizadorViewSet)
 router.register(r'evento', views.EventoViewSet)
 router.register(r'categoria', views.CategoriaViewSet)
 router.register(r'venda', views.VendaViewSet)
+router.register(r'auth', views.Auth, basename='auth')
 
 urlpatterns = [
     path('', include(router.urls)),
