@@ -5,20 +5,25 @@ cd backend
 
 #### Passo 2:
 ```
-. venv/bin/activate
+python -m venv venv
 ```
 
 #### Passo 3:
 ```
-pip install -r requirements.txt
+. venv/bin/activate
 ```
 
 #### Passo 4:
 ```
-cd api
+pip install -r requirements.txt
 ```
 
 #### Passo 5:
+```
+cd api
+```
+
+#### Passo 6:
 ```
 python manage.py runserver
 ```
