@@ -30,7 +30,7 @@ class VendaViewSet(viewsets.ModelViewSet):
     serializer_class = VendaSerializer
 
     def create(self, request, pk=None):  
-        qtdIngresso = request.data["qtdIngresso"]
+        qtdIngresso = int(request.data["qtdIngresso"])
         evento = get_object_or_404(Evento, id = request.data["evento"])
 
         if (qtdIngresso <= evento.ingressoDisponivel):
