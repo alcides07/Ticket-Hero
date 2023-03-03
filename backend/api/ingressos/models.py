@@ -30,6 +30,7 @@ class Categoria(models.Model):
 class Evento(models.Model):
     nome = models.CharField(max_length=300)
     descricao = models.TextField()
+    data = models.DateTimeField()
     organizador = models.ForeignKey(Organizador, on_delete=models.SET_NULL, null=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)
     valorIngresso = models.FloatField()
@@ -39,7 +40,7 @@ class Evento(models.Model):
     def __str__(self):
         return self.nome
 
-class CompraIngresso(models.Model):
+class Compra(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.SET_NULL, null=True)
     evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
     qtdIngresso = models.IntegerField()

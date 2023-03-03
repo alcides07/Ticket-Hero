@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from datetime import datetime
-from .models import (Cliente, Organizador, Evento, Categoria, CompraIngresso)
+from .models import (Cliente, Organizador, Evento, Categoria, Compra)
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
@@ -29,7 +29,7 @@ class CategoriaSerializer(serializers.ModelSerializer):
         model = Categoria
         fields = "__all__"
 
-class VendaSerializer(serializers.ModelSerializer):
+class CompraSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CompraIngresso
+        model = Compra
         fields = "__all__"
