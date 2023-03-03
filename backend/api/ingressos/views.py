@@ -6,25 +6,62 @@ from rest_framework.response import Response
 from django.utils import timezone
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
+from .permissions import AllowAny
 from .models import Cliente, Organizador, Evento, Categoria, Compra
-from .serializers import ClienteSerializer, OrganizadorSerializer, EventoSerializer, CategoriaSerializer, CompraSerializer, LoginSerializer
+from .serializers import ClienteSerializer, OrganizadorSerializer, EventoSerializer, CategoriaSerializer, CompraSerializer, CadastroSerializer, LoginSerializer
 
 class Auth(viewsets.ViewSet):
     serializer_class = None 
 
-    @action(detail=False, methods=['post'], serializer_class=LoginSerializer, basename="auth")
+    @action(detail=False, methods=["post"], basename="auth", permission_classes=[AllowAny])
     def login(self, request):
-        usuario = User.objects.filter(username=request.data["usuario"])
+        usuario = User.objects.filter(username=request.data.get("usuario"))
 
         if not usuario.exists():
-            return Response({'erro':'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
+            usuario = User.objects.filter(email=request.data.get("email"))
+            if not usuario.exists():
+                return Response({"erro":"Credenciais inválidas!"}, status=status.HTTP_400_BAD_REQUEST)
 
         usuario = usuario.first()
-        if not usuario.check_password(request.data["senha"]):
-            return Response({'erro': 'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
+        if not usuario.check_password(request.data.get("senha")):
+            return Response({"erro": "Credenciais inválidas!"}, status=status.HTTP_400_BAD_REQUEST)
 
         token = Token.objects.create(user=usuario)        
-        return Response({"token":token.key}, status=status.HTTP_200_OK)
+        serializer = LoginSerializer(usuario).data
+        serializer ['token'] = token.key
+        return Response(serializer, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["post"], basename="auth", permission_classes=[AllowAny])
+    def cadastro(self, request):
+        username = request.data.get("usuario")
+        senha = request.data.get("senha")
+        confirmacaoSenha = request.data.get("confirmacaoSenha")
+        tipoUsuario = request.data.get("tipoUsuario")
+        nomeCompleto = request.data.get("nomeCompleto")
+        email = request.data.get("email")
+        nascimento = request.data.get("nascimento")
+
+        if (senha != confirmacaoSenha):
+            return Response({"erro": "Senhas não coincidem!"}, status=status.HTTP_400_BAD_REQUEST)
+
+        if (User.objects.filter(username = username)):
+            return Response({"erro": "Esse nome de usuário já está em uso!"}, status=status.HTTP_400_BAD_REQUEST)
+    
+        if (User.objects.filter(email = email)):
+            return Response({"erro": "Esse e-mail já está em uso!"}, status=status.HTTP_400_BAD_REQUEST)
+
+        user = User.objects.create_user(username=username, email=email, password=senha)
+
+        if (tipoUsuario.upper() == "O"):
+            organizador = Organizador.objects.create(user=user, nomeCompleto=nomeCompleto, nascimento=nascimento)
+            usuario = organizador
+
+        elif (tipoUsuario.upper() == "C"):
+            cliente = Cliente.objects.create(user=user, nomeCompleto=nomeCompleto, nascimento=nascimento)
+            usuario = cliente
+        
+        serializer = CadastroSerializer(usuario)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class ClienteViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
@@ -52,15 +89,15 @@ class VendaViewSet(viewsets.ModelViewSet):
     serializer_class = CompraSerializer
 
     def create(self, request):  
-        qtdIngresso = int(request.data["qtdIngresso"])
-        evento = get_object_or_404(Evento, id = request.data["evento"])
+        qtdIngresso = int(request.data.get("qtdIngresso"))
+        evento = get_object_or_404(Evento, id = request.data.get("evento"))
 
         if (qtdIngresso <= evento.ingressoDisponivel):
             venda = Compra.objects.create(
                 qtdIngresso = qtdIngresso,
                 valorTotal = qtdIngresso * evento.valorIngresso,
                 dataCompra = timezone.now(),
-                cliente = get_object_or_404(Cliente, id = request.data["cliente"]),
+                cliente = get_object_or_404(Cliente, id = request.data.get("cliente")),
                 evento = evento
             )
             
@@ -71,7 +108,7 @@ class VendaViewSet(viewsets.ModelViewSet):
 
         return Response({"Erro":"Ingressos insuficientes"}, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=False, methods=['get'], permission_classes = [permissions.IsAuthenticated])
+    @action(detail=False, methods=["get"], permission_classes = [permissions.IsAuthenticated])
     def minhasCompras(self, request):
         queryset = Compra.objects.filter(cliente = request.user.cliente)
         contexto = {}
