@@ -5,6 +5,9 @@ class Organizador(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nomeCompleto = models.CharField(max_length=200)
     nascimento = models.DateField()
+    instagram = models.CharField(max_length=100, blank=True, null=True)
+    cpf = models.CharField(max_length=11, blank=True, null=True)
+    rg = models.CharField(max_length=9, blank=True, null=True)
 
     def __str__(self):
         return self.nomeCompleto
@@ -45,7 +48,7 @@ class Compra(models.Model):
     evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
     qtdIngresso = models.IntegerField()
     valorTotal = models.FloatField()
-    dataCompra = models.DateTimeField()
+    data = models.DateTimeField()
 
     def __str__(self):
-        return f"{self.cliente} - {self.evento} ({self.dataCompra})"
+        return f"{self.cliente} - {self.evento} ({self.data})"

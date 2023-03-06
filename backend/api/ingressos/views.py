@@ -40,6 +40,9 @@ class Auth(viewsets.ViewSet):
         nomeCompleto = request.data.get("nomeCompleto")
         email = request.data.get("email")
         nascimento = request.data.get("nascimento")
+        instagram = request.data.get("instagram")
+        cpf = request.data.get("cpf")
+        rg = request.data.get("rg")
 
         if (senha != confirmacaoSenha):
             return Response({"erro": "Senhas não coincidem!"}, status=status.HTTP_400_BAD_REQUEST)
@@ -53,7 +56,7 @@ class Auth(viewsets.ViewSet):
         user = User.objects.create_user(username=username, email=email, password=senha)
 
         if (tipoUsuario.upper() == "O"):
-            organizador = Organizador.objects.create(user=user, nomeCompleto=nomeCompleto, nascimento=nascimento)
+            organizador = Organizador.objects.create(user=user, nomeCompleto=nomeCompleto, nascimento=nascimento, instagram=instagram, cpf=cpf, rg=rg)
             usuario = organizador
 
         elif (tipoUsuario.upper() == "C"):
