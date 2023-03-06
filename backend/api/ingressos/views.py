@@ -81,6 +81,25 @@ class EventoViewSet(viewsets.ModelViewSet):
     queryset = Evento.objects.all()
     serializer_class = EventoSerializer
 
+    def create(self, request):
+        categoria = Categoria.objects.create(
+            nome = request.data.get("categoria"),
+        )
+
+        evento = Evento.objects.create(
+            nome = request.data.get("nome"),
+            descricao = request.data.get("descricao"),
+            data = timezone.now(),
+            valorIngresso = request.data.get("valorIngresso"),
+            ingressoTotal = request.data.get("ingressoTotal"),
+            ingressoDisponivel = request.data.get("ingressoDisponivel"),
+            organizador = request.user.organizador,
+            categoria = categoria
+        )
+
+        serializer = EventoSerializer(evento)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 class CategoriaViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     queryset = Categoria.objects.all()
