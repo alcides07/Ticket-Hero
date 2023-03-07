@@ -8,29 +8,30 @@ from .models import (Cliente, Organizador, Evento, Categoria, Compra)
 class CadastroSerializer(serializers.ModelSerializer):
     nomeCompleto = serializers.CharField()
     nascimento = serializers.DateField()
-    user = serializers.SerializerMethodField()
+    username = serializers.SerializerMethodField()
+    email = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = ["nomeCompleto", "nascimento", "user"]
+        fields = ["username", "nomeCompleto", "nascimento", "email"]
 
-    def get_user(self, obj):
-        return {
-            "username" : obj.user.username,
-            "email" : obj.user.email
-        }
+    def get_username(self, obj):
+         return obj.user.username
+    
+    def get_email(self, obj):
+        return obj.user.email
 
 class LoginSerializer(serializers.Serializer):
-    extra_data = serializers.SerializerMethodField()
+    usuario = serializers.SerializerMethodField()
 
-    def get_extra_data(self, obj):
+    def get_usuario(self, obj):
         if hasattr(obj, "organizador"):
             id = obj.organizador.id
             nome_completo = obj.organizador.nomeCompleto
             tipo_usuario = "organizador"
             nascimento = obj.organizador.nascimento
 
-        elif hasattr(obj.usuario, "cliente"):
+        elif hasattr(obj, "cliente"):
             id = obj.cliente.id
             nome_completo = obj.cliente.nomeCompleto
             tipo_usuario = "cliente"
@@ -54,9 +55,14 @@ class OrganizadorSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class EventoSerializer(serializers.ModelSerializer):
+    categoria = serializers.SerializerMethodField()
+
     class Meta:
         model = Evento
         fields = "__all__"
+
+    def get_categoria(self, obj):
+        return obj.categoria.nome
 
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:

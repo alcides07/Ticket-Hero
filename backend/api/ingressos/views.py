@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from django.utils import timezone
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
-from .permissions import AllowAny
+from .permissions import AllowAny, EhCliente, EhOrganizador
 from .models import Cliente, Organizador, Evento, Categoria, Compra
 from .serializers import ClienteSerializer, OrganizadorSerializer, EventoSerializer, CategoriaSerializer, CompraSerializer, CadastroSerializer, LoginSerializer
 
@@ -99,13 +99,19 @@ class EventoViewSet(viewsets.ModelViewSet):
 
         serializer = EventoSerializer(evento)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    @action(detail=False, methods=["get"], permission_classes = [permissions.IsAuthenticated, EhOrganizador])
+    def meusEventos(self, request):
+        queryset = Evento.objects.filter(organizador = request.user.organizador).order_by("data")
+        serializer = EventoSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class CategoriaViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
 
-class VendaViewSet(viewsets.ModelViewSet):
+class CompraViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     queryset = Compra.objects.all()
     serializer_class = CompraSerializer
@@ -118,7 +124,7 @@ class VendaViewSet(viewsets.ModelViewSet):
             venda = Compra.objects.create(
                 qtdIngresso = qtdIngresso,
                 valorTotal = qtdIngresso * evento.valorIngresso,
-                dataCompra = timezone.now(),
+                data = timezone.now(),
                 cliente = get_object_or_404(Cliente, id = request.data.get("cliente")),
                 evento = evento
             )
@@ -130,9 +136,9 @@ class VendaViewSet(viewsets.ModelViewSet):
 
         return Response({"Erro":"Ingressos insuficientes"}, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=False, methods=["get"], permission_classes = [permissions.IsAuthenticated])
+    @action(detail=False, methods=["get"], permission_classes = [permissions.IsAuthenticated, EhCliente])
     def minhasCompras(self, request):
-        queryset = Compra.objects.filter(cliente = request.user.cliente)
+        queryset = Compra.objects.filter(cliente = request.user.cliente).order_by("data")
         contexto = {}
         i = 1
 
