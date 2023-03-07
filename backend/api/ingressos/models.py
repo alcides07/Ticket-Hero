@@ -34,7 +34,7 @@ class Evento(models.Model):
     nome = models.CharField(max_length=300)
     descricao = models.TextField()
     data = models.DateTimeField()
-    imagem = models.ImageField(upload_to='media/evento/')
+    imagem = models.ImageField(upload_to='media/evento/', blank=True, null=True)
     organizador = models.ForeignKey(Organizador, on_delete=models.SET_NULL, null=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)
     valorIngresso = models.FloatField()
