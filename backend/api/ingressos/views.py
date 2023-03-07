@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from django.utils import timezone
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
+from django.db.models import F
 from .permissions import AllowAny, EhCliente, EhOrganizador
 from .models import Cliente, Organizador, Evento, Categoria, Compra
 from .serializers import ClienteSerializer, OrganizadorSerializer, EventoSerializer, CategoriaSerializer, CompraSerializer, CadastroSerializer, LoginSerializer
@@ -103,6 +104,12 @@ class EventoViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=["get"], permission_classes = [permissions.IsAuthenticated, EhOrganizador])
     def meusEventos(self, request):
         queryset = Evento.objects.filter(organizador = request.user.organizador).order_by("data")
+        serializer = EventoSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    @action(detail=False, methods=["get"], permission_classes = [permissions.IsAuthenticated])
+    def eventosPopulares(self, request):
+        queryset = Evento.objects.all().order_by(F("ingressoTotal") - F("ingressoDisponivel")).reverse()[:5]
         serializer = EventoSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
