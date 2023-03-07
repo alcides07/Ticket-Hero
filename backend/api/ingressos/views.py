@@ -109,7 +109,7 @@ class EventoViewSet(viewsets.ModelViewSet):
     
     @action(detail=False, methods=["get"], permission_classes = [permissions.IsAuthenticated])
     def eventosPopulares(self, request):
-        queryset = Evento.objects.all().order_by(F("ingressoTotal") - F("ingressoDisponivel")).reverse()[:5]
+        queryset = Evento.objects.order_by(F("ingressoTotal") - F("ingressoDisponivel")).reverse()[:5]
         serializer = EventoSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
