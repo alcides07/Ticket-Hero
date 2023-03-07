@@ -26,7 +26,7 @@ class Auth(viewsets.ViewSet):
         if not usuario.check_password(request.data.get("senha")):
             return Response({"erro": "Credenciais inválidas!"}, status=status.HTTP_400_BAD_REQUEST)
 
-        token = Token.objects.create(user=usuario)        
+        token, created = Token.objects.get_or_create(user=usuario)  
         serializer = LoginSerializer(usuario).data
         serializer ['token'] = token.key
         return Response(serializer, status=status.HTTP_200_OK)
