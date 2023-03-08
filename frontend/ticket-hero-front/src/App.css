@@ -1,8 +1,16 @@
+@font-face {
+  font-family: OpenSans;
+  src: url(./assets/fonts/OpenSans-Regular.ttf);
+}
+*{
+  font-family: OpenSans;
+}
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  font-family: OpenSans;
 }
 
 .logo {
