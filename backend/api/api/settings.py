@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-ivmyyf#z!w8i=k1^k)kkbhjqk6y#7%sxf&3qr4j(-5^4l)4=%o
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+CORS_ORIGIN_ALLOW_ALL = True
 
 CSRF_TRUSTED_ORIGINS = ["https://alcides07-legendary-bassoon-gwq47grr597h9w9q-8000.preview.app.github.dev", "http://localhost"]
 
