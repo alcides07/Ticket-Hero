@@ -1,7 +1,7 @@
 import { FormLogin, Container } from "./styles";
 import Logo from "../../../../assets/logo.png";
 import {Login} from "../../services/auth";
-
+import { useNavigate } from "react-router-dom";
 interface IUser {
     usuario: string;
     senha: string;
@@ -16,6 +16,10 @@ export default function LoginForm() {
         };    
         Login(body);
     };
+    const navigate = useNavigate();
+    function goToRegister() {
+        navigate("/register");
+    }
     return (
         <FormLogin onSubmit={handleSubmit}>
             <img src={Logo} alt="Logo do sistema" />
@@ -24,7 +28,7 @@ export default function LoginForm() {
                 <input type="password" placeholder="Senha" />
                 <a href="#">Esqueceu a senha?</a>
                 <button className="orange">ENTRAR</button>
-                <button className="blue">REGISTRE-SE</button>
+                <button className="blue" onClick={goToRegister}>REGISTRE-SE</button>
             </Container>
         </FormLogin>
     );
