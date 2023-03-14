@@ -24,7 +24,7 @@ export const FormLogin = styled.form`
         margin-top: 0.5em;
         align-self: flex-start;
     }
-    button{
+    .button-form{
         margin-top: 1em;
         border-radius: 20px;
         width: 100%;

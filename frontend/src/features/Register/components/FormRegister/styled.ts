@@ -19,6 +19,7 @@ export const FormRegister = styled.form`
         padding: 2em 0.3em 0.5em;
         background-color: initial;
         color: #000;
+        width: inherit;
     }
     select{
         border: none;
@@ -29,8 +30,9 @@ export const FormRegister = styled.form`
         padding: 2em 0.3em 0.5em;
         background-color: initial;
         color: #000;
+        width: inherit;
     }
-    button{
+    .button-form{
         margin-top: 1em;
         border-radius: 20px;
         width: 100%;
