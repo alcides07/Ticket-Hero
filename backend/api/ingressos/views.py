@@ -19,7 +19,7 @@ class Auth(viewsets.ViewSet):
         usuario = User.objects.filter(username=request.data.get("usuario"))
 
         if not usuario.exists():
-            usuario = User.objects.filter(email=request.data.get("email"))
+            usuario = User.objects.filter(email=request.data.get("usuario"))
             if not usuario.exists():
                 return Response({"erro":"Credenciais inválidas!"}, status=status.HTTP_400_BAD_REQUEST)
 
