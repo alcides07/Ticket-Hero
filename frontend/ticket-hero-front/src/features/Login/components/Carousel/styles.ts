@@ -9,4 +9,8 @@ export const ContainerCarousel = styled.div`
         height: 100%;
         opacity: 0.7;
     }
+    .carousel-item{
+        width: initial;
+        height: 100vh;
+    }
 `;
