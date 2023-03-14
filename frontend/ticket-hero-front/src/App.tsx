@@ -1,9 +1,9 @@
-import Login from "./features/Login"
-
+import Login from "./features/Login";
+import Rotas from "./routes";
 function App() {
   return (
     <div className="App">
-      <Login/>
+      <Rotas />
     </div>
   )
 }
