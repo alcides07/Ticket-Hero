@@ -17,6 +17,8 @@ export const FormRegister = styled.form`
         font-size: 1em;
         display: flex;
         padding: 2em 0.3em 0.5em;
+        background-color: initial;
+        color: #000;
     }
     select{
         border: none;
@@ -25,6 +27,8 @@ export const FormRegister = styled.form`
         font-size: 1em;
         display: flex;
         padding: 2em 0.3em 0.5em;
+        background-color: initial;
+        color: #000;
     }
     button{
         margin-top: 1em;
@@ -43,7 +47,6 @@ export const FormRegister = styled.form`
 export const ContainerInputs = styled.div`
     display: flex;
     flex-direction: column;
-    width: 40%;
     .row{
         flex-wrap: inherit;
     }
