@@ -27,20 +27,21 @@ class LoginSerializer(serializers.Serializer):
     def get_usuario(self, obj):
         if hasattr(obj, "organizador"):
             id = obj.organizador.id
-            nome_completo = obj.organizador.nomeCompleto
-            tipo_usuario = "organizador"
+            nomeCompleto = obj.organizador.nomeCompleto
+            tipoUsuario = "organizador"
             nascimento = obj.organizador.nascimento
 
         elif hasattr(obj, "cliente"):
             id = obj.cliente.id
-            nome_completo = obj.cliente.nomeCompleto
-            tipo_usuario = "cliente"
+            nomeCompleto = obj.cliente.nomeCompleto
+            tipoUsuario = "cliente"
             nascimento = obj.cliente.nascimento
 
         return {
             "id": id,
-            "tipoUsuario": tipo_usuario,
-            "nomeCompleto": nome_completo,
+            "username": obj.username,
+            "tipoUsuario": tipoUsuario,
+            "nomeCompleto": nomeCompleto,
             "nascimento": nascimento
         }
 
