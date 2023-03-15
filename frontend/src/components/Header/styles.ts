@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Header = styled.nav`
+export const ContainerHeader = styled.nav`
     display: flex;
     justify-content:center;
     background-color: #D9D9D9;
