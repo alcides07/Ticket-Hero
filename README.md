@@ -12,49 +12,49 @@ O projeto é uma plataforma web que permite que os usuários organizadores publi
 ## Projeto
 | Ícone                |  Nome             |          Descrição  |  
 | :-----------------: | :-----------------: | :-----------------: |
-|  [![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white)](localhost:8000/swagger/)        |  Swagger                |   Última atualização: **07/03/23** | 
+|  [![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white)](http://localhost:8000/swagger/)        |  Swagger                |   Última atualização: **07/03/23** | 
 |  ![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white) |  Django |  Tecnologia utilizada no back-end | 
 |  ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) |  React |  Tecnologia utilizada no front-end | 
 |  ![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) |  Typescript |  Tecnologia utilizada no front-end | 
 |  ![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white) |  SQLite |  SGBD utilizado no projeto | 
 
 ## Visual
-![Logo](./media/logo.svg)
-![Login](./media/Login.png)
+![Logo](./images/logo.svg)
+![Login](./images/Login.png)
 
 ## Ferramentas
 
 ### Front-end
-As seguintes ferramentas foram usadas na construção do projeto front-end:
+As seguintes ferramentas foram usadas na construção do front-end:
 
 - [React](https://pt-br.reactjs.org/)
 - [Node.js](https://nodejs.org/en/)
 - [Axios](https://axios-http.com/ptbr/docs/intro)
 
 ### Back-end
-As seguintes ferramentas foram usadas na construção do projeto back-end:
+As seguintes ferramentas foram usadas na construção do back-end:
 
 - [Django Rest Framework](https://www.django-rest-framework.org/)
 - [Swagger](https://swagger.io/)
 - [SQLite](https://www.sqlite.org/)
 
 ## Execução do projeto
-Para executar o projeto você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+> Para executar o projeto você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 - [Git](https://git-scm.com)
 - [Node.js](https://nodejs.org/en/)
 - [Python](https://www.python.org/)
 - [Pip](https://pypi.org/project/pip/)
 - Editor de código sugerido: [VSCode](https://code.visualstudio.com/)
 
-Após possuir todas as ferramentas listadas acima em sua máquina, realize os seguintes passos:
+> Após possuir todas as ferramentas listadas acima em sua máquina, realize os seguintes passos:
 
-### Abra um terminal e clone o repositório via HTTPS
+### Abra um terminal e clone o repositório
 ```
 git clone https://gitlab.devops.ifrn.edu.br/pnp-ifrn/Ticket-Hero.git
 ```
 
 ### Executando o back-end
-> Use python ou python3 para os comandos conforme necessário.
+> Utilize **python** ou **python3** nos comandos abaixo conforme necessário.
 
 #### Acesse o diretório do back-end
 ```
@@ -98,7 +98,7 @@ python manage.py migrate
 
 #### Execute o back-end em modo de desenvolvimento
 ```
-cd Ticket-Hero/backend
+python manage.py runserver
 ```
 
 ### Executando o front-end
