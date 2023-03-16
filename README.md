@@ -20,7 +20,7 @@ O projeto é uma plataforma web que permite que os usuários organizadores publi
 
 ## Visual
 ![Logo](./images/logo.svg)
-![Login](./images/Login.png)
+![Login](./images/login.png)
 
 ## Ferramentas
 
