@@ -14,8 +14,11 @@ export const Login = (body:IUser) => {
     return api
     .post("/auth/login/", body)
     .then((response) => {
-        console.log("logou");
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("username", response.data.usuario.username);
+        localStorage.setItem("typeUser", response.data.usuario.tipoUsuario);
+        localStorage.setItem("name", response.data.usuario.nomeCompleto);
+        localStorage.setItem("userId", response.data.usuario.id);
         const toast: IToast = {
             message: "Login efetuado com sucesso",
             variant: 'success',
