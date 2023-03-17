@@ -10,8 +10,7 @@ export default function Navbar(){
                 <Link to = "/home" > <Logo src = { logoImagem } alt = "Ticket-Hero"></Logo> </Link>
                 <Perfil>
                     <span>
-                        Fulano de tal
-                        {/* Coleta nome do usuário do local storage. */}
+                        {localStorage.getItem("username")}
                     </span>
                     <img src = { fotoPerfil } alt = "Imagem perfil"></img>
                 </Perfil>
