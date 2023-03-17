@@ -1,15 +1,25 @@
 import { ContainerHeader } from "./styles"
-import {Link} from 'react-router-dom' 
 
 export default function Header(){
     return (
         <>
             <ContainerHeader>
                 <ul>
-                    <li> Item1 </li>
-                    <li> Item2 </li>
-                    <li> Item3 </li>
-                    <li> Item4 </li>
+                    {localStorage.getItem("typeUser") == "organizador" && (
+                        <>
+                            <li>Criar evento</li>
+                            <li>Meus eventos</li>
+                            <li>Para inspirar</li>
+                        </>
+                    )}
+
+                    {localStorage.getItem("typeUser") == "cliente" && (
+                        <>
+                            <li>Em alta</li>
+                            <li>Todos os eventos</li>
+                            <li>Meus ingressos</li>
+                        </>
+                    )}
                 </ul>
             </ContainerHeader>
         </>
