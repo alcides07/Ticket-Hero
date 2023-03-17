@@ -1,6 +1,6 @@
 import api from "../../../services/api";
 
-export const GetMeusEventos = (Headers: {}) => {
+export const getMeusEventos = (Headers: {}) => {
     return api.get("/evento/meusEventos", { headers: Headers })
     .then((response) => {
         return response.data;
