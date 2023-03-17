@@ -21,7 +21,7 @@ export const Perfil = styled.div`
 
     span{
         font-size: 1em;
-        padding-right: 0.5em;
+        padding-right: 0.3em;
     }
 
     img{
