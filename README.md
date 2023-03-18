@@ -1,7 +1,17 @@
-# Ticket Hero
+<h1 align="center" style="font-weight:bold">Ticket <span style="color: #FF914D">Hero</span></h4>
+<h4 align="center"> 👨‍💻 Em desenvolvimento 👩‍💻 </h4>
+<p align="center">
+ <a href="#descrição">Descrição</a> •
+ <a href="#contato">Contato</a> • 
+ <a href="#visual">Visual</a> •
+ <a href="#ferramentas">Ferramentas</a> •
+ <a href="#execução-do-projeto">Execução</a> •
+ <a href="#contribuição">Contribuição</a> •
+ <a href="#autores">Autores</a>
+</p>
 
 ## Descrição
-O projeto é uma plataforma web que permite que os usuários organizadores publiquem eventos de diversos tipos, incluindo informações sobre datas, horários, localização e preços de ingressos. Por outro lado, os usuários clientes podem visualizar e e comprar ingressos para esses eventos diretamente pelo site.
+O projeto <span style = "font-weight: bold"> Ticket <span style="color: #FF914D"> Hero </span> </span> é uma plataforma web que permite que os usuários organizadores publiquem eventos de diversos tipos, incluindo informações sobre datas, horários, localização e preços de ingressos. Por outro lado, os usuários clientes podem visualizar e e comprar ingressos para esses eventos diretamente pelo site.
 
 ## Contato
 | Ícone                |  Nome             |          Descrição  |  
@@ -12,11 +22,12 @@ O projeto é uma plataforma web que permite que os usuários organizadores publi
 ## Projeto
 | Ícone                |  Nome             |          Descrição  |  
 | :-----------------: | :-----------------: | :-----------------: |
-|  [![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white)](http://localhost:8000/swagger/)        |  Swagger                |   Última atualização: **07/03/23** | 
-|  ![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white) |  Django |  Tecnologia utilizada no back-end | 
 |  ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) |  React |  Tecnologia utilizada no front-end | 
 |  ![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) |  Typescript |  Tecnologia utilizada no front-end | 
+|  ![Django Rest](https://img.shields.io/badge/django%20rest-ff1709?style=for-the-badge&logo=django&logoColor=white) |  Django Rest |  Tecnologia utilizada no back-end | 
 |  ![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white) |  SQLite |  SGBD utilizado no projeto | 
+|  ![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white) |  Swagger |  Rotas do backend disponíveis em: http://localhost:8000/swagger/ | 
+|  ![VSCode](https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white) |  Visual Studio Code |  Editor de código utilizado no projeto | 
 
 ## Visual
 ![Login](./images/login.png)
@@ -28,7 +39,7 @@ As seguintes ferramentas foram usadas na construção do front-end:
 
 - [React](https://pt-br.reactjs.org/)
 - [Node.js](https://nodejs.org/en/)
-- [Axios](https://axios-http.com/ptbr/docs/intro)
+- [Typescript](https://www.typescriptlang.org/)
 
 ### Back-end
 As seguintes ferramentas foram usadas na construção do back-end:
@@ -115,12 +126,6 @@ npm install
 ```
 npm run dev
 ```
-
-## Suporte
-Entre em contato com um de nós da equipe:
-> <a href="mailto:alcidesdantasdj@gmail.com"> Alcides</a>
-
-> <a href="mailto:eufernandagui154@hotmail.com"> Fernanda</a>
 
 ## Futuro
 If you have ideas for releases in the future, it is a good idea to list them in the README.
