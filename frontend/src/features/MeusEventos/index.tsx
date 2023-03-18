@@ -10,7 +10,7 @@ import IconeDeletar from "./assets/deletar.svg";
 export default function MeusEventos(){
   const [eventos, setEventos] = useState<IEvento[]>([]);
   const headers = {
-    'Authorization': 'Token ' + localStorage.getItem("access_token")
+    'Authorization': 'Token ' + localStorage.getItem("token")
   };
   
   useEffect(() => {
