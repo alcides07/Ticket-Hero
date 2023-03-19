@@ -21,11 +21,15 @@ export const Perfil = styled.div`
 
     span{
         font-size: 1em;
-        padding-right: 0.5em;
+        padding-right: 0.3em;
     }
 
     img{
         width: 3.5em;
         height: 3.5em;
+    }
+
+    .iconePerfil{
+        color: #FF914D;
     }
 `;

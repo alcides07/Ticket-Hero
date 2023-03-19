@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ContainerHeader = styled.nav`
     display: flex;
     justify-content:center;
-    background-color: #D9D9D9;
+    background-color: #FCFCFC;
     height: 10vh;
     width: 100%;
     
@@ -17,9 +17,8 @@ export const ContainerHeader = styled.nav`
     
     li{
         font-weight: 400;
-        font-size: 1.2em;
-        margin: 6vw; 
-        color: #000;
+        font-size: 1.1em;
+        margin: 5vw; 
         transition: 0.5s;
     }
 

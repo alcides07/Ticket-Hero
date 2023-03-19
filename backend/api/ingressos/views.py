@@ -83,17 +83,27 @@ class EventoViewSet(viewsets.ModelViewSet):
     serializer_class = EventoSerializer
 
     def create(self, request):
-        categoria = Categoria.objects.create(
-            nome = request.data.get("categoria"),
-        )
+        valorIngresso = request.data.get("valorIngresso")
+        ingressoTotal = request.data.get("ingressoTotal")
+        nomeCategoria = request.data.get("categoria")
+
+        if (valorIngresso < 0):
+            return Response({"Erro":"Valor do ingresso não pode ser negativo!"}, status=status.HTTP_400_BAD_REQUEST)
+
+        if (ingressoTotal <= 0):
+            return Response({"Erro":"Não é possível criar um evento com essa quantidade de ingressos!"}, status=status.HTTP_400_BAD_REQUEST)
+
+        categoria = Categoria.objects.filter(nome = nomeCategoria).first()
+        if not(categoria):
+            categoria = Categoria.objects.create(nome = nomeCategoria)
 
         evento = Evento.objects.create(
             nome = request.data.get("nome"),
             descricao = request.data.get("descricao"),
             data = timezone.now(),
-            valorIngresso = request.data.get("valorIngresso"),
-            ingressoTotal = request.data.get("ingressoTotal"),
-            ingressoDisponivel = request.data.get("ingressoDisponivel"),
+            valorIngresso = valorIngresso,
+            ingressoTotal = ingressoTotal,
+            ingressoDisponivel = ingressoTotal,
             organizador = request.user.organizador,
             categoria = categoria
         )
