@@ -3,6 +3,7 @@ import { ContainerHeader } from "./styles"
 export default function Header(){
     return (
         <>
+            <hr style={{backgroundColor: "#000", width: "100%", margin: "auto"}}/>  
             <ContainerHeader>
                 <ul>
                     {localStorage.getItem("typeUser") == "organizador" && (
@@ -22,6 +23,7 @@ export default function Header(){
                     )}
                 </ul>
             </ContainerHeader>
+            <hr style={{backgroundColor: "#000", width: "100%", margin: "auto"}}/>  
         </>
     )
 }
