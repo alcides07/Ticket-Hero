@@ -1,11 +1,9 @@
 import styled from "styled-components";
 
 export const ContainerFooter = styled.footer`
-    position: absolute;
     bottom: 0;
     width: 100%;
     justify-content: space-between;
-    background-color: #E0E0E0;
     color: #FFF;
     padding: 0.1em;  
 
@@ -14,8 +12,8 @@ export const ContainerFooter = styled.footer`
         list-style-type: none;
         justify-content: center;
         margin: 0;
-        padding: 0;
-        margin-bottom: -0.5em;
+        padding-top: 0.5em;
+        margin-bottom: -0.2em;
     }
 
     li{
@@ -29,18 +27,26 @@ export const ContainerFooter = styled.footer`
         margin-bottom: 0.5em;
     }
 
-    .ticket{
-        margin-right: 0.3em;
-        color: #000;
-    }
-
-    .hero{
-        margin-right: 0.3em;
-        color: #FF914D;
-        font-weight: bold;
+    img{
+        width: 12em;
+        height: 3.5em;
     }
 
     span {
+        line-height: 3.6em;
         color: #000;
+        padding-left: 0.5em;
     }
+    
+    .icones{
+        opacity: 1;
+        color: #5A5A5A;
+    }
+
+    .icones:hover{
+        color: #FF914D;
+        cursor: pointer;
+        opacity: 0.9;
+    }
+
 `;
