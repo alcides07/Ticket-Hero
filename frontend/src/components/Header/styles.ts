@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ContainerHeader = styled.nav`
     display: flex;
     justify-content:center;
-    background-color: #E0E0E0;
+    background-color: #FCFCFC;
     height: 10vh;
     width: 100%;
     
