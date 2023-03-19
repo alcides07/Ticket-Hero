@@ -1,5 +1,6 @@
-<h1 align="center" style="font-weight:bold">Ticket <span style="color: #FF914D">Hero</span></h4>
-<h4 align="center"> 👨‍💻 Em desenvolvimento 👩‍💻 </h4>
+<div align="center"><img src = "./frontend/src/assets/horizontal-logo.svg"></img> 
+<h4> 👨‍💻 Em desenvolvimento 👩‍💻 </h4>
+</div>
 <p align="center">
  <a href="#descrição">Descrição</a> •
  <a href="#contato">Contato</a> • 
