@@ -28,4 +28,8 @@ export const Perfil = styled.div`
         width: 3.5em;
         height: 3.5em;
     }
+
+    .iconePerfil{
+        color: #FF914D;
+    }
 `;

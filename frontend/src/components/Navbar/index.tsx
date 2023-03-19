@@ -1,18 +1,18 @@
 import { Nav, Perfil, Logo } from "./styles"
 import {Link} from 'react-router-dom' 
-import logoImagem from "../../assets/horizontal-logo.png"
-import fotoPerfil from "../../assets/perfil.png"
+import logo from "../../assets/horizontal-logo.svg"
+import { IoPersonCircle } from "react-icons/io5";
 
 export default function Navbar(){
     return (
         <>
             <Nav>
-                <Link to = "/home" > <Logo src = { logoImagem } alt = "Ticket-Hero"></Logo> </Link>
+                <Link to = "/home" > <Logo src = { logo } alt = "Ticket-Hero"></Logo> </Link>
                 <Perfil>
                     <span>
                         {localStorage.getItem("username")}
                     </span>
-                    <img src = { fotoPerfil } alt = "Imagem perfil"></img>
+                    <IoPersonCircle size={"55"} className = "iconePerfil" />
                 </Perfil>
             </Nav>
         </>
