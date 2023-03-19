@@ -1,15 +1,16 @@
-<div align="center"><img src = "./frontend/src/assets/horizontal-logo.svg"></img> 
-<h4> 👨‍💻 Em desenvolvimento 👩‍💻 </h4>
-</div>
-<p align="center">
- <a href="#descrição">Descrição</a> •
- <a href="#contato">Contato</a> • 
- <a href="#visual">Visual</a> •
- <a href="#ferramentas">Ferramentas</a> •
- <a href="#execução-do-projeto">Execução</a> •
- <a href="#contribuição">Contribuição</a> •
- <a href="#autores">Autores</a>
-</p>
+<section align="center">
+  <img src = "./frontend/src/assets/horizontal-logo.svg"></img> 
+  <h4> 👨‍💻 Em desenvolvimento 👩‍💻 </h4>
+  <div>
+    <a href="#descrição">Descrição</a> •
+    <a href="#contato">Contato</a> • 
+    <a href="#visual">Visual</a> •
+    <a href="#ferramentas">Ferramentas</a> •
+    <a href="#execução-do-projeto">Execução</a> •
+    <a href="#contribuição">Contribuição</a> •
+    <a href="#autores">Autores</a>
+  </div>
+</section>
 
 ## Descrição
 O projeto <span style = "font-weight: bold"> Ticket <span style="color: #FF914D"> Hero </span> </span> é uma plataforma web que permite que os usuários organizadores publiquem eventos de diversos tipos, incluindo informações sobre datas, horários, localização e preços de ingressos. Por outro lado, os usuários clientes podem visualizar e e comprar ingressos para esses eventos diretamente pelo site.
