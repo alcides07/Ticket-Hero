@@ -111,6 +111,13 @@ class EventoViewSet(viewsets.ModelViewSet):
         serializer = EventoSerializer(evento)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
+    @action(detail=True, methods=["get"], permission_classes = [permissions.IsAuthenticated, EhOrganizador])
+    def vendas(self, request, pk):
+        evento = get_object_or_404(Evento, id = pk)
+        vendas = Compra.objects.filter(evento=evento)
+        serializer = CompraSerializer(vendas, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     @action(detail=False, methods=["get"], permission_classes = [permissions.IsAuthenticated, EhOrganizador])
     def meusEventos(self, request):
         queryset = Evento.objects.filter(organizador = request.user.organizador).order_by("data")
