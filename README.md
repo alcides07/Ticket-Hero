@@ -124,6 +124,8 @@ npm install
 npm run dev
 ```
 
+> [Abra a aplicação](http://localhost:5173/)
+
 ## Futuro
 If you have ideas for releases in the future, it is a good idea to list them in the README.
 
