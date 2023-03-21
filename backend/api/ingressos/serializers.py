@@ -71,6 +71,10 @@ class CategoriaSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class CompraSerializer(serializers.ModelSerializer):
+    nome = serializers.SerializerMethodField()
     class Meta:
         model = Compra
-        fields = "__all__"
+        fields = ["nome", "cliente", "evento", "qtdIngresso", "valorTotal", "data"]
+
+    def get_nome(self, request):
+        return (request.cliente.nomeCompleto)
