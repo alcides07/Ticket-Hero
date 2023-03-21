@@ -98,12 +98,7 @@ pip install -r requirements.txt
 cd api
 ```
 
-#### Crie os arquivos de migração
-```
-python manage.py makemigrations
-```
-
-#### Aplique essas migrações no banco de dados
+#### Aplique as migrações no banco de dados
 ```
 python manage.py migrate
 ```
@@ -114,7 +109,7 @@ python manage.py runserver
 ```
 
 ### Executando o front-end
-#### Acesse o diretório do front-end
+#### Abra outro terminal e acesse o diretório do front-end
 ```
 cd Ticket-Hero/frontend
 ```
