@@ -8,7 +8,7 @@ export const ContainerEvento = styled.form`
 
 export const ContainerItem = styled.div`
     border: 0.1em solid #BCBCBC;
-    width: 68vw;
+    width: 70vw;
     border-radius: 0.3em;
     display: flex;
     align-items: center;
