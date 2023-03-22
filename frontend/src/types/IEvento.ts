@@ -3,6 +3,7 @@ export interface IEvento{
     categoria: string;
     nome: string;
     descricao: string;
+    nomeOrganizador: string;
     data: Date;
     imagem: string;
     valorIngresso: number;
