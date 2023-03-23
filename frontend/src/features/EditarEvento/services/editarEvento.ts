@@ -4,8 +4,9 @@ import {notify} from "../../../components/Toastify";
 import { IToast } from "../../../types/IToast";
 
 export const editarEvento = (Headers: {}, id:string, dadosEvento:IEvento) => {
-    return api.patch(`/evento/${id}/`, 
+    return api.put(`/evento/${id}/`, 
     {
+        id:id,
         nome:dadosEvento["nome"], 
         categoria:dadosEvento["categoria"],
         descricao:dadosEvento["descricao"],
