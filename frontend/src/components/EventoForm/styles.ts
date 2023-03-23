@@ -1,8 +1,11 @@
 import styled from "styled-components";
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 export const ContainerForm = styled.form`
     width: 80vw;
-    margin: 3em auto 2em auto;
+    margin: auto;
+    margin-top: -3em;
+    padding-bottom: 1.5em;
 `
 
 export const ContainerItem = styled.div`
@@ -43,4 +46,16 @@ export const Labelitem = styled.span`
     margin: auto;
     font-weight: 500;
     width: 50%;
+`
+
+export const BotaoVoltar = styled(BsFillArrowLeftCircleFill)`
+    color: #FF914D;
+    margin-top: 2em;
+    margin-left: 7vw;
+    width: 3em;
+    height: 3em;
+
+    &:hover{
+        cursor: pointer;
+    }
 `

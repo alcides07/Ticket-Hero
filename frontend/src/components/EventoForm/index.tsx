@@ -1,14 +1,15 @@
-import { ContainerForm, ContainerItem, DescricaoItem, InputItem, Labelitem } from "./styles";
+import { ContainerForm, ContainerItem, DescricaoItem, InputItem, Labelitem, BotaoVoltar } from "./styles";
 import BotaoForm from "../BotaoSubmitForm";
 import { useEffect, useState } from "react";
 import { IEvento } from "../../types/IEvento";
 import moment from 'moment';
 import { ToastContainer } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getEventoId } from "../../features/CompraIngresso/services/eventoId";
 
 export default function EventoForm({ textoBotao, handle }: { textoBotao: string, handle: any }) {
     let { id } = useParams();
+    const navigate = useNavigate();
     const [nome, setNome] = useState("");
     const [categoria, setCategoria] = useState("");
     const [data, setData] = useState("");
@@ -20,19 +21,20 @@ export default function EventoForm({ textoBotao, handle }: { textoBotao: string,
     };
 
     useEffect(() => {
-        getEventoId(headers, id ?? "")
-        .then((data) => {
-            setNome(data.nome);
-            setCategoria(data.categoria);
-            setValor(data.valorIngresso);
-            setQuantidade(data.ingressoTotal);
-            setDescricao(data.descricao);
-            setData(moment(data.data, 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DDTHH:mm:ss'));
-        })
-        .catch((error) => {
-            console.log("erro: ", error)
-        });
-    }, [id]);
+        if (id){
+            getEventoId(headers, id ?? "")
+            .then((data) => {
+                setNome(data.nome);
+                setCategoria(data.categoria);
+                setValor(data.valorIngresso);
+                setQuantidade(data.ingressoTotal);
+                setDescricao(data.descricao);
+                setData(moment(data.data, 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DDTHH:mm:ss'));
+            })
+            .catch((error) => {
+                console.log("erro: ", error)
+            });
+    }}, [id]);
 
     const handleSubmit = async (event : any) => {
         event.preventDefault();
@@ -53,6 +55,8 @@ export default function EventoForm({ textoBotao, handle }: { textoBotao: string,
     };
 
     return (
+        <>
+        <BotaoVoltar onClick = {() => navigate(-1)}/>
         <ContainerForm onSubmit={handleSubmit}>
             <ContainerItem>
                 <Labelitem> Nome do evento </Labelitem>
@@ -60,7 +64,7 @@ export default function EventoForm({ textoBotao, handle }: { textoBotao: string,
                     type = "text"
                     placeholder = "Ex: Aniversário de 15 anos de Fernanda"
                     onChange = {(e) => setNome(e.target.value)}
-                    name = "nome"
+                    name = "nome" required
                     value={nome}
                 />
             </ContainerItem>
@@ -82,7 +86,7 @@ export default function EventoForm({ textoBotao, handle }: { textoBotao: string,
                     type = "datetime-local" required
                     onChange = {(e) => setData(e.target.value)}
                     name = "data"
-                    value =  {data}
+                    value = {data}
                 />
             </ContainerItem>
 
@@ -123,5 +127,6 @@ export default function EventoForm({ textoBotao, handle }: { textoBotao: string,
             <BotaoForm textoBotao = {textoBotao} mt="1.5em" ml = "auto" mr="20vw"/>
             <ToastContainer />
         </ContainerForm>
+        </>
     )
 }

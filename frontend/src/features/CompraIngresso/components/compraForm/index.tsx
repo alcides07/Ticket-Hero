@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getEventoId } from "../../services/eventoId";
 import { IEvento } from "../../../../types/IEvento";
-import { ContainerEvento, ContainerItem, ItemTitulo, ItemValor, BotaoSubmit, Input } from "./styles"
+import { ContainerEvento, ContainerItem, ItemTitulo, ItemValor, BotaoVoltar, Input } from "./styles"
 import { compraIngresso } from "../../services/compra";
 import { ToastContainer } from 'react-toastify';
 import BotaoForm from "../../../../components/BotaoSubmitForm";
@@ -39,6 +39,7 @@ export default function CompraForm({ textoBotao }: IBotaoSubmitForm){
         <>
             { evento && (
                 <ContainerEvento onSubmit = {handleSubmit}>
+                    <BotaoVoltar onClick = {() => navigate(-1)}/>
                     <ContainerItem>
                         <ItemTitulo> Evento: </ItemTitulo>
                         <ItemValor> { evento.nome } </ItemValor>
