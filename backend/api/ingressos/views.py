@@ -110,6 +110,46 @@ class EventoViewSet(viewsets.ModelViewSet):
 
         serializer = EventoSerializer(evento)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def update(self, request, pk):
+        idEvento = request.data.get("id")
+        nome = request.data.get("nome")
+        descricao = request.data.get("descricao")
+        nomeCategoria = request.data.get("categoria")
+        data = request.data.get("data")
+        # imagem = request.data.get("imagem")
+        valorIngresso = request.data.get("valorIngresso")
+        ingressoTotal = request.data.get("ingressoTotal")
+
+        if (valorIngresso < 0):
+            return Response({"Erro":"Valor do ingresso não pode ser negativo!"}, status=status.HTTP_400_BAD_REQUEST)
+
+        if (ingressoTotal < 0):
+            return Response({"Erro":"Não é possível ter um evento com essa quantidade de ingressos!"}, status=status.HTTP_400_BAD_REQUEST)
+
+        evento = Evento.objects.filter(id=idEvento).first()
+        categoria = Categoria.objects.filter(nome = nomeCategoria).first()
+        
+        if not(categoria):
+            categoria = Categoria.objects.create(nome = nomeCategoria)
+        
+        evento.categoria = categoria
+        if (ingressoTotal > evento.ingressoTotal): # Quero mais ingressos ainda
+            evento.ingressoTotal = ingressoTotal
+            evento.ingressoDisponivel = ingressoTotal
+
+        elif (ingressoTotal < evento.ingressoTotal): # Quero diminuir a quantidade de ingressos do evento
+            evento.ingressoTotal = ingressoTotal
+            if (evento.ingressoTotal < evento.ingressoDisponivel): # Vou diminuir a quantidade de ingressos disponíveis também
+                evento.ingressoDisponivel = evento.ingressoTotal
+
+        evento.nome = nome
+        evento.descricao = descricao
+        evento.data = data
+        evento.valorIngresso = valorIngresso
+        evento.save()
+        serializer = EventoSerializer(evento)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
     @action(detail=True, methods=["get"], permission_classes = [permissions.IsAuthenticated, EhOrganizador])
     def vendas(self, request, pk):
