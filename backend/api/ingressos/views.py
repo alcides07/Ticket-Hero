@@ -100,7 +100,7 @@ class EventoViewSet(viewsets.ModelViewSet):
         evento = Evento.objects.create(
             nome = request.data.get("nome"),
             descricao = request.data.get("descricao"),
-            data = timezone.now(),
+            data = request.data.get("data"),
             valorIngresso = valorIngresso,
             ingressoTotal = ingressoTotal,
             ingressoDisponivel = ingressoTotal,
@@ -113,10 +113,7 @@ class EventoViewSet(viewsets.ModelViewSet):
 
     def update(self, request, pk):
         idEvento = request.data.get("id")
-        nome = request.data.get("nome")
-        descricao = request.data.get("descricao")
         nomeCategoria = request.data.get("categoria")
-        data = request.data.get("data")
         # imagem = request.data.get("imagem")
         valorIngresso = request.data.get("valorIngresso")
         ingressoTotal = request.data.get("ingressoTotal")
@@ -143,9 +140,9 @@ class EventoViewSet(viewsets.ModelViewSet):
             if (evento.ingressoTotal < evento.ingressoDisponivel): # Vou diminuir a quantidade de ingressos disponíveis também
                 evento.ingressoDisponivel = evento.ingressoTotal
 
-        evento.nome = nome
-        evento.descricao = descricao
-        evento.data = data
+        evento.nome = request.data.get("nome")
+        evento.descricao = request.data.get("descricao")
+        evento.data = request.data.get("data")
         evento.valorIngresso = valorIngresso
         evento.save()
         serializer = EventoSerializer(evento)
