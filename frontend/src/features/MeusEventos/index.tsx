@@ -3,7 +3,7 @@ import { Titulo, ContainerEventos, ContainerGeral, ContainerBotao, ContainerItem
 import { IEvento } from '../../types/IEvento';
 import { useEffect, useState } from 'react';
 import { getMeusEventos } from './services/meusEventos';
-import { deletarEvento } from '../CrudEvento/services/deletarEvento';
+import { deletarEvento } from '../DeletarEvento/services/deletarEvento';
 import IconeEditar from "./assets/editar.svg";
 import IconeDeletar from "./assets/deletar.svg";
 

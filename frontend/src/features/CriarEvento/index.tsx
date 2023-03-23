@@ -1,15 +1,16 @@
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import Navbar from "../../components/Navbar";
-import CompraForm from "./components/compraForm"
+import { criarEvento } from "./services/criarEvento";
+import EventoForm from "../../components/EventoForm";
 
-export default function CompraIngresso(){
+export default function CriarEvento(){
     return (
         <>
             <Navbar/>
             <Header/>
-            <CompraForm textoBotao = "Finalizar Compra"/>
+            <EventoForm textoBotao = "Criar evento" handle={criarEvento} />
             <Footer/>
         </>
-    )
+    );
 }

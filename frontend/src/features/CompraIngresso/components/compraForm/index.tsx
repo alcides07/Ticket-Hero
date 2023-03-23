@@ -5,15 +5,17 @@ import { IEvento } from "../../../../types/IEvento";
 import { ContainerEvento, ContainerItem, ItemTitulo, ItemValor, BotaoSubmit, Input } from "./styles"
 import { compraIngresso } from "../../services/compra";
 import { ToastContainer } from 'react-toastify';
+import BotaoForm from "../../../../components/BotaoSubmitForm";
+import { IBotaoSubmitForm } from "../../../../types/IBotaoSubmitForm";
 
-export default function CompraForm(){
+export default function CompraForm({ textoBotao }: IBotaoSubmitForm){
     const navigate = useNavigate();
     const { id } = useParams();
     const [quantidade, setQuantidade] = useState(1);
     const [evento, setEvento] = useState<IEvento>();
     const headers = {
         'Authorization': 'Token ' + localStorage.getItem("token")
-      };
+    };
 
     const handleSubmit = async (event: any) => {
         event.preventDefault(); 
@@ -77,11 +79,8 @@ export default function CompraForm(){
                         <ItemValor> {quantidade} X R$  {evento.valorIngresso} = <span style={{color: "#FF914D", fontWeight:"bold"}}>R$ {evento.valorIngresso * quantidade}</span> </ItemValor>
                         <Input type = "number" defaultValue="1" min = "1" max={evento.ingressoDisponivel} onChange = {(e) => setQuantidade(parseInt(e.target.value))}></Input>
                     </ContainerItem>
-
-                    <BotaoSubmit>
-                        Finalizar Compra
-                    </BotaoSubmit>
-                    <ToastContainer />
+                    <BotaoForm textoBotao={textoBotao} ml="auto" mr="14.5vw" mt="3em" mb="1em"/>
+                    <ToastContainer/>
                 </ContainerEvento>
             )}
         </>
