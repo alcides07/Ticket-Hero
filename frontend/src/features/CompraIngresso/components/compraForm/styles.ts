@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 export const ContainerEvento = styled.form`
     margin: auto;
@@ -54,5 +55,16 @@ export const BotaoSubmit = styled.button`
 
     &:hover{
         background-color: #FCB88E;
+    }
+`
+
+export const BotaoVoltar = styled(BsFillArrowLeftCircleFill)`
+    color: #FF914D;
+    margin-left: 5vw;
+    width: 3em;
+    height: 3em;
+
+    &:hover{
+        cursor: pointer;
     }
 `
