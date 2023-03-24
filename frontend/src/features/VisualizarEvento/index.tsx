@@ -8,7 +8,7 @@ export default function VisualizarEvento(){
         <>
             <Navbar/>
             <Header/>
-            <EventoForm disable = {true}/>
+            <EventoForm readOnly = {true}/>
             <Footer/>
         </>
     )

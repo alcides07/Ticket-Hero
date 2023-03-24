@@ -9,7 +9,7 @@ export default function EditarEvento(){
         <>
             <Navbar/>
             <Header/>
-            <EventoForm textoBotao = "Salvar evento" handle={editarEvento} />
+            <EventoForm readOnly = {false} textoBotao = "Salvar evento" handle={editarEvento} />
             <Footer/>
         </>
     );
