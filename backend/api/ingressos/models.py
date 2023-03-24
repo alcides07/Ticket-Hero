@@ -40,6 +40,7 @@ class Evento(models.Model):
     valorIngresso = models.FloatField()
     ingressoTotal = models.IntegerField()
     ingressoDisponivel = models.IntegerField()
+    vendidos = models.IntegerField()
 
     def __str__(self):
         return self.nome
