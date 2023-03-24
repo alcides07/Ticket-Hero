@@ -6,8 +6,9 @@ import moment from 'moment';
 import { ToastContainer } from "react-toastify";
 import { useParams, useNavigate } from "react-router-dom";
 import { getEventoId } from "../../features/CompraIngresso/services/eventoId";
+import { EventoFormProps } from "../../types/IEventoFormProps";
 
-export default function EventoForm({ textoBotao, handle }: { textoBotao: string, handle: any }) {
+export default function EventoForm({ textoBotao, handle, disable }: EventoFormProps) {
     let { id } = useParams();
     const navigate = useNavigate();
     const [nome, setNome] = useState("");
@@ -66,6 +67,7 @@ export default function EventoForm({ textoBotao, handle }: { textoBotao: string,
                     onChange = {(e) => setNome(e.target.value)}
                     name = "nome" required
                     value={nome}
+                    disabled = {disable}
                 />
             </ContainerItem>
 
@@ -77,6 +79,7 @@ export default function EventoForm({ textoBotao, handle }: { textoBotao: string,
                     name = "categoria" required 
                     onChange = {(e) => setCategoria(e.target.value)}
                     value = {categoria}
+                    disabled = {disable}
                 />
             </ContainerItem>
 
@@ -87,6 +90,7 @@ export default function EventoForm({ textoBotao, handle }: { textoBotao: string,
                     onChange = {(e) => setData(e.target.value)}
                     name = "data"
                     value = {data}
+                    disabled = {disable}
                 />
             </ContainerItem>
 
@@ -99,6 +103,7 @@ export default function EventoForm({ textoBotao, handle }: { textoBotao: string,
                     min = "0" required
                     onChange = {(e) => setValor(parseFloat(e.target.value))}
                     value = {valor}
+                    disabled = {disable}
                 />
             </ContainerItem>
 
@@ -111,6 +116,7 @@ export default function EventoForm({ textoBotao, handle }: { textoBotao: string,
                     min = "1" required
                     onChange = {(e) => setQuantidade(parseInt(e.target.value))}
                     value = {quantidade}
+                    disabled = {disable}
                 />
             </ContainerItem>
 
@@ -121,10 +127,13 @@ export default function EventoForm({ textoBotao, handle }: { textoBotao: string,
                     onChange = {(e) => setDescricao(e.target.value)}
                     required name = "descricao"
                     value = {descricao}
+                    disabled = {disable}
                 />
             </ContainerItem>
 
-            <BotaoForm textoBotao = {textoBotao} mt="1.5em" ml = "auto" mr="20vw"/>
+            { handle && (
+                <BotaoForm textoBotao = {textoBotao} mt="1.5em" ml = "auto" mr="20vw"/>
+            )}
             <ToastContainer />
         </ContainerForm>
         </>

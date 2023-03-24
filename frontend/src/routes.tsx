@@ -6,6 +6,7 @@ import Home from './features/Home';
 import CompraIngresso from './features/CompraIngresso';
 import CriarEvento from './features/CriarEvento';
 import EditarEvento from './features/EditarEvento';
+import VisualizarEvento from './features/VisualizarEvento';
 
 const Rotas = () => {
     return (
@@ -14,6 +15,7 @@ const Rotas = () => {
                 <Route path="/" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/home" element={<Home/>} />
+                <Route path="/evento/:id/" element={<VisualizarEvento/>} />
                 <Route path="/evento/:id/compra" element={<CompraIngresso/>} />
                 <Route path="/evento/criar" element={<CriarEvento/>} />
                 <Route path="/evento/:id/editar" element={<EditarEvento/>} />
