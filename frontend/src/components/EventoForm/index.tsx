@@ -1,21 +1,24 @@
-import { ContainerForm, ContainerItem, DescricaoItem, InputItem, Labelitem, BotaoVoltar } from "./styles";
+import { ContainerForm, ContainerItem, DescricaoItem, InputItem, InputCompra, Labelitem, CardCompra, BotaoVoltar, ValorVariavel, ContainerCompra, TituloCompra } from "./styles";
 import BotaoForm from "../BotaoSubmitForm";
 import { useEffect, useState } from "react";
 import { IEvento } from "../../types/IEvento";
 import moment from 'moment';
 import { ToastContainer } from "react-toastify";
 import { useParams, useNavigate } from "react-router-dom";
-import { getEventoId } from "../../features/CompraIngresso/services/eventoId";
+import { getEventoId } from "./services/getEventoId";
 import { EventoFormProps } from "../../types/IEventoFormProps";
+import formataEmReal from "../../services/FormatacaoEmReal"
 
-export default function EventoForm({ textoBotao, handle, disable }: EventoFormProps) {
+export default function EventoForm({ textoBotao, handle, readOnly, buy }: EventoFormProps) {
     let { id } = useParams();
     const navigate = useNavigate();
     const [nome, setNome] = useState("");
     const [categoria, setCategoria] = useState("");
     const [data, setData] = useState("");
-    const [valor, setValor] = useState(0);
-    const [quantidade, setQuantidade] = useState(0);
+    const [valorIngresso, setValorIngresso] = useState(0);
+    const [ingressoTotal, setIngressoTotal] = useState(0);
+    const [ingressoDisponivel, setIngressoDisponivel] = useState(0);
+    const [quantidadeDesejada, setQuantidadeDesejada] = useState(1);
     const [descricao, setDescricao] = useState("");
     const headers = {
         'Authorization': 'Token ' + localStorage.getItem("token")
@@ -27,8 +30,9 @@ export default function EventoForm({ textoBotao, handle, disable }: EventoFormPr
             .then((data) => {
                 setNome(data.nome);
                 setCategoria(data.categoria);
-                setValor(data.valorIngresso);
-                setQuantidade(data.ingressoTotal);
+                setValorIngresso(data.valorIngresso);
+                setIngressoDisponivel(data.ingressoDisponivel);
+                setIngressoTotal(data.ingressoTotal);
                 setDescricao(data.descricao);
                 setData(moment(data.data, 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DDTHH:mm:ss'));
             })
@@ -48,8 +52,8 @@ export default function EventoForm({ textoBotao, handle, disable }: EventoFormPr
             nome: nome,
             categoria:categoria,
             data:data,
-            valorIngresso: valor,
-            ingressoTotal: quantidade,
+            valorIngresso: valorIngresso,
+            ingressoTotal: ingressoTotal,
             descricao: descricao,
         };
         id ? handle(headers, id, dadosEvento) : handle(headers, dadosEvento); // Criando ou atualizando evento
@@ -67,7 +71,18 @@ export default function EventoForm({ textoBotao, handle, disable }: EventoFormPr
                     onChange = {(e) => setNome(e.target.value)}
                     name = "nome" required
                     value={nome}
-                    disabled = {disable}
+                    disabled = {readOnly}
+                />
+            </ContainerItem>
+            
+            <ContainerItem>
+                <Labelitem> Data e horário do evento </Labelitem>
+                <InputItem 
+                    type = "datetime-local" required
+                    onChange = {(e) => setData(e.target.value)}
+                    name = "data"
+                    value = {data}
+                    disabled = {readOnly}
                 />
             </ContainerItem>
 
@@ -79,44 +94,7 @@ export default function EventoForm({ textoBotao, handle, disable }: EventoFormPr
                     name = "categoria" required 
                     onChange = {(e) => setCategoria(e.target.value)}
                     value = {categoria}
-                    disabled = {disable}
-                />
-            </ContainerItem>
-
-            <ContainerItem>
-                <Labelitem> Data e horário do evento </Labelitem>
-                <InputItem 
-                    type = "datetime-local" required
-                    onChange = {(e) => setData(e.target.value)}
-                    name = "data"
-                    value = {data}
-                    disabled = {disable}
-                />
-            </ContainerItem>
-
-            <ContainerItem>
-                <Labelitem> Valor do ingresso </Labelitem>
-                <InputItem
-                    type = "number"
-                    placeholder = "0"
-                    name = "valorIngresso"
-                    min = "0" required
-                    onChange = {(e) => setValor(parseFloat(e.target.value))}
-                    value = {valor}
-                    disabled = {disable}
-                />
-            </ContainerItem>
-
-            <ContainerItem>
-                <Labelitem> Quantidade de ingressos </Labelitem>
-                <InputItem
-                    type = "number"
-                    placeholder = "0"
-                    name = "ingressoTotal"
-                    min = "1" required
-                    onChange = {(e) => setQuantidade(parseInt(e.target.value))}
-                    value = {quantidade}
-                    disabled = {disable}
+                    disabled = {readOnly}
                 />
             </ContainerItem>
 
@@ -125,15 +103,88 @@ export default function EventoForm({ textoBotao, handle, disable }: EventoFormPr
                 <DescricaoItem
                     placeholder = "Ex: O evento é repleto de música, dança, comida e momentos memoráveis ​​para a debutante e seus convidados." 
                     onChange = {(e) => setDescricao(e.target.value)}
-                    required name = "descricao"
+                    name = "descricao"
+                    required 
                     value = {descricao}
-                    disabled = {disable}
+                    disabled = {readOnly}
                 />
+            </ContainerItem>
+
+            <ContainerItem>
+                <Labelitem> Valor do ingresso (R$) </Labelitem>
+                <InputItem
+                    type = "number"
+                    placeholder = "0"
+                    step = "0.01"
+                    name = "valorIngresso"
+                    min = "0" required
+                    onChange = {(e) => setValorIngresso(parseFloat(e.target.value))}
+                    value = {valorIngresso.toFixed(2)}
+                    disabled = {readOnly}
+                />
+            </ContainerItem>
+
+            <ContainerItem>
+                { buy ? 
+                    <>
+                        <Labelitem> Ingressos disponíveis </Labelitem>
+                        <InputItem
+                            type = "number"
+                            name = "ingressoDisponivel"
+                            value = {ingressoDisponivel}
+                            disabled = {readOnly}
+                        />
+                    </>
+                :
+                    <>
+                        <Labelitem> Total de ingressos </Labelitem>
+                        <InputItem
+                            type = "number"
+                            placeholder = "0"
+                            name = "ingressoTotal"
+                            min = "1" required
+                            onChange = {(e) => setIngressoTotal(parseInt(e.target.value))}
+                            value = {ingressoTotal}
+                            disabled = {readOnly}
+                        />
+                    </>
+                }
             </ContainerItem>
 
             { handle && (
                 <BotaoForm textoBotao = {textoBotao} mt="1.5em" ml = "auto" mr="20vw"/>
             )}
+
+            { buy && (
+                <> 
+                <ContainerItem>
+                    <Labelitem> Ingressos desejados </Labelitem>
+                    <InputCompra
+                        type = "number"
+                        required
+                        onChange = {(e) => setQuantidadeDesejada(parseInt(e.target.value))}
+                        name = "totalCompra"
+                        min = "1" 
+                        max={ingressoDisponivel}
+                        defaultValue="1"
+                    />
+                </ContainerItem>
+                    <ContainerCompra>
+                        <CardCompra>
+                            <TituloCompra> Ingressos: </TituloCompra>
+                            <ValorVariavel> {quantidadeDesejada} </ValorVariavel> 
+                        </CardCompra>
+                        
+                        <CardCompra>
+                            <TituloCompra> Total a pagar: </TituloCompra>
+                            <ValorVariavel> {formataEmReal((quantidadeDesejada * valorIngresso))} </ValorVariavel> 
+                        </CardCompra>
+                    </ContainerCompra>
+   
+                    <BotaoForm textoBotao = {textoBotao} ml="auto" mr="20vw" mt="3em" mb="1em"/>
+                </>
+            ) }
+
             <ToastContainer />
         </ContainerForm>
         </>
