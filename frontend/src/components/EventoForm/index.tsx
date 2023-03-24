@@ -1,4 +1,4 @@
-import { ContainerForm, ContainerItem, DescricaoItem, InputItem, InputCompra, Labelitem, CardCompra, BotaoVoltar, ValorVariavel, ContainerCompra, TituloCompra } from "./styles";
+import { ContainerForm, ContainerItem, DescricaoItem, InputItem, InputCompra, Labelitem, CardCompra, BotaoVoltar, ValorVariavel, ContainerCompra, TituloCompra, TituloIngressosVendidos, NumeroIngressosVendidos, ContainerIngressosVendidos } from "./styles";
 import BotaoForm from "../BotaoSubmitForm";
 import { useEffect, useState } from "react";
 import { IEvento } from "../../types/IEvento";
@@ -12,13 +12,13 @@ import formataEmReal from "../../services/FormatacaoEmReal"
 export default function EventoForm({ textoBotao, handle, readOnly, buy }: EventoFormProps) {
     let { id } = useParams();
     const navigate = useNavigate();
+    const [evento, setEvento] = useState<IEvento>();
     const [nome, setNome] = useState("");
     const [categoria, setCategoria] = useState("");
     const [data, setData] = useState("");
     const [valorIngresso, setValorIngresso] = useState(0);
     const [ingressoTotal, setIngressoTotal] = useState(0);
-    const [ingressoDisponivel, setIngressoDisponivel] = useState(0);
-    const [quantidadeDesejada, setQuantidadeDesejada] = useState(1);
+    const [quantidadeDesejada, setQuantidadeDesejada] = useState(0);
     const [descricao, setDescricao] = useState("");
     const headers = {
         'Authorization': 'Token ' + localStorage.getItem("token")
@@ -28,10 +28,10 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
         if (id){
             getEventoId(headers, id ?? "")
             .then((data) => {
+                setEvento(data);
                 setNome(data.nome);
                 setCategoria(data.categoria);
                 setValorIngresso(data.valorIngresso);
-                setIngressoDisponivel(data.ingressoDisponivel);
                 setIngressoTotal(data.ingressoTotal);
                 setDescricao(data.descricao);
                 setData(moment(data.data, 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DDTHH:mm:ss'));
@@ -47,6 +47,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
             id:"",
             nomeOrganizador:"",
             imagem:"",
+            vendidos:0,
             ingressoDisponivel:0,
             organizador:"",
             nome: nome,
@@ -56,13 +57,27 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
             ingressoTotal: ingressoTotal,
             descricao: descricao,
         };
-        id ? handle(headers, id, dadosEvento) : handle(headers, dadosEvento); // Criando ou atualizando evento
+        if (id && buy){
+            handle(headers, quantidadeDesejada, localStorage.getItem("userId"), id); // Comprando ingresso
+        }
+        else if (id && !buy){
+            handle(headers, id, dadosEvento); // Editando evento
+        }
+        else{
+            handle(headers, dadosEvento); // Criando evento
+        }
     };
 
     return (
         <>
         <BotaoVoltar onClick = {() => navigate(-1)}/>
         <ContainerForm onSubmit={handleSubmit}>
+            { id && (
+                <ContainerIngressosVendidos>
+                    <TituloIngressosVendidos> Ingressos vendidos </TituloIngressosVendidos>
+                    <NumeroIngressosVendidos> { evento?.vendidos } de { evento?.ingressoTotal } </NumeroIngressosVendidos>
+                </ContainerIngressosVendidos>
+            )}
             <ContainerItem>
                 <Labelitem> Nome do evento </Labelitem>
                 <InputItem
@@ -131,7 +146,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                         <InputItem
                             type = "number"
                             name = "ingressoDisponivel"
-                            value = {ingressoDisponivel}
+                            value = {evento?.ingressoDisponivel}
                             disabled = {readOnly}
                         />
                     </>
@@ -151,10 +166,6 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                 }
             </ContainerItem>
 
-            { handle && (
-                <BotaoForm textoBotao = {textoBotao} mt="1.5em" ml = "auto" mr="20vw"/>
-            )}
-
             { buy && (
                 <> 
                 <ContainerItem>
@@ -165,24 +176,25 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                         onChange = {(e) => setQuantidadeDesejada(parseInt(e.target.value))}
                         name = "totalCompra"
                         min = "1" 
-                        max={ingressoDisponivel}
-                        defaultValue="1"
+                        max={evento?.ingressoDisponivel}
+                        placeholder = "0"
                     />
                 </ContainerItem>
                     <ContainerCompra>
                         <CardCompra>
                             <TituloCompra> Ingressos: </TituloCompra>
-                            <ValorVariavel> {quantidadeDesejada} </ValorVariavel> 
+                            <ValorVariavel> {quantidadeDesejada? quantidadeDesejada : 0} </ValorVariavel> 
                         </CardCompra>
                         
                         <CardCompra>
                             <TituloCompra> Total a pagar: </TituloCompra>
-                            <ValorVariavel> {formataEmReal((quantidadeDesejada * valorIngresso))} </ValorVariavel> 
+                            <ValorVariavel> {quantidadeDesejada? formataEmReal((quantidadeDesejada * valorIngresso)) : 0} </ValorVariavel> 
                         </CardCompra>
                     </ContainerCompra>
-   
-                    <BotaoForm textoBotao = {textoBotao} ml="auto" mr="20vw" mt="3em" mb="1em"/>
                 </>
+            )}
+            { handle && (
+                <BotaoForm textoBotao = {textoBotao} mt="1.5em" ml = "auto" mr="20vw"/>
             ) }
 
             <ToastContainer />

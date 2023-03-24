@@ -5,7 +5,7 @@ export const ContainerForm = styled.form`
     width: 80vw;
     margin: auto;
     margin-top: -3em;
-    padding-bottom: 1.5em;
+    padding-bottom: 2em;
 `
 
 export const ValorVariavel = styled.span`
@@ -92,4 +92,21 @@ export const BotaoVoltar = styled(BsFillArrowLeftCircleFill)`
     &:hover{
         cursor: pointer;
     }
+`
+
+export const ContainerIngressosVendidos = styled.section`
+    text-align: center;
+    align-items: center;
+`
+
+export const TituloIngressosVendidos = styled.span`
+    font-size: 1.1em;
+    font-weight: 500;
+    display: block;
+`
+
+export const NumeroIngressosVendidos = styled.span`
+    font-size: 1.5em;
+    font-weight: 500;
+    color: #FF914D;
 `
