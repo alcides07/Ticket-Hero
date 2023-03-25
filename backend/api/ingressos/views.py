@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status, permissions
 from rest_framework.response import Response
 from django.utils import timezone
+from rest_framework.decorators import permission_classes
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
 from django.db.models import F
@@ -82,6 +83,7 @@ class EventoViewSet(viewsets.ModelViewSet):
     queryset = Evento.objects.all()
     serializer_class = EventoSerializer
 
+    permission_classes = [EhOrganizador]
     def create(self, request):
         valorIngresso = request.data.get("valorIngresso")
         ingressoTotal = request.data.get("ingressoTotal")
@@ -112,6 +114,7 @@ class EventoViewSet(viewsets.ModelViewSet):
         serializer = EventoSerializer(evento)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+    permission_classes = [EhOrganizador]
     def update(self, request, pk):
         idEvento = request.data.get("id")
         nomeCategoria = request.data.get("categoria")
@@ -179,6 +182,7 @@ class CompraViewSet(viewsets.ModelViewSet):
     queryset = Compra.objects.all()
     serializer_class = CompraSerializer
 
+    permission_classes = [EhCliente]
     def create(self, request):  
         qtdIngresso = int(request.data.get("qtdIngresso"))
         evento = get_object_or_404(Evento, id = request.data.get("evento"))
