@@ -11,6 +11,8 @@ import formataEmReal from "../../services/FormatacaoEmReal"
 
 export default function EventoForm({ textoBotao, handle, readOnly, buy }: EventoFormProps) {
     let { id } = useParams();
+    const today = new Date(); 
+    const dataMinima = `${today.getFullYear()}-${('0' + (today.getMonth()+1)).slice(-2)}-${('0' + today.getDate()).slice(-2)}T${('0' + today.getHours()).slice(-2)}:${('0' + today.getMinutes()).slice(-2)}`;
     const navigate = useNavigate();
     const [evento, setEvento] = useState<IEvento>();
     const [nome, setNome] = useState("");
@@ -75,7 +77,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
             { id && (
                 <ContainerIngressosVendidos>
                     <TituloIngressosVendidos> Ingressos vendidos </TituloIngressosVendidos>
-                    <NumeroIngressosVendidos> { evento?.vendidos } de { evento?.ingressoTotal } </NumeroIngressosVendidos>
+                    <NumeroIngressosVendidos> { evento? evento.vendidos : 0 } de { evento? evento.ingressoTotal : 0 } </NumeroIngressosVendidos>
                 </ContainerIngressosVendidos>
             )}
             <ContainerItem>
@@ -96,6 +98,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                     type = "datetime-local" required
                     onChange = {(e) => setData(e.target.value)}
                     name = "data"
+                    min = {dataMinima}
                     value = {data}
                     disabled = {readOnly}
                 />
@@ -129,12 +132,12 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                 <Labelitem> Valor do ingresso (R$) </Labelitem>
                 <InputItem
                     type = "number"
-                    placeholder = "0"
+                    placeholder = "0.00"
                     step = "0.01"
                     name = "valorIngresso"
                     min = "0" required
                     onChange = {(e) => setValorIngresso(parseFloat(e.target.value))}
-                    value = {valorIngresso.toFixed(2)}
+                    value = {valorIngresso ? valorIngresso : ""}
                     disabled = {readOnly}
                 />
             </ContainerItem>
@@ -146,7 +149,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                         <InputItem
                             type = "number"
                             name = "ingressoDisponivel"
-                            value = {evento?.ingressoDisponivel}
+                            value = {evento?.ingressoDisponivel ? evento.ingressoDisponivel : 0}
                             disabled = {readOnly}
                         />
                     </>
@@ -159,7 +162,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                             name = "ingressoTotal"
                             min = "1" required
                             onChange = {(e) => setIngressoTotal(parseInt(e.target.value))}
-                            value = {ingressoTotal}
+                            value = {ingressoTotal ? ingressoTotal : ""}
                             disabled = {readOnly}
                         />
                     </>
@@ -176,7 +179,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                         onChange = {(e) => setQuantidadeDesejada(parseInt(e.target.value))}
                         name = "totalCompra"
                         min = "1" 
-                        max={evento?.ingressoDisponivel}
+                        max={evento?.ingressoDisponivel ? evento.ingressoDisponivel : 1}
                         placeholder = "0"
                     />
                 </ContainerItem>
