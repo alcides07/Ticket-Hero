@@ -79,12 +79,11 @@ class OrganizadorViewSet(viewsets.ModelViewSet):
     serializer_class = OrganizadorSerializer
 
 class EventoViewSet(viewsets.ModelViewSet):
-    permission_classes = [permissions.IsAuthenticated]
     queryset = Evento.objects.all()
     serializer_class = EventoSerializer
 
-    permission_classes = [EhOrganizador]
     def create(self, request):
+        self.permission_classes = [permissions.IsAuthenticated, EhOrganizador]
         valorIngresso = request.data.get("valorIngresso")
         ingressoTotal = request.data.get("ingressoTotal")
         nomeCategoria = request.data.get("categoria")
@@ -114,8 +113,8 @@ class EventoViewSet(viewsets.ModelViewSet):
         serializer = EventoSerializer(evento)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    permission_classes = [EhOrganizador]
     def update(self, request, pk):
+        self.permission_classes = [permissions.IsAuthenticated, EhOrganizador]
         idEvento = request.data.get("id")
         nomeCategoria = request.data.get("categoria")
         valorIngresso = request.data.get("valorIngresso")
