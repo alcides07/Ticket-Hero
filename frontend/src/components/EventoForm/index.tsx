@@ -28,7 +28,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
 
     useEffect(() => {
         if (id){
-            getEventoId(headers, id ?? "")
+            getEventoId(headers, id)
             .then((data) => {
                 setEvento(data);
                 setNome(data.nome);
