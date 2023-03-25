@@ -1,5 +1,6 @@
 export interface EventoFormProps {
     textoBotao?: string;
-    disable: boolean,
+    readOnly: boolean,
+    buy?: boolean,
     handle?: any;
   }

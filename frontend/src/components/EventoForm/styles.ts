@@ -5,7 +5,12 @@ export const ContainerForm = styled.form`
     width: 80vw;
     margin: auto;
     margin-top: -3em;
-    padding-bottom: 1.5em;
+    padding-bottom: 2em;
+`
+
+export const ValorVariavel = styled.span`
+    color: #FF914D;
+    font-weight: 700;
 `
 
 export const ContainerItem = styled.div`
@@ -14,8 +19,36 @@ export const ContainerItem = styled.div`
     margin-top: 2em;
 `
 
+export const ContainerCompra = styled.div`
+    margin-top: 1.5em;   
+`
+
+export const CardCompra = styled.div`
+    padding-left: 20vw;
+    margin-top: 0.3em;
+    font-size: large;
+`
+
+export const TituloCompra = styled.span`
+    font-weight: 500;
+`
+
+export const InputCompra = styled.input`
+    padding: 0.5em;
+    border: 0.1em solid #FF914D;
+    caret-color: #FF914D;
+    border-radius: 0.3em;
+    width: 50%;
+    outline: none;
+
+    &:focus{
+        border: 0.1em solid #FF914D;
+    }
+`
+
 export const InputItem = styled.input`
    padding: 0.5em;
+   caret-color: #FF914D;
    border: 0.1em solid #BCBCBC;
    border-radius: 0.3em;
    width: 50%;
@@ -29,6 +62,7 @@ export const InputItem = styled.input`
 export const DescricaoItem = styled.textarea`
    width: 50%;
    padding: 0.5em;
+   caret-color: #FF914D;
    height: 25vh;
    border: 0.1em solid #BCBCBC;
    border-radius: 0.3em;
@@ -58,4 +92,21 @@ export const BotaoVoltar = styled(BsFillArrowLeftCircleFill)`
     &:hover{
         cursor: pointer;
     }
+`
+
+export const ContainerIngressosVendidos = styled.section`
+    text-align: center;
+    align-items: center;
+`
+
+export const TituloIngressosVendidos = styled.span`
+    font-size: 1.1em;
+    font-weight: 500;
+    display: block;
+`
+
+export const NumeroIngressosVendidos = styled.span`
+    font-size: 1.5em;
+    font-weight: 500;
+    color: #FF914D;
 `

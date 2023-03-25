@@ -103,6 +103,7 @@ class EventoViewSet(viewsets.ModelViewSet):
             data = request.data.get("data"),
             valorIngresso = valorIngresso,
             ingressoTotal = ingressoTotal,
+            vendidos = 0,
             ingressoDisponivel = ingressoTotal,
             organizador = request.user.organizador,
             categoria = categoria
@@ -114,7 +115,6 @@ class EventoViewSet(viewsets.ModelViewSet):
     def update(self, request, pk):
         idEvento = request.data.get("id")
         nomeCategoria = request.data.get("categoria")
-        # imagem = request.data.get("imagem")
         valorIngresso = request.data.get("valorIngresso")
         ingressoTotal = request.data.get("ingressoTotal")
 
@@ -132,13 +132,15 @@ class EventoViewSet(viewsets.ModelViewSet):
         
         evento.categoria = categoria
         if (ingressoTotal > evento.ingressoTotal): # Quero mais ingressos ainda
+            evento.ingressoDisponivel += (ingressoTotal - evento.ingressoTotal)
             evento.ingressoTotal = ingressoTotal
-            evento.ingressoDisponivel = ingressoTotal
 
         elif (ingressoTotal < evento.ingressoTotal): # Quero diminuir a quantidade de ingressos do evento
+            if (ingressoTotal < evento.vendidos):
+                return Response({"Erro":"Não é possível diminuir ainda mais a quantidade de eventos!"}, status=status.HTTP_400_BAD_REQUEST)
+
             evento.ingressoTotal = ingressoTotal
-            if (evento.ingressoTotal < evento.ingressoDisponivel): # Vou diminuir a quantidade de ingressos disponíveis também
-                evento.ingressoDisponivel = evento.ingressoTotal
+            evento.ingressoDisponivel = ingressoTotal - evento.vendidos
 
         evento.nome = request.data.get("nome")
         evento.descricao = request.data.get("descricao")
@@ -191,6 +193,7 @@ class CompraViewSet(viewsets.ModelViewSet):
             )
             
             evento.ingressoDisponivel -= venda.qtdIngresso
+            evento.vendidos += qtdIngresso
             evento.save()
             serializer = CompraSerializer(venda)
             return Response(serializer.data, status=status.HTTP_200_OK)

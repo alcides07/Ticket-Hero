@@ -9,7 +9,7 @@ export default function CriarEvento(){
         <>
             <Navbar/>
             <Header/>
-            <EventoForm textoBotao = "Criar evento" handle={criarEvento} />
+            <EventoForm readOnly = {false} textoBotao = "Criar evento" handle={criarEvento} />
             <Footer/>
         </>
     );

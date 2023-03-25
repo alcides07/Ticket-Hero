@@ -1,14 +1,15 @@
+import EventoForm from "../../components/EventoForm";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import Navbar from "../../components/Navbar";
-import CompraForm from "./components/compraForm"
+import { compraIngresso } from "./services/compra";
 
 export default function CompraIngresso(){
     return (
         <>
             <Navbar/>
             <Header/>
-            <CompraForm textoBotao = "Finalizar Compra"/>
+            <EventoForm handle = {compraIngresso} readOnly = {true} buy = {true} textoBotao = {"Finalizar compra"}/>
             <Footer/>
         </>
     )
