@@ -7,6 +7,7 @@ import CompraIngresso from './features/CompraIngresso';
 import CriarEvento from './features/CriarEvento';
 import EditarEvento from './features/EditarEvento';
 import VisualizarEvento from './features/VisualizarEvento';
+import MeusIngressos from './features/MeusIngressos';
 
 const Rotas = () => {
     return (
@@ -19,6 +20,7 @@ const Rotas = () => {
                 <Route path="/evento/:id/compra" element={<CompraIngresso/>} />
                 <Route path="/evento/criar" element={<CriarEvento/>} />
                 <Route path="/evento/:id/editar" element={<EditarEvento/>} />
+                <Route path="/meusIngressos" element={<MeusIngressos/>} />
             </Routes>
         </BrowserRouter>
     );
