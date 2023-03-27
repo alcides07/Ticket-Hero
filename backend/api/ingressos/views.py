@@ -168,8 +168,11 @@ class EventoViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"], permission_classes = [permissions.IsAuthenticated, EhOrganizador])
     def meusEventos(self, request):
+        max = request.query_params.get('max', None)
+        if max is not None: max = int(max)
+
         queryset = Evento.objects.filter(
-            organizador=request.user.organizador).order_by("data")
+            organizador=request.user.organizador).order_by("data")[:max]
         serializer = EventoSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
