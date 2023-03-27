@@ -1,23 +1,14 @@
 export interface IEvento{
     id: string;
     categoria: string;
+    vendidos?: number;
     nome: string;
     descricao: string;
-    data: Date;
+    nomeOrganizador: string;
+    data: string;
     imagem: string;
     valorIngresso: number;
     ingressoTotal: number;
     ingressoDisponivel: number;
     organizador: string;
 }
-    
-// "id": 1,
-// "categoria": "categ",
-// "nome": "Nomevento",
-// "descricao": "descricao",
-// "data": "2023-03-15T17:18:45Z",
-// "imagem": null,
-// "valorIngresso": 50.0,
-// "ingressoTotal": 50,
-// "ingressoDisponivel": 50,
-// "organizador": 1

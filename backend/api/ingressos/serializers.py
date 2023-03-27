@@ -1,8 +1,5 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
-from datetime import datetime
 from .models import (Cliente, Organizador, Evento, Categoria, Compra)
 
 class CadastroSerializer(serializers.ModelSerializer):
@@ -15,31 +12,31 @@ class CadastroSerializer(serializers.ModelSerializer):
         model = User
         fields = ["username", "nomeCompleto", "nascimento", "email"]
 
-    def get_username(self, obj):
-         return obj.user.username
+    def get_username(self, request):
+         return request.user.username
     
-    def get_email(self, obj):
-        return obj.user.email
+    def get_email(self, request):
+        return request.user.email
 
 class LoginSerializer(serializers.Serializer):
     usuario = serializers.SerializerMethodField()
 
-    def get_usuario(self, obj):
-        if hasattr(obj, "organizador"):
-            id = obj.organizador.id
-            nomeCompleto = obj.organizador.nomeCompleto
+    def get_usuario(self, request):
+        if hasattr(request, "organizador"):
+            id = request.organizador.id
+            nomeCompleto = request.organizador.nomeCompleto
             tipoUsuario = "organizador"
-            nascimento = obj.organizador.nascimento
+            nascimento = request.organizador.nascimento
 
-        elif hasattr(obj, "cliente"):
-            id = obj.cliente.id
-            nomeCompleto = obj.cliente.nomeCompleto
+        elif hasattr(request, "cliente"):
+            id = request.cliente.id
+            nomeCompleto = request.cliente.nomeCompleto
             tipoUsuario = "cliente"
-            nascimento = obj.cliente.nascimento
+            nascimento = request.cliente.nascimento
 
         return {
             "id": id,
-            "username": obj.username,
+            "username": request.username,
             "tipoUsuario": tipoUsuario,
             "nomeCompleto": nomeCompleto,
             "nascimento": nascimento
@@ -57,13 +54,17 @@ class OrganizadorSerializer(serializers.ModelSerializer):
 
 class EventoSerializer(serializers.ModelSerializer):
     categoria = serializers.SerializerMethodField()
+    nomeOrganizador = serializers.SerializerMethodField()
 
     class Meta:
         model = Evento
         fields = "__all__"
 
-    def get_categoria(self, obj):
-        return obj.categoria.nome
+    def get_categoria(self, request):
+        return request.categoria.nome
+    
+    def get_nomeOrganizador(self, request):
+        return request.organizador.nomeCompleto
 
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -71,6 +72,10 @@ class CategoriaSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class CompraSerializer(serializers.ModelSerializer):
+    nome = serializers.SerializerMethodField()
     class Meta:
         model = Compra
         fields = "__all__"
+
+    def get_nome(self, request):
+        return (request.cliente.nomeCompleto)

@@ -2,8 +2,8 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import { Titulo, ContainerEventos, ContainerGeral, ContainerBotao, ContainerItem, ContainerTexto, Botao, ImagemBotao, ListGroupItem } from "./styles"
 import { IEvento } from '../../types/IEvento';
 import { useEffect, useState } from 'react';
-import { getMeusEventos } from './services/evento';
-import { deletarEvento } from '../CrudEvento/services/deletarEvento';
+import { getMeusEventos } from './services/meusEventos';
+import { deletarEvento } from '../DeletarEvento/services/deletarEvento';
 import IconeEditar from "./assets/editar.svg";
 import IconeDeletar from "./assets/deletar.svg";
 

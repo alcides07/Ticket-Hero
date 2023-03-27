@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status, permissions
 from rest_framework.response import Response
 from django.utils import timezone
+from rest_framework.decorators import permission_classes
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
 from django.db.models import F
@@ -85,11 +86,11 @@ class OrganizadorViewSet(viewsets.ModelViewSet):
 
 
 class EventoViewSet(viewsets.ModelViewSet):
-    permission_classes = [permissions.IsAuthenticated]
     queryset = Evento.objects.all()
     serializer_class = EventoSerializer
 
     def create(self, request):
+        self.permission_classes = [permissions.IsAuthenticated, EhOrganizador]
         valorIngresso = request.data.get("valorIngresso")
         ingressoTotal = request.data.get("ingressoTotal")
         nomeCategoria = request.data.get("categoria")
@@ -105,20 +106,67 @@ class EventoViewSet(viewsets.ModelViewSet):
             categoria = Categoria.objects.create(nome=nomeCategoria)
 
         evento = Evento.objects.create(
-            nome=request.data.get("nome"),
-            descricao=request.data.get("descricao"),
-            data=timezone.now(),
-            valorIngresso=valorIngresso,
-            ingressoTotal=ingressoTotal,
-            ingressoDisponivel=ingressoTotal,
-            organizador=request.user.organizador,
-            categoria=categoria
+            nome = request.data.get("nome"),
+            descricao = request.data.get("descricao"),
+            data = request.data.get("data"),
+            valorIngresso = valorIngresso,
+            ingressoTotal = ingressoTotal,
+            vendidos = 0,
+            ingressoDisponivel = ingressoTotal,
+            organizador = request.user.organizador,
+            categoria = categoria
         )
 
         serializer = EventoSerializer(evento)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    @action(detail=False, methods=["get"], permission_classes=[permissions.IsAuthenticated, EhOrganizador])
+    def update(self, request, pk):
+        self.permission_classes = [permissions.IsAuthenticated, EhOrganizador]
+        idEvento = request.data.get("id")
+        nomeCategoria = request.data.get("categoria")
+        valorIngresso = request.data.get("valorIngresso")
+        ingressoTotal = request.data.get("ingressoTotal")
+
+        if (valorIngresso < 0):
+            return Response({"Erro":"Valor do ingresso não pode ser negativo!"}, status=status.HTTP_400_BAD_REQUEST)
+
+        if (ingressoTotal < 0):
+            return Response({"Erro":"Não é possível ter um evento com essa quantidade de ingressos!"}, status=status.HTTP_400_BAD_REQUEST)
+
+        evento = Evento.objects.filter(id=idEvento).first()
+        categoria = Categoria.objects.filter(nome = nomeCategoria).first()
+        
+        if not(categoria):
+            categoria = Categoria.objects.create(nome = nomeCategoria)
+        
+        evento.categoria = categoria
+        if (ingressoTotal > evento.ingressoTotal): # Quero mais ingressos ainda
+            evento.ingressoDisponivel += (ingressoTotal - evento.ingressoTotal)
+            evento.ingressoTotal = ingressoTotal
+
+        elif (ingressoTotal < evento.ingressoTotal): # Quero diminuir a quantidade de ingressos do evento
+            if (ingressoTotal < evento.vendidos):
+                return Response({"Erro":"Não é possível diminuir ainda mais a quantidade de eventos!"}, status=status.HTTP_400_BAD_REQUEST)
+
+            evento.ingressoTotal = ingressoTotal
+            evento.ingressoDisponivel = ingressoTotal - evento.vendidos
+
+        evento.nome = request.data.get("nome")
+        evento.descricao = request.data.get("descricao")
+        evento.data = request.data.get("data")
+        evento.valorIngresso = valorIngresso
+        evento.save()
+        serializer = EventoSerializer(evento)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    @action(detail=True, methods=["get"], permission_classes = [permissions.IsAuthenticated, EhOrganizador])
+    def vendas(self, request, pk):
+        evento = get_object_or_404(Evento, id = pk)
+        vendas = Compra.objects.filter(evento=evento)
+        serializer = CompraSerializer(vendas, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["get"], permission_classes = [permissions.IsAuthenticated, EhOrganizador])
     def meusEventos(self, request):
         queryset = Evento.objects.filter(
             organizador=request.user.organizador).order_by("data")
@@ -144,7 +192,8 @@ class CompraViewSet(viewsets.ModelViewSet):
     queryset = Compra.objects.all()
     serializer_class = CompraSerializer
 
-    def create(self, request):
+    permission_classes = [EhCliente]
+    def create(self, request):  
         qtdIngresso = int(request.data.get("qtdIngresso"))
         evento = get_object_or_404(Evento, id=request.data.get("evento"))
 
@@ -159,6 +208,7 @@ class CompraViewSet(viewsets.ModelViewSet):
             )
 
             evento.ingressoDisponivel -= venda.qtdIngresso
+            evento.vendidos += qtdIngresso
             evento.save()
             serializer = CompraSerializer(venda)
             return Response(serializer.data, status=status.HTTP_200_OK)

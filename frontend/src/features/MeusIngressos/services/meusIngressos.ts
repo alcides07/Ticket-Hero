@@ -1,7 +1,7 @@
 import api from "../../../services/api";
 
-export const editarEvento = (id:string, Headers: {}) => {
-    return api.patch(`/evento/${id}`, { headers: Headers })
+export const meusIngressos = (Headers: {}) => {
+    return api.get("/compra/minhasCompras", { headers: Headers })
     .then((response) => {
         return response.data;
     })
