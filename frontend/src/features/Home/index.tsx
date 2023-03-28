@@ -5,9 +5,39 @@ import Button from 'react-bootstrap/Button';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import CustomCard from "../../components/Card";
+import { IEvento } from '../../types/IEvento';
+import { useEffect, useState } from 'react';
+import {getEventsOrganizador} from "./services/api";
 
 import { ICard } from '../../types/IComponents';
 export default function Home() {
+    const [eventos, setEventos] = useState<IEvento[]>([]);
+    const headers = {
+        'Authorization': 'Token ' + localStorage.getItem("token")
+    };
+    if(localStorage.getItem("typeUser") === "organizador"){
+        useEffect(() => {
+            getEventsOrganizador(headers)
+            .then((data) => {
+              setEventos(data);
+            })
+            .catch((error) => {
+              console.log('erro: ', error);
+          });
+          }, []);
+    }else{
+        useEffect(() => {
+            getEventsOrganizador(headers)
+            .then((data) => {
+              setEventos(data);
+            })
+            .catch((error) => {
+              console.log('erro: ', error);
+          });
+          }, []);
+    }
+
+
     const responsive = {
         0: { items: 1 },
         568: { items: 2 },
