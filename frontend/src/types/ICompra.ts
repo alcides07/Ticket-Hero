@@ -1,7 +1,11 @@
-import { IVenda } from './IVenda';
 import { IEvento } from './IEvento';
 
 export interface ICompra{
     evento: IEvento;
-    ingresso: IVenda;
+    id: string;
+    nomeCliente: string;
+    qtdIngresso: string;
+    valorTotal: string;
+    data: string;
+    cliente: string
 }

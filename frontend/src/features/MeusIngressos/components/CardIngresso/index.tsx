@@ -9,7 +9,7 @@ import { ICompra } from '../../../../types/ICompra';
 
 export default function CardIngresso(){
     let i = 1;
-    const [compras, setCompras] = useState<Record<string, ICompra>>({});
+    const [compras, setCompras] = useState<ICompra[]>([]);
     const headers = {
         'Authorization': 'Token ' + localStorage.getItem("token")
       };
@@ -27,30 +27,30 @@ export default function CardIngresso(){
     return (
         <ContainerIngressos>
             <Row xs = {1} md = {3} className = "g-4">
-            { compras && Object.keys(compras).length > 0 ? Object.keys(compras).map((compra: string) => (
-                <CardGroup key = {compra}>
+            { compras && compras.length > 0 ? compras.map((compra: ICompra) => (
+                <CardGroup key = {compra.id}>
                     <Card>
                         <Card.Body>
                             <Card.Title> Compra de ingressos {i++} </Card.Title>
                             <Card.Text>
                                 <ContainerConteudo>
                                     <LabelTitulos> Quantia: </LabelTitulos>
-                                    <LabelValores> { compras[compra].ingresso.qtdIngresso } unidade(s) </LabelValores>
+                                    <LabelValores> { compra.qtdIngresso } unidade(s) </LabelValores>
                                 </ContainerConteudo>
 
                                 <ContainerConteudo>
                                     <LabelTitulos> Evento: </LabelTitulos>
-                                    <LabelValores> { compras[compra].evento.nome } </LabelValores>
+                                    <LabelValores> { compra.evento.nome } </LabelValores>
                                 </ContainerConteudo>
 
                                 <ContainerConteudo>
                                     <LabelTitulos> Descrição: </LabelTitulos>
-                                    <LabelValores> { compras[compra].evento.descricao } </LabelValores>
+                                    <LabelValores> { compra.evento.descricao } </LabelValores>
                                 </ContainerConteudo>
                             </Card.Text>
                         </Card.Body>
                         <Card.Footer>
-                            <small className="text-muted"> Data da compra: {compras[compra].ingresso.data} </small>
+                            <small className="text-muted"> Data da compra: {compra.data} </small>
                         </Card.Footer>
                     </Card>
               </CardGroup>
