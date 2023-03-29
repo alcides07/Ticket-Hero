@@ -34,13 +34,16 @@ class Evento(models.Model):
     nome = models.CharField(max_length=300)
     descricao = models.TextField()
     data = models.DateTimeField()
-    imagem = models.ImageField(upload_to='media/evento/', blank=True, null=True)
+    pathImg = models.TextField(blank=True, null=True)
+    publico = models.BooleanField()
+    local = models.CharField(max_length=200)
+    idadeMinima = models.PositiveIntegerField()
     organizador = models.ForeignKey(Organizador, on_delete=models.SET_NULL, null=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)
     valorIngresso = models.FloatField()
-    ingressoTotal = models.IntegerField()
-    ingressoDisponivel = models.IntegerField()
-    vendidos = models.IntegerField()
+    ingressoTotal = models.PositiveIntegerField()
+    ingressoDisponivel = models.PositiveIntegerField()
+    vendidos = models.PositiveIntegerField()
 
     def __str__(self):
         return self.nome
@@ -48,7 +51,7 @@ class Evento(models.Model):
 class Compra(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.SET_NULL, null=True)
     evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
-    qtdIngresso = models.IntegerField()
+    qtdIngresso = models.PositiveIntegerField()
     valorTotal = models.FloatField()
     data = models.DateTimeField()
 
