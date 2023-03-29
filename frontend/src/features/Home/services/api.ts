@@ -1,8 +1,8 @@
 import api from "../../../services/api";
 
-export const getEventsCliente = () => {
+export const getEventsCliente = (Headers: {}) => {
     return api
-        .get("/evento/meusEventos")
+        .get("/compra/minhasCompras", { headers: Headers })
         .then((response) => {
             return response.data;
         })
@@ -14,7 +14,7 @@ export const getEventsCliente = () => {
 
 export const getEventsOrganizador = (Headers: {}) => {
     
-    return api.get("/compra/minhasCompras", { headers: Headers })
+    return api.get("/evento/meusEventos", { headers: Headers })
     .then((response) => {
         return response.data;
     })
