@@ -12,4 +12,7 @@ export interface IEvento{
     ingressoDisponivel: number;
     organizador: string;
     local: string;
+    publico: boolean;
+    idadeMinima: number;
+    pathImg: string;
 }

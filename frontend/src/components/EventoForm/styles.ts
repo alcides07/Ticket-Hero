@@ -6,6 +6,21 @@ export const ContainerForm = styled.form`
     margin: auto;
     margin-top: -3em;
     padding-bottom: 2em;
+    .form-switch{
+        text-align: start;
+        margin: auto;
+        width: 50%;
+    }
+    .form-check-input{
+        height: 1.5em;
+        margin-right: 6px;
+        width: 2.5em;
+    }
+    .form-check-input:checked{
+        background-color: rgb(255, 145, 77);
+        border-color: rgb(255, 145, 77);
+    }
+    
 `
 
 export const ValorVariavel = styled.span`

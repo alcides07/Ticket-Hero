@@ -64,7 +64,7 @@ export default function RegisterForm() {
                         <Col>
                             <select name="Tipo" required>
                                 <option value="Selecione">Selecione</option>
-                                <option value="C">Comum</option>
+                                <option value="C">Cliente</option>
                                 <option value="O">Organizador</option>
                             </select>
                         </Col>

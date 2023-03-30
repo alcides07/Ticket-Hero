@@ -19,7 +19,7 @@ export default function LoginForm() {
     };
     const navigate = useNavigate();
     function goToRegister() {
-        navigate("/register");
+        navigate("/registro");
     }
     return (
         <FormLogin onSubmit={handleSubmit}>

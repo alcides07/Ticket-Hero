@@ -1,5 +1,4 @@
-import Header from "../../components/Header";
-import Navbar from "../../components/Navbar";
+import Navbar2 from "../../components/Navbar";
 import { ContainerHome } from "./styles";
 import Button from 'react-bootstrap/Button';
 import AliceCarousel from 'react-alice-carousel';
@@ -10,6 +9,7 @@ import { useEffect, useState } from 'react';
 import {getEventsOrganizador, getEventsCliente} from "./services/api";
 
 import { ICard } from '../../types/IComponents';
+import Footer from "../../components/Footer";
 export default function Home() {
    
     const [eventos, setEventos] = useState<IEvento[]>([]);
@@ -64,12 +64,12 @@ export default function Home() {
    
     return (
         <>
-            <Navbar />
-            <Header />
+            <Navbar2 />
             <ContainerHome>
                 <Button variant="outline-dark">Meus eventos para hoje</Button>
                 <AliceCarousel mouseTracking items={carroselCards} responsive={responsive} />
             </ContainerHome>
+            <Footer/>
         </>
     )
 }

@@ -3,7 +3,8 @@ import { ListGroup } from 'react-bootstrap';
 
 export const ContainerEventos = styled.section`
     padding: 2em;
-    width: 100%;
+    width: 50%;
+    margin: auto;
 `
 
 export const Titulo = styled.p`
