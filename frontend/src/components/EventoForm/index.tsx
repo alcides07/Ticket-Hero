@@ -7,7 +7,8 @@ import { ToastContainer } from "react-toastify";
 import { useParams, useNavigate } from "react-router-dom";
 import { getEventoId } from "./services/getEventoId";
 import { EventoFormProps } from "../../types/IEventoFormProps";
-import formataEmReal from "../../services/FormatacaoEmReal"
+import formataEmReal from "../../services/FormatacaoEmReal";
+import Form from 'react-bootstrap/Form';
 
 export default function EventoForm({ textoBotao, handle, readOnly, buy }: EventoFormProps) {
     let { id } = useParams();
@@ -22,6 +23,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
     const [ingressoTotal, setIngressoTotal] = useState(0);
     const [quantidadeDesejada, setQuantidadeDesejada] = useState(0);
     const [descricao, setDescricao] = useState("");
+    const [local, setLocal] = useState("");
     const headers = {
         'Authorization': 'Token ' + localStorage.getItem("token")
     };
@@ -58,6 +60,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
             valorIngresso: valorIngresso,
             ingressoTotal: ingressoTotal,
             descricao: descricao,
+            local: local
         };
         if (id && buy){
             handle(headers, quantidadeDesejada, localStorage.getItem("userId"), id); // Comprando ingresso
@@ -129,6 +132,18 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
             </ContainerItem>
 
             <ContainerItem>
+                <Labelitem> Local do evento </Labelitem>
+                <InputItem 
+                    type = "text"
+                    placeholder = "Ex: Rua Padre Joao Damasceno." 
+                    name = "local" required 
+                    onChange = {(e) => setLocal(e.target.value)}
+                    value = {local}
+                    disabled = {readOnly}
+                />
+            </ContainerItem>
+
+            <ContainerItem>
                 <Labelitem> Valor do ingresso (R$) </Labelitem>
                 <InputItem
                     type = "number"
@@ -167,6 +182,12 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                         />
                     </>
                 }
+            </ContainerItem>
+            <ContainerItem>
+                <Form.Check 
+                    type="switch"
+                    label="Check this switch"
+                />
             </ContainerItem>
 
             { buy && (

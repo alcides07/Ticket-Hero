@@ -11,7 +11,8 @@ export const criarEvento = (Headers:{}, dadosEvento:IEvento) => {
         descricao:dadosEvento["descricao"],
         valorIngresso:dadosEvento["valorIngresso"],
         ingressoTotal:dadosEvento["ingressoTotal"],
-        data:dadosEvento["data"]
+        data:dadosEvento["data"],
+        local: dadosEvento["local"]
     }, 
     {headers: Headers})
     .then((response) => {
