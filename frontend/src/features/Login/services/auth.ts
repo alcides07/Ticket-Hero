@@ -26,10 +26,14 @@ export const Login = (body:IUser) => {
             message: "Login efetuado com sucesso",
             variant: 'success',
         };
-
         notify(toast);
     })
     .catch((error:any) => {
-        console.log('sos', error);
+        console.log("erro: ", error);
+        const toast: IToast = {
+            message: "Erro ao realizar login.",
+            variant: 'error',
+        }; 
+        notify(toast);
     });
 };

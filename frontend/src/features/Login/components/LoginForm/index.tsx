@@ -15,7 +15,11 @@ export default function LoginForm() {
             usuario: event.target[0].value,
             senha: event.target[1].value,
         };    
-        Login(body);
+       await
+       Login(body);
+       if (localStorage.getItem("token")){
+           navigate("/home");
+       }
     };
     const navigate = useNavigate();
     function goToRegister() {

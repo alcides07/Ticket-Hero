@@ -1,9 +1,16 @@
-import { Nav, Perfil, Logo, Header} from "./styles"
+import { Nav, Perfil, Logo, Header, Sair } from "./styles"
 import {Link} from 'react-router-dom' 
 import logo from "../../assets/horizontal-logo.svg"
 import { BsFillPersonFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar2(){
+    const navigate = useNavigate();
+    function Logout() {
+        localStorage.clear();
+        navigate("/");
+    }
+
     return (
         <>
             <Nav>
@@ -21,8 +28,8 @@ export default function Navbar2(){
 
                         {localStorage.getItem("typeUser") == "cliente" && (
                             <>
-                                <li>Em alta</li>
-                                <li>Todos os eventos</li>
+                                <li> <Link to = "#">Em alta</Link></li>
+                                <li> <Link to = "#">Todos os eventos</Link></li>
                                 <li> <Link to = "/meusIngressos">Meus ingressos</Link></li>
                                 <li className = "border"></li>
                             </>
@@ -34,7 +41,11 @@ export default function Navbar2(){
                         <span>
                             {localStorage.getItem("username")}
                         </span>
+                        <ul>
+                            <li className = "border"></li>
+                        </ul>
                     </Perfil>
+                    <Sair onClick = {Logout}> Sair </Sair>
                 </Header>
 
             </Nav>
