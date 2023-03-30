@@ -9,6 +9,7 @@ import EditarEvento from './features/EditarEvento';
 import VisualizarEvento from './features/VisualizarEvento';
 import MeusIngressos from './features/MeusIngressos';
 import MeusEventos from './features/MeusEventos';
+import EventosPopulares from './features/EventosPopulares';
 
 const Rotas = () => {
     return (
@@ -23,6 +24,7 @@ const Rotas = () => {
                 <Route path="/evento/:id/editar" element={<EditarEvento/>} />
                 <Route path="/meusIngressos" element={<MeusIngressos/>} />
                 <Route path="/meusEventos" element={<MeusEventos/>} />
+                <Route path="/eventosPopulares" element={<EventosPopulares/>} />
             </Routes>
         </BrowserRouter>
     );
