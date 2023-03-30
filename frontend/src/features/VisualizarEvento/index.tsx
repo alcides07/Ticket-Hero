@@ -1,13 +1,11 @@
 import EventoForm from "../../components/EventoForm";
 import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-import Navbar from "../../components/Navbar";
+import Navbar2 from "../../components/Navbar";
 
 export default function VisualizarEvento(){
     return (
         <>
-            <Navbar/>
-            <Header/>
+            <Navbar2/>
             <EventoForm readOnly = {true}/>
             <Footer/>
         </>

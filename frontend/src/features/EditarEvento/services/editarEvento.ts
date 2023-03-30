@@ -12,7 +12,11 @@ export const editarEvento = (Headers: {}, id:string, dadosEvento:IEvento) => {
         descricao:dadosEvento["descricao"],
         valorIngresso:dadosEvento["valorIngresso"],
         ingressoTotal:dadosEvento["ingressoTotal"],
-        data:dadosEvento["data"]
+        data:dadosEvento["data"],
+        local: dadosEvento["local"],
+        publico: dadosEvento["publico"],
+        idadeMinima: dadosEvento["idadeMinima"],
+        pathImg: dadosEvento["pathImg"]
     },
     {headers: Headers}
     )

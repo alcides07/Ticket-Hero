@@ -11,4 +11,8 @@ export interface IEvento{
     ingressoTotal: number;
     ingressoDisponivel: number;
     organizador: string;
+    local: string;
+    publico: boolean;
+    idadeMinima: number;
+    pathImg: string;
 }

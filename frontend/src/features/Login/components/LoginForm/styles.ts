@@ -13,7 +13,7 @@ export const FormLogin = styled.form`
     }
     input{
         border: none;
-        border-bottom: 3px #000 solid;
+        border-bottom: 0.1em #000 solid;
         outline: none;
         font-size: 1em;
         padding: 2em 0.3em 0.5em;
@@ -25,7 +25,9 @@ export const FormLogin = styled.form`
         align-self: flex-start;
     }
     .button-form{
+        border: none;
         margin-top: 1em;
+        padding: 0.5em;
         border-radius: 20px;
         width: 100%;
         color: white;

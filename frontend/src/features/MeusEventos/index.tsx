@@ -6,9 +6,14 @@ import { getMeusEventos } from './services/meusEventos';
 import { deletarEvento } from '../DeletarEvento/services/deletarEvento';
 import IconeEditar from "./assets/editar.svg";
 import IconeDeletar from "./assets/deletar.svg";
+import Navbar2 from '../../components/Navbar';
+import Footer from '../../components/Footer';
+import { BotaoVoltar } from '../../components/EventoForm/styles';
+import { useNavigate } from 'react-router-dom';
 
 export default function MeusEventos(){
   const [eventos, setEventos] = useState<IEvento[]>([]);
+  const navigate = useNavigate();
   const headers = {
     'Authorization': 'Token ' + localStorage.getItem("token")
   };
@@ -25,6 +30,8 @@ export default function MeusEventos(){
 
   return (
     <>
+      <Navbar2/>
+      <BotaoVoltar onClick = {() => navigate(-1)}/>
       <ContainerEventos>
         <Titulo> Meus eventos </Titulo>
         <ListGroup>
@@ -45,7 +52,7 @@ export default function MeusEventos(){
                     </ContainerBotao>
 
                     <ContainerBotao>
-                      <Botao>
+                      <Botao onClick={() => navigate(`/evento/${evento.id}/editar`)}>
                         <ImagemBotao src={IconeEditar} alt="Botao de edição de evento"/>
                       </Botao>
                     </ContainerBotao>
@@ -58,6 +65,7 @@ export default function MeusEventos(){
     }
       </ListGroup>
       </ContainerEventos>
+      <Footer/>
     </>
   );
 }

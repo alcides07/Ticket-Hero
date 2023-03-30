@@ -33,6 +33,8 @@ export const FormRegister = styled.form`
         width: inherit;
     }
     .button-form{
+        border: none;
+        padding: 0.5em;
         margin-top: 1em;
         border-radius: 20px;
         width: 100%;

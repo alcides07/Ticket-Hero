@@ -8,6 +8,7 @@ import CriarEvento from './features/CriarEvento';
 import EditarEvento from './features/EditarEvento';
 import VisualizarEvento from './features/VisualizarEvento';
 import MeusIngressos from './features/MeusIngressos';
+import MeusEventos from './features/MeusEventos';
 
 const Rotas = () => {
     return (
@@ -21,6 +22,7 @@ const Rotas = () => {
                 <Route path="/evento/criar" element={<CriarEvento/>} />
                 <Route path="/evento/:id/editar" element={<EditarEvento/>} />
                 <Route path="/meusIngressos" element={<MeusIngressos/>} />
+                <Route path="/meusEventos" element={<MeusEventos/>} />
             </Routes>
         </BrowserRouter>
     );

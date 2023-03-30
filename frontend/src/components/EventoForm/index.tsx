@@ -7,7 +7,8 @@ import { ToastContainer } from "react-toastify";
 import { useParams, useNavigate } from "react-router-dom";
 import { getEventoId } from "./services/getEventoId";
 import { EventoFormProps } from "../../types/IEventoFormProps";
-import formataEmReal from "../../services/FormatacaoEmReal"
+import formataEmReal from "../../services/FormatacaoEmReal";
+import Form from 'react-bootstrap/Form';
 
 export default function EventoForm({ textoBotao, handle, readOnly, buy }: EventoFormProps) {
     let { id } = useParams();
@@ -22,6 +23,11 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
     const [ingressoTotal, setIngressoTotal] = useState(0);
     const [quantidadeDesejada, setQuantidadeDesejada] = useState(0);
     const [descricao, setDescricao] = useState("");
+    const [local, setLocal] = useState("");
+    const [publico, setPublico] = useState(false); //Referencia a privacidade
+    const [idadeMinima, setIdadeMinima] = useState(0);
+    const [pathImg, setPathImg] = useState("");
+
     const headers = {
         'Authorization': 'Token ' + localStorage.getItem("token")
     };
@@ -37,6 +43,9 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                 setIngressoTotal(data.ingressoTotal);
                 setDescricao(data.descricao);
                 setData(moment(data.data, 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DDTHH:mm:ss'));
+                setLocal(data.local);
+                setIdadeMinima(data.idadeMinima);
+                setPublico(data.publico);
             })
             .catch((error) => {
                 console.log("erro: ", error)
@@ -58,6 +67,10 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
             valorIngresso: valorIngresso,
             ingressoTotal: ingressoTotal,
             descricao: descricao,
+            local: local,
+            idadeMinima: idadeMinima,
+            publico: publico,
+            pathImg: ''
         };
         if (id && buy){
             handle(headers, quantidadeDesejada, localStorage.getItem("userId"), id); // Comprando ingresso
@@ -129,6 +142,18 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
             </ContainerItem>
 
             <ContainerItem>
+                <Labelitem> Local do evento </Labelitem>
+                <InputItem 
+                    type = "text"
+                    placeholder = "Ex: Rua Padre Joao Damasceno." 
+                    name = "local" required 
+                    onChange = {(e) => setLocal(e.target.value)}
+                    value = {local}
+                    disabled = {readOnly}
+                />
+            </ContainerItem>
+
+            <ContainerItem>
                 <Labelitem> Valor do ingresso (R$) </Labelitem>
                 <InputItem
                     type = "number"
@@ -168,6 +193,28 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                     </>
                 }
             </ContainerItem>
+            <ContainerItem>
+                <Labelitem> Idade mínima para a compra </Labelitem>
+                <InputItem 
+                    type = "number"
+                    placeholder = "Ex: 18"
+                    name = "idadeMinima" required 
+                    min = "0" 
+                    onChange = {(e) => setIdadeMinima(parseInt(e.target.value))}
+                    value = {idadeMinima ? idadeMinima : ""}
+                    disabled = {readOnly}
+                />
+            </ContainerItem>
+            <ContainerItem>
+                <Form.Check 
+                    type="switch"
+                    label="Evento público"
+                    onChange = {(e) => setPublico(e.target.checked)}    
+                    checked={publico}        
+                    disabled = {readOnly}        
+                />
+            </ContainerItem>
+            
 
             { buy && (
                 <> 
