@@ -114,7 +114,11 @@ class EventoViewSet(viewsets.ModelViewSet):
             vendidos = 0,
             ingressoDisponivel = ingressoTotal,
             organizador = request.user.organizador,
-            categoria = categoria
+            categoria = categoria,
+            local = request.data.get("local"),
+            publico = request.data.get("publico"),
+            idadeMinima = request.data.get("idadeMinima"),
+            pathImg = request.data.get("pathImg"),
         )
 
         serializer = EventoSerializer(evento)
@@ -155,6 +159,9 @@ class EventoViewSet(viewsets.ModelViewSet):
         evento.descricao = request.data.get("descricao")
         evento.data = request.data.get("data")
         evento.valorIngresso = valorIngresso
+        evento.local = request.data.get("local")
+        evento.publico = request.data.get("publico")
+        evento.idadeMinima = request.data.get("idadeMinima")
         evento.save()
         serializer = EventoSerializer(evento)
         return Response(serializer.data, status=status.HTTP_200_OK)
