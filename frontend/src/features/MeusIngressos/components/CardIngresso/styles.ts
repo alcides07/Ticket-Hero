@@ -8,7 +8,7 @@ export const ContainerIngressos = styled.section`
 `
 
 export const ContainerConteudo = styled.span`
-    display: inline-block;
+    display: block;
     padding-top: 0.6em;
 `
 

@@ -168,8 +168,11 @@ class EventoViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"], permission_classes = [permissions.IsAuthenticated, EhOrganizador])
     def meusEventos(self, request):
+        max = request.query_params.get('max', None)
+        if max is not None: max = int(max)
+
         queryset = Evento.objects.filter(
-            organizador=request.user.organizador).order_by("data")
+            organizador=request.user.organizador).order_by("data")[:max]
         serializer = EventoSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -217,59 +220,7 @@ class CompraViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"], permission_classes=[permissions.IsAuthenticated, EhCliente])
     def minhasCompras(self, request):
-        queryset = Compra.objects.filter(
-            cliente=request.user.cliente).order_by("data")
-        contexto = {}
-        i = 1
-
-        for ingresso in queryset:
-            serializer = CompraSerializer(ingresso)
-
-            contexto[f"ingresso {i}"] = {
-                "ingresso": serializer.data,
-                "evento": {
-                    "id": ingresso.evento.id,
-                    "nome": ingresso.evento.nome,
-                    "descricao": ingresso.evento.descricao,
-                    "data": ingresso.evento.data,
-                    "categoria": ingresso.evento.categoria.nome,
-                    "organizador": ingresso.evento.organizador.nomeCompleto
-                }
-            }
-            i += 1
-
-        '''
-        MODO 2 - TENTATIVA
-
-        queryset = Compra.objects.filter(cliente = request.user.cliente)
-        contexto = {}
- 
-        for ingresso in queryset:
-            serializer = CompraSerializer(ingresso)
-
-            contextoAtual = {
-                "Ingressos" : serializer.data,
-                "Evento" : {
-                    "nome" : ingresso.evento.nome,
-                    "data" : ingresso.evento.data,
-                    "categoria" : ingresso.evento.categoria.nome
-                }
-            }
-
-            # Comprei um outro ingresso para um mesmo evento
-            if (ingresso.evento.id in contexto):
-                ingressosExistentesDicionario = contexto[ingresso.evento.id]["Ingressos"]
-                ingressosExistentesLista = []
-
-                for i in ingressosExistentesDicionario:
-                    ingressosExistentesLista.append(i)
-                ingressosExistentesLista.append(serializer.data)
-
-                contexto[ingresso.evento.id]["Ingressos"] = ingressosExistentesLista
-
-            # Possuo um ingresso para um evento que nunca comprei antes
-            else:
-                contexto[ingresso.evento.id] = contextoAtual
-        '''
-
-        return Response(contexto, status=status.HTTP_200_OK)
+            queryset = Compra.objects.filter(
+                cliente=request.user.cliente).order_by("data")
+            serializer = CompraSerializer(queryset, many = True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
