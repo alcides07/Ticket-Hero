@@ -21,14 +21,14 @@ export default function Navbar2(){
                             <>
                                 <li> <Link to = "/evento/criar"> Criar evento </Link></li>
                                 <li> <Link to = "/meusEventos"> Meus eventos </Link></li>
-                                <li> <Link to = "/meusEventos"> Para inspirar </Link></li>
+                                <li> <Link to = "/eventosPopulares"> Para inspirar </Link></li>
                                 <li className = "border"></li>
                             </>
                         )}
 
                         {localStorage.getItem("typeUser") == "cliente" && (
                             <>
-                                <li> <Link to = "#">Em alta</Link></li>
+                                <li> <Link to = "/eventosPopulares">Em alta</Link></li>
                                 <li> <Link to = "#">Todos os eventos</Link></li>
                                 <li> <Link to = "/meusIngressos">Meus ingressos</Link></li>
                                 <li className = "border"></li>
