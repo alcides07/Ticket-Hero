@@ -144,7 +144,7 @@ You can also document commands to lint the code or run tests. These steps help t
         <br />
         <a href="https://github.com/alcides07"><b>Alcides Dantas</b></a>
     </td>
-    <td align="center"><a href="https://github.com/diogoodiego">
+    <td align="center"><a href="https://github.com/Fernanda154">
         <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/Fernanda154" width="100px;" alt="Autor 2"/>
         <br />
         <a href="https://github.com/Fernanda154"><b>Fernanda Gulherme</b></a>
