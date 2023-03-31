@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status, permissions
 from rest_framework.response import Response
+import datetime
 from django.utils import timezone
 from rest_framework.decorators import permission_classes
 from rest_framework.decorators import action
@@ -173,6 +174,14 @@ class EventoViewSet(viewsets.ModelViewSet):
 
         queryset = Evento.objects.filter(
             organizador=request.user.organizador).order_by("data")[:max]
+        serializer = EventoSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["get"], permission_classes = [permissions.IsAuthenticated, EhOrganizador])
+    def meusEventosHoje(self, request):
+        dataAtual = timezone.localtime().date() # Data atual da máquina
+        dataTempoAtual = timezone.make_aware(datetime.datetime.combine(dataAtual, datetime.time.min)) # Data atual em formato de fuso horário do projeto
+        queryset = Evento.objects.filter(organizador=request.user.organizador, data__date=dataTempoAtual.date())
         serializer = EventoSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
