@@ -15,6 +15,7 @@ export const Header = styled.header`
     align-items: center;
     margin-left: auto;
     padding-right: 0.8em;
+
     a{
         color: #000000;
         text-decoration: none;
@@ -59,8 +60,9 @@ export const Logo = styled.img`
 `;
 
 export const Perfil = styled.div`
-    margin-right: 2.5em;
-    padding-left: 1em;
+    margin-right: 1em;
+    padding-left: 2em;
+    display: flex;
 
     span{
         font-size: 1em;
@@ -71,3 +73,13 @@ export const Perfil = styled.div`
         color: #FF914D;
     }
 `;
+
+export const Sair = styled.span`
+    margin-right: 2em;
+    
+    &:hover{
+        color: #FF914D;
+        cursor: pointer;
+    }
+
+`
