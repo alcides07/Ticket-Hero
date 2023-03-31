@@ -70,17 +70,17 @@ Uma plataforma para agendamento de eventos dos mais variados tipos e venda de in
 
 | Código | Caso de uso | Prioridade alta | Prioridade média | Prioridade baixa | Implementado (front + back) |
 | --- | --- | --- | --- | --- | --- |
-| C01 | Registrar evento | X |  |  |  |
-| C02 | Listar evento | X |  |  |  |
-| C03 | Comprar ingresso | X |  |  |  |
-| C04 | Listar ingressos | X |  |  |  |
+| C01 | Registrar evento | X |  |  | X |
+| C02 | Listar evento | X |  |  | X |
+| C03 | Comprar ingresso | X |  |  | X |
+| C04 | Listar ingressos | X |  |  | X |
 | C05 | Pesquisar evento |  | X |  |  |
-| C06 | Editar informação de evento |  | X |  |  |
+| C06 | Editar informação de evento |  | X |  | X |
 | C07 | Filtrar evento |  | X |  |  |
 | C08 | Transferir ingresso |  | X |  |  |
-| C09 | Cadastrar usuário |  |  | X |  |
-| C10 | Logar usuário |  |  | X |  |
-| C11 | Remover evento |  |  | X |  |
+| C09 | Cadastrar usuário |  |  | X | X |
+| C10 | Logar usuário |  |  | X | X |
+| C11 | Remover evento |  |  | X | X |
 | C12 | Notificar edição de informação de evento |  |  | X |  |
 | C13 | Excluir conta na plataforma |  |  | X |  |
 | C14 | Cancelar compra de ingresso |  |  | X |  |
