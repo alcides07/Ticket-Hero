@@ -6,24 +6,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { ToastContainer } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
-
-interface IUser {
-    usuario: string,
-    tipoUsuario: string,
-    senha: string,
-    confirmacaoSenha: string,
-    email: string,
-    nomeCompleto: string,
-    cpf: string,
-    rg: string,
-    nascimento: Date,
-    instagram: string
-};
+import { IUserRegistro } from "../../../../types/IUserRegistro";
 
 export default function RegisterForm() {
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        const body: IUser = {
+        const body: IUserRegistro = {
             email: event.target[0].value,
             usuario: event.target[1].value,
             nomeCompleto: event.target[2].value,

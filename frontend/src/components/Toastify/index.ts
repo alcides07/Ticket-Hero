@@ -1,15 +1,11 @@
-import { toast, TypeOptions } from 'react-toastify';
+import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-interface IToast {
-    message: string;
-    variant: TypeOptions;
-};
+import { IToast } from '../../types/IToast';
 
 export const notify = (toastInfo: IToast) => {
-        toast(toastInfo.message, {
-            position: toast.POSITION.TOP_LEFT,
-            type: toastInfo.variant,
-            autoClose: 15000,
-        });
-
+    toast(toastInfo.message, {
+        position: toast.POSITION.TOP_LEFT,
+        type: toastInfo.variant,
+        autoClose: 15000,
+    });
 }
