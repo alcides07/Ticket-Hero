@@ -1,21 +1,12 @@
 import api from "../../../services/api";
 import {notify} from "../../../components/Toastify";
-import { TypeOptions } from "react-toastify";
+import { IToast } from "../../../types/IToast";
+import { IUserLogin } from "../../../types/IUserLogin";
 
-interface IUser {
-    usuario: string;
-    senha: string;
-};
-interface IToast {
-    message: string;
-    variant: TypeOptions;
-};
-
-export const Login = (body:IUser) => {
+export const Login = (body:IUserLogin) => {
     return api
     .post("/auth/login/", body)
     .then((response:any) => {
-
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("username", response.data.usuario.username);
         localStorage.setItem("typeUser", response.data.usuario.tipoUsuario);

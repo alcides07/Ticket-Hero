@@ -3,15 +3,12 @@ import Logo from "../../../../assets/logo.png";
 import {Login} from "../../services/auth";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
-interface IUser {
-    usuario: string;
-    senha: string;
-};
+import { IUserLogin } from "../../../../types/IUserLogin";
 
 export default function LoginForm() {
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        const body: IUser = {
+        const body: IUserLogin = {
             usuario: event.target[0].value,
             senha: event.target[1].value,
         };    

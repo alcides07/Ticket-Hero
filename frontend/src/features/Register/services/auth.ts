@@ -1,25 +1,9 @@
 import api from "../../../services/api";
-import {notify} from "../../../components/Toastify";
-import { TypeOptions } from "react-toastify";
-interface IToast {
-    message: string;
-    variant: TypeOptions;
-};
+import { notify } from "../../../components/Toastify";
+import { IToast } from "../../../types/IToast";
+import { IUserRegistro } from "../../../types/IUserRegistro";
 
-interface IUser {
-    usuario: string,
-    tipoUsuario: string,
-    senha: string,
-    confirmacaoSenha: string,
-    email: string,
-    nomeCompleto: string,
-    cpf: string,
-    rg: string,
-    nascimento: Date,
-    instagram: string
-};
-
-export const Register = (body:IUser) => {
+export const Register = (body:IUserRegistro) => {
     return api
     .post("/auth/cadastro/", body)
     .then(() => {
