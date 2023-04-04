@@ -1,13 +1,10 @@
-from django.http import request
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status, permissions
 from rest_framework.response import Response
-from django_filters import rest_framework as filters
-from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 import datetime
 from django.utils import timezone
-from rest_framework.decorators import permission_classes
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
 from django.db.models import F
@@ -88,17 +85,17 @@ class OrganizadorViewSet(viewsets.ModelViewSet):
     serializer_class = OrganizadorSerializer
 
 
-class EventoFilter(filters.FilterSet):
-    idadeMinima = filters.NumberFilter(field_name="idadeMinima", lookup_expr='gte')
-    idadeMaxima = filters.NumberFilter(field_name="idadeMinima", lookup_expr='lte')
-    nome = filters.CharFilter(field_name="nome", lookup_expr='icontains')
-    descricao = filters.CharFilter(field_name="descricao", lookup_expr='icontains')
+# class EventoFilter(filters.FilterSet):
+#     idadeMinima = filters.NumberFilter(field_name="idadeMinima", lookup_expr='gte')
+#     idadeMaxima = filters.NumberFilter(field_name="idadeMinima", lookup_expr='lte')
+#     nome = filters.CharFilter(field_name="nome", lookup_expr='icontains')
+#     descricao = filters.CharFilter(field_name="descricao", lookup_expr='icontains')
 
 class EventoViewSet(viewsets.ModelViewSet):
     queryset = Evento.objects.all()
     serializer_class = EventoSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
-    filterset_class = EventoFilter
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['nome', 'descricao']
 
     def create(self, request):
         self.permission_classes = [permissions.IsAuthenticated, EhOrganizador]
