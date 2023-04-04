@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'ingressos',
     'corsheaders',
     'drf_yasg',
+    'django_filters',
     'rest_framework.authtoken'
 ]
 
@@ -152,4 +153,5 @@ REST_FRAMEWORK = {
     ),
     'DATETIME_FORMAT': '%d/%m/%Y %H:%M:%S',
     'DATE_FORMAT': '%d/%m/%Y',
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
