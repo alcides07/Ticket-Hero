@@ -1,5 +1,5 @@
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Titulo, ContainerEventos, ContainerGeral, ContainerBotao, ContainerItem, ContainerTexto, Botao, ImagemBotao, ListGroupItem } from "./styles"
+import { Titulo, ContainerEventos, ContainerGeral, ContainerBotao, ContainerItem, ContainerTexto, Botao, ImagemBotao, ListGroupItem, LinkEvento } from "./styles"
 import { IEvento } from '../../types/IEvento';
 import { useEffect, useState } from 'react';
 import { getMeusEventos } from './services/meusEventos';
@@ -9,7 +9,7 @@ import IconeDeletar from "./assets/deletar.svg";
 import Navbar2 from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { BotaoVoltar } from '../../components/EventoForm/styles';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function MeusEventos(){
   const [eventos, setEventos] = useState<IEvento[]>([]);
@@ -39,21 +39,22 @@ export default function MeusEventos(){
           <ContainerGeral key = {evento.id}>
             <ListGroupItem>
               <ContainerItem>
-                <ContainerTexto> {evento.nome} </ContainerTexto>
+                <ContainerTexto> <LinkEvento to = {`/evento/${evento.id}` }> {evento.nome} </LinkEvento>  </ContainerTexto>
                     <ContainerBotao>
-                      <Botao onClick={() =>
-                        deletarEvento(evento.id, headers, (idDeletado) =>  
-                        {
-                          setEventos(estadoAnterior => estadoAnterior.filter(evento => evento.id !== idDeletado))
-                        }
-                      )}> 
-                      <ImagemBotao src={IconeDeletar} alt="Botao de exclusão de evento" />
+                      <Botao> 
+                        <ImagemBotao onClick = {() =>
+                          deletarEvento(evento.id, headers, (idDeletado) =>  
+                          {
+                            setEventos(estadoAnterior => estadoAnterior.filter(evento => evento.id !== idDeletado))
+                          }
+                        )} 
+                        src = { IconeDeletar } alt = "Botao de exclusão de evento"/>
                       </Botao>
                     </ContainerBotao>
 
                     <ContainerBotao>
-                      <Botao onClick={() => navigate(`/evento/${evento.id}/editar`)}>
-                        <ImagemBotao src={IconeEditar} alt="Botao de edição de evento"/>
+                      <Botao>
+                        <ImagemBotao onClick={() => navigate(`/evento/${evento.id}/editar`)} src={IconeEditar} alt="Botao de edição de evento"/>
                       </Botao>
                     </ContainerBotao>
               </ContainerItem>
