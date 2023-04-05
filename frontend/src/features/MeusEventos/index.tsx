@@ -6,10 +6,11 @@ import { getMeusEventos } from './services/meusEventos';
 import { deletarEvento } from '../DeletarEvento/services/deletarEvento';
 import IconeEditar from "./assets/editar.svg";
 import IconeDeletar from "./assets/deletar.svg";
-import Navbar2 from '../../components/Navbar';
+import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { BotaoVoltar } from '../../components/EventoForm/styles';
 import { Link, useNavigate } from 'react-router-dom';
+import { ContainerTituloPagina, TituloPagina } from '../EventosPopulares/styled';
 
 export default function MeusEventos(){
   const [eventos, setEventos] = useState<IEvento[]>([]);
@@ -30,10 +31,12 @@ export default function MeusEventos(){
 
   return (
     <>
-      <Navbar2/>
+      <Navbar/>
       <BotaoVoltar onClick = {() => navigate(-1)}/>
+        <ContainerTituloPagina> 
+            <TituloPagina> Meus Eventos </TituloPagina>
+        </ContainerTituloPagina>
       <ContainerEventos>
-        <Titulo> Meus eventos </Titulo>
         <ListGroup>
         {eventos && eventos.length > 0 ? eventos.map((evento: IEvento) => (
           <ContainerGeral key = {evento.id}>
