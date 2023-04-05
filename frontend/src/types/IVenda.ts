@@ -1,7 +1,7 @@
 export interface IVenda{
     id: string;
-    nome: string;
+    nomeCliente: string;
     valorTotal: number;
     qtdIngresso: number;
-    data:string;
+    data: string;
 }
