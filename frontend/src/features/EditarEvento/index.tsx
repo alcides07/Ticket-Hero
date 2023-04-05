@@ -46,7 +46,7 @@ export default function EditarEvento(){
                     <tbody>
                         { vendas.map((venda:IVenda) => (
                             <tr key = {venda.id}>
-                                <td className="align-middle">{venda.nome}</td>
+                                <td className="align-middle">{venda.nomeCliente}</td>
                                 <td className="align-middle">{venda.qtdIngresso}</td>
                                 <td className="align-middle">{formataEmReal(venda.valorTotal)}</td>
                                 <td className="align-middle">{venda.data}</td>
