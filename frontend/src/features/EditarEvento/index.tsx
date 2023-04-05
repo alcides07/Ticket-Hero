@@ -1,5 +1,5 @@
 import Footer from "../../components/Footer";
-import Navbar2 from "../../components/Navbar";
+import Navbar from "../../components/Navbar";
 import { editarEvento } from "./services/editarEvento";
 import EventoForm from "../../components/EventoForm";
 import Table from 'react-bootstrap/Table';
@@ -30,10 +30,10 @@ export default function EditarEvento(){
 
     return (
         <>
-            <Navbar2/>
+            <Navbar/>
             <EventoForm readOnly = {false} textoBotao = "Salvar evento" handle={editarEvento} />
             <ContainerTabela>      
-                <TituloTabela> Ingresso Vendidos </TituloTabela>
+                <TituloTabela> Ingressos Vendidos </TituloTabela>
                 <Table striped bordered hover>
                     <thead>
                         <tr>

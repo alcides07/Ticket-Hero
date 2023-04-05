@@ -6,9 +6,13 @@ import { ContainerConteudo, ContainerIngressos, LabelTitulos, LabelValores } fro
 import { meusIngressos } from '../../services/meusIngressos';
 import { useEffect, useState } from "react";
 import { ICompra } from '../../../../types/ICompra';
+import { ContainerTituloPagina, TituloPagina } from '../../../EventosPopulares/styled';
+import { BotaoVoltar } from '../../../../components/EventoForm/styles';
+import { useNavigate } from 'react-router-dom';
 
 export default function CardIngresso(){
     let i = 1;
+    const navigate = useNavigate();
     const [compras, setCompras] = useState<ICompra[]>([]);
     const headers = {
         'Authorization': 'Token ' + localStorage.getItem("token")
@@ -25,6 +29,11 @@ export default function CardIngresso(){
     }, []);
 
     return (
+        <>
+        <BotaoVoltar onClick = {() => navigate(-1)}/>
+        <ContainerTituloPagina> 
+            <TituloPagina> Meus Ingressos </TituloPagina>
+        </ContainerTituloPagina>
         <ContainerIngressos>
             <Row xs = {1} md = {3} className = "g-4">
             { compras && compras.length > 0 ? compras.map((compra: ICompra) => (
@@ -56,10 +65,11 @@ export default function CardIngresso(){
               </CardGroup>
             ))
             :
-                <p> Você não possui compras realizadas! </p>
-            }
+            <p> Você não possui compras realizadas! </p>
+        }
 
         </Row>
-    </ContainerIngressos>
+        </ContainerIngressos>
+        </>
     )
 }
