@@ -1,4 +1,4 @@
-import Navbar2 from "../../components/Navbar";
+import Navbar from "../../components/Navbar";
 import { ContainerHome } from "./styles";
 import Button from 'react-bootstrap/Button';
 import AliceCarousel from 'react-alice-carousel';
@@ -43,7 +43,6 @@ export default function Home() {
           }, []);
     }
 
-
     const responsive = {
         0: { items: 1 },
         568: { items: 3 },
@@ -62,11 +61,9 @@ export default function Home() {
         carroselCards.push(item);
     });
     
-
-   
     return (
         <>
-            <Navbar2 />
+            <Navbar />
             <ContainerHome>
                 <Button variant="outline-dark">Meus eventos para hoje</Button>
                 <AliceCarousel mouseTracking items={carroselCards} responsive={responsive} />

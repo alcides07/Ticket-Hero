@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ContainerIngressos = styled.section`
     width: 70vw;
     margin: auto;
-    padding-top: 3em;
+    padding-top: 5em;
     padding-bottom: 3em;
 `
 

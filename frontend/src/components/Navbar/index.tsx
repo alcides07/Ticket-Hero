@@ -4,7 +4,7 @@ import logo from "../../assets/horizontal-logo.svg"
 import { BsFillPersonFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
-export default function Navbar2(){
+export default function Navbar(){
     const navigate = useNavigate();
     function Logout() {
         localStorage.clear();

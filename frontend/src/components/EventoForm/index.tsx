@@ -1,4 +1,4 @@
-import { ContainerForm, ContainerItem, DescricaoItem, InputItem, InputCompra, Labelitem, CardCompra, BotaoVoltar, ValorVariavel, ContainerCompra, TituloCompra, TituloIngressosVendidos, NumeroIngressosVendidos, ContainerIngressosVendidos } from "./styles";
+import { ContainerForm, ContainerItem, DescricaoItem, InputItem, InputCompra, Labelitem, CardCompra, BotaoVoltar, ValorVariavel, ContainerCompra, TituloCompra, TituloForm, NumeroIngressosVendidos, ContainerTituloForm } from "./styles";
 import BotaoForm from "../BotaoSubmitForm";
 import { useEffect, useState } from "react";
 import { IEvento } from "../../types/IEvento";
@@ -87,12 +87,17 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
         <>
         <BotaoVoltar onClick = {() => navigate(-1)}/>
         <ContainerForm onSubmit={handleSubmit}>
-            { id && (
-                <ContainerIngressosVendidos>
-                    <TituloIngressosVendidos> Ingressos vendidos </TituloIngressosVendidos>
+            { id ? (
+                <ContainerTituloForm>
+                    <TituloForm> Ingressos vendidos </TituloForm>
                     <NumeroIngressosVendidos> { evento? evento.vendidos : 0 } de { evento? evento.ingressoTotal : 0 } </NumeroIngressosVendidos>
-                </ContainerIngressosVendidos>
-            )}
+                </ContainerTituloForm>
+            )
+            :
+            <ContainerTituloForm>
+                <TituloForm> Criação de Evento </TituloForm>
+            </ContainerTituloForm>
+            }
             <ContainerItem>
                 <Labelitem> Nome do evento </Labelitem>
                 <InputItem

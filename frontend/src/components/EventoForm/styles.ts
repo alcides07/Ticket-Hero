@@ -101,20 +101,22 @@ export const BotaoVoltar = styled(BsFillArrowLeftCircleFill)`
     color: #FF914D;
     margin-top: 2em;
     margin-left: 7vw;
+    opacity: 0.8;
     width: 3em;
     height: 3em;
 
     &:hover{
+        opacity: 1;
         cursor: pointer;
     }
 `
 
-export const ContainerIngressosVendidos = styled.section`
+export const ContainerTituloForm = styled.section`
     text-align: center;
     align-items: center;
 `
 
-export const TituloIngressosVendidos = styled.span`
+export const TituloForm = styled.span`
     font-size: 1.1em;
     font-weight: 500;
     display: block;

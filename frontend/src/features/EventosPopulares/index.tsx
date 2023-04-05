@@ -1,13 +1,16 @@
-import {ContainerGeral} from './styled';
+import {ContainerGeral, ContainerTituloPagina, TituloPagina} from './styled';
 import { IEvento } from '../../types/IEvento';
 import { useEffect, useState } from 'react';
 import { getEventosPopulares } from './services/api';
 import { ICard } from '../../types/IComponents';
 import Footer from "../../components/Footer";
-import Navbar2 from "../../components/Navbar";
+import Navbar from "../../components/Navbar";
 import CustomCard from "../../components/Card";
+import { BotaoVoltar } from '../../components/EventoForm/styles';
+import { useNavigate } from 'react-router-dom';
 
 function EventosPopulares() {
+    const navigate = useNavigate();
     const [eventos, setEventos] = useState<IEvento[]>([]);
     const cards: JSX.Element[] = [];
     const headers = {
@@ -36,12 +39,15 @@ function EventosPopulares() {
     });
   return ( 
     <>
-        <Navbar2 />
+        <Navbar />
+        <BotaoVoltar onClick = {() => navigate(-1)}/>
+        <ContainerTituloPagina> 
+          <TituloPagina> Em Alta </TituloPagina>
+        </ContainerTituloPagina>
         <ContainerGeral>
             {cards.map(evento => (
                 evento
-            ))
-            }
+            ))}
         </ContainerGeral>
         <Footer/>
     </>
