@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { ListGroup } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
 
 export const ContainerEventos = styled.section`
     padding: 2em;
@@ -33,10 +35,14 @@ export const ContainerBotao = styled.div`
 export const Botao = styled.button`
     border: none;
     background-color: transparent;
+
+    &:hover{
+        cursor: initial;
+    }
 `
 
 export const ImagemBotao = styled.img`
-  opacity: 0.9;
+  opacity: 0.8;
 
   &:hover {
     opacity: 1;
@@ -46,4 +52,15 @@ export const ImagemBotao = styled.img`
 
 export const ListGroupItem = styled(ListGroup.Item)`
   border-radius: 0.8em !important;
+`;
+
+export const LinkEvento = styled(Link)`
+    text-decoration: none;
+    font-weight: initial;
+    color: initial;
+    text-decoration: none;
+
+    &:hover{
+        color: #ff914d;
+    }
 `;
