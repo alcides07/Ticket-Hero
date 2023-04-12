@@ -51,6 +51,7 @@ export default function Home() {
     
     eventos.map((evento)=>{
         let dados: ICard = {
+            id: evento.id,
             title: evento.nome,
             description: evento.descricao,
             data: evento.data,

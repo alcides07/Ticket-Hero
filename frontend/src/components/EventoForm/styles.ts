@@ -100,7 +100,7 @@ export const Labelitem = styled.span`
 export const BotaoVoltar = styled(BsFillArrowLeftCircleFill)`
     color: #FF914D;
     margin-top: 2em;
-    margin-left: 7vw;
+    margin-left: 4vw;
     opacity: 0.8;
     width: 3em;
     height: 3em;
