@@ -76,6 +76,10 @@ class Auth(viewsets.ViewSet):
 
         serializer = CadastroSerializer(usuario)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    @action(detail=False, methods=['get'], permission_classes=[permissions.IsAuthenticated])
+    def user(self, request):
+        return Response(LoginSerializer(request.user).data)
 
 
 class ClienteViewSet(viewsets.ModelViewSet):
