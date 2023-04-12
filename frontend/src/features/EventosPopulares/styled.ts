@@ -1,10 +1,12 @@
 import styled from "styled-components";
 export const ContainerGeral = styled.div`
-    padding: 1em;
+    padding: 4em;
     display: flex;
     justify-content: center;
+    min-height: 71vh;
     .card{
         margin: 1em;
+        height: 300px;
     }
 `;
 
@@ -16,7 +18,7 @@ export const TituloPagina = styled.span`
 `
 
 export const ContainerTituloPagina = styled.header`
-    width: 100vw;
+  
     margin-top: -3em;
     text-align: center;
 `
