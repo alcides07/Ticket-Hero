@@ -5,6 +5,7 @@ export const ContainerIngressos = styled.section`
     margin: auto;
     padding-top: 5em;
     padding-bottom: 3em;
+    min-height: 71vh;
 `
 
 export const ContainerConteudo = styled.span`
