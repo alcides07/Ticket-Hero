@@ -1,35 +1,40 @@
-import { useContext } from "react";
-import { UsuarioContext } from "../../context/UsuarioContext";
+import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { userData } from "./services/userData";
 
-interface IPropsProtecao {
-  tipoUsuario: string;
-  componente: React.FC;
-}
-
-export const withProtectedRoute = ({ tipoUsuario, componente: Component}: IPropsProtecao) => {
-    const { getUsuario, getToken } = useContext(UsuarioContext);
-  
-    const isAuthorized = () => {
-        if (tipoUsuario != 'any'){
-            return localStorage.getItem("token") != null && localStorage.getItem("token") !== "";
-        }
-        return true; // Telas de registro e login que não preciso validar token.
+export default function RouteProtection({ tipoUsuario, children }: { tipoUsuario: string, children: React.ReactNode | React.PropsWithChildren }) {
+    const navigate = useNavigate();
+    const headers = {
+        'Authorization': 'Token ' + localStorage.getItem("token")
     };
-    
-    const ProtectedRoute = () => {
-        const navigate = useNavigate();
-        if (!isAuthorized()) {
-            console.log("FULANO ESTÁ SEM TOKEN! VOLTAR PARA LOGIN!");
+
+    const [ success, setSuccess ] = useState(false);
+
+    useEffect(() => {
+        if (localStorage.getItem("token") == null) {
+            localStorage.clear();
             navigate("/");
+            return;
         }
-        if (tipoUsuario != 'any'){
-            if (localStorage.getItem("typeUser") !== tipoUsuario){
-                console.log("NÃO TENHO ACESSO A ESSA PÁGINA, DEVO FAZER ALGO!");
-            }
-        }
-        return <Component />;
-    };
 
-    return <ProtectedRoute />;
-};
+        userData(headers)
+        .then((response) => {
+            if (tipoUsuario != "any" && response.usuario.tipoUsuario != tipoUsuario){
+                navigate(-1);
+            }
+            else{
+                setSuccess(true);
+            }
+        })
+        .catch((erro) => {
+            console.log("erro: ", erro);
+        })
+    }, [])
+
+
+    return (
+        <>
+            { success && children }
+        </>
+    )
+}
