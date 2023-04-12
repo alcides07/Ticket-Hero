@@ -10,6 +10,7 @@ import VisualizarEvento from './features/VisualizarEvento';
 import MeusIngressos from './features/MeusIngressos';
 import MeusEventos from './features/MeusEventos';
 import EventosPopulares from './features/EventosPopulares';
+import EventosParaHoje from './features/EventosParaHoje';
 
 const Rotas = () => {
     return (
@@ -25,6 +26,7 @@ const Rotas = () => {
                 <Route path="/meusIngressos" element={<MeusIngressos/>} />
                 <Route path="/meusEventos" element={<MeusEventos/>} />
                 <Route path="/eventosPopulares" element={<EventosPopulares/>} />
+                <Route path="/eventosParaHoje" element={<EventosParaHoje/>} />
             </Routes>
         </BrowserRouter>
     );
