@@ -3,12 +3,23 @@ import {Link} from 'react-router-dom'
 import logo from "../../assets/horizontal-logo.svg"
 import { BsFillPersonFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { logout } from "./services/logout";
 
 export default function Navbar(){
     const navigate = useNavigate();
+    const headers = {
+        'Authorization': 'Token ' + localStorage.getItem("token")
+    };
+
     function Logout() {
-        localStorage.clear();
-        navigate("/");
+        logout(headers)
+        .then((response) => {
+            localStorage.clear();
+            navigate("/");
+        })
+        .catch((erro) => {
+            console.log("erro: ", erro);
+        })
     }
 
     return (
