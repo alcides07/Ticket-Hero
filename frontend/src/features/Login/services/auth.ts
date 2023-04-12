@@ -3,12 +3,10 @@ import {notify} from "../../../components/Toastify";
 import { IToast } from "../../../types/IToast";
 import { IUserLogin } from "../../../types/IUserLogin";
 
-export const Login = (body:IUserLogin, setUsuario:(value: string) => void, setToken:(value: string) => void) => {
+export const Login = (body:IUserLogin) => {
     return api
     .post("/auth/login/", body)
     .then((response:any) => {
-        setUsuario(response.data.usuario.tipoUsuario);
-        setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("username", response.data.usuario.username);
         localStorage.setItem("typeUser", response.data.usuario.tipoUsuario);

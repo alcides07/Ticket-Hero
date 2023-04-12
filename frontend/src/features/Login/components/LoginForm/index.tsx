@@ -4,12 +4,9 @@ import {Login} from "../../services/auth";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import { IUserLogin } from "../../../../types/IUserLogin";
-import { UsuarioContext } from "../../../../context/UsuarioContext";
-import { useContext } from "react";
 
 export default function LoginForm() {
     const navigate = useNavigate();
-    const { setUsuario, setToken } = useContext(UsuarioContext);
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
@@ -18,7 +15,7 @@ export default function LoginForm() {
             senha: event.target[1].value,
         };    
        await
-       Login(body, setUsuario, setToken)
+       Login(body)
        .then(() => {
            navigate("/home");
        });
