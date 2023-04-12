@@ -33,6 +33,11 @@ class Auth(viewsets.ViewSet):
         serializer = LoginSerializer(usuario).data
         serializer['token'] = token.key
         return Response(serializer, status=status.HTTP_200_OK)
+    
+    @action(detail=False, methods=["delete"], basename="auth", permission_classes=[permissions.IsAuthenticated])
+    def logout(self, request):
+        request.user.auth_token.delete()
+        return Response(status=status.HTTP_200_OK)
 
     @action(detail=False, methods=["post"], basename="auth", permission_classes=[AllowAny])
     def cadastro(self, request):
