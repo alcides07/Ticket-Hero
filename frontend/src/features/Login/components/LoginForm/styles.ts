@@ -39,6 +39,10 @@ export const FormLogin = styled.form`
     .orange{
         background-color: #ff914d;
     }
+
+    .orange:hover{
+        background-color: #FA9C62
+    }
 `;
 export const Container = styled.div`
     display: flex;
