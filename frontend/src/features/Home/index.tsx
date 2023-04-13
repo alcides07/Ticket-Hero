@@ -7,11 +7,12 @@ import CustomCard from "../../components/Card";
 import { IEvento } from '../../types/IEvento';
 import { useEffect, useState } from 'react';
 import {getEventsOrganizador, getEventsCliente} from "./services/api";
+import { useNavigate } from 'react-router-dom';
 
 import { ICard } from '../../types/IComponents';
 import Footer from "../../components/Footer";
 export default function Home() {
-   
+    const navigate = useNavigate();
     const [eventos, setEventos] = useState<IEvento[]>([]);
     const carroselCards: JSX.Element[] = [];
     const headers = {
@@ -66,7 +67,7 @@ export default function Home() {
         <>
             <Navbar />
             <ContainerHome>
-                <Button variant="outline-dark">Meus eventos para hoje</Button>
+                <Button variant="outline-dark" onClick={() => navigate('/eventosParaHoje')}>Meus eventos para hoje</Button>
                 <AliceCarousel mouseTracking items={carroselCards} responsive={responsive} />
             </ContainerHome>
             <Footer/>
