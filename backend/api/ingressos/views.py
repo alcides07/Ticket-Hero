@@ -256,3 +256,17 @@ class CompraViewSet(viewsets.ModelViewSet):
                 cliente=request.user.cliente).order_by("data")
             serializer = CompraSerializer(queryset, many = True)
             return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    @action(detail=False, methods=["get"], permission_classes = [permissions.IsAuthenticated, EhCliente])
+    def minhasComprasDeEventosDeHoje(self, request):
+        dataAtual = timezone.localtime().date() # Data atual da máquina
+        dataTempoAtual = timezone.make_aware(datetime.datetime.combine(dataAtual, datetime.time.min)) # Data atual em formato de fuso horário do projeto
+        eventosHoje = Evento.objects.filter(data__date=dataTempoAtual.date())
+        minhasCompras = Compra.objects.filter(cliente=request.user.cliente)
+        comprasHoje = []
+
+        for compra in minhasCompras:
+            if (compra.evento in eventosHoje):
+                comprasHoje.append(compra)
+        serializer = CompraSerializer(comprasHoje, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
