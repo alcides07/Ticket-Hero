@@ -3,7 +3,7 @@ import Footer from "../../components/Footer";
 import {ContainerGeral, ContainerTituloPagina, TituloPagina} from './styles';
 import { IEvento } from '../../types/IEvento';
 import { useEffect, useState } from 'react';
-import {getEventosParaHoje} from './services/api';
+import {getEventosParaHoje, getIngressosParaHoje} from './services/api';
 import CustomCard from "../../components/Card";
 import { ICard } from '../../types/IComponents';
 import { BotaoVoltar } from '../../components/EventoForm/styles';
@@ -17,13 +17,25 @@ export default function EventosParaHoje() {
     const [eventos, setEventos] = useState<IEvento[]>([]);
     const cards: JSX.Element[] = [];
     useEffect(() => {
-        getEventosParaHoje(headers)
-        .then((data: IEvento[]) => {
-          setEventos(data);
-        })
-        .catch((error:any) => {
-          console.log('erro: ', error);
-      });
+        if(localStorage.getItem("typeUser") == "cliente"){
+            getIngressosParaHoje(headers)
+            .then((data: IEvento[]) => {
+              
+              setEventos(data);
+            })
+            .catch((error:any) => {
+              console.log('erro: ', error);
+            });
+        }else{
+            getEventosParaHoje(headers)
+            .then((data: IEvento[]) => {
+              setEventos(data);
+            })
+            .catch((error:any) => {
+              console.log('erro: ', error);
+            });
+        }
+        
     }, []);
     eventos.map((evento)=>{
         let dados: ICard = {
@@ -42,7 +54,7 @@ export default function EventosParaHoje() {
             <Navbar />
             <BotaoVoltar onClick = {() => navigate(-1)}/>
             <ContainerTituloPagina> 
-                <TituloPagina> Em Alta </TituloPagina>
+                <TituloPagina> O que tem para hoje </TituloPagina>
             </ContainerTituloPagina>
             <ContainerGeral>
                 {cards.map(evento => (
