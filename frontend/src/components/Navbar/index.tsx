@@ -52,9 +52,6 @@ export default function Navbar(){
                         <span>
                             {localStorage.getItem("username")}
                         </span>
-                        <ul>
-                            <li className = "border"></li>
-                        </ul>
                     </Perfil>
                     <Sair onClick = {Logout}> Sair </Sair>
                 </Header>
