@@ -54,32 +54,36 @@ export const Header = styled.header`
 `;
 
 export const Logo = styled.img`
-    margin-left: 3em;
+    margin-left: 3vw;
     width: 10em;
     height: 3em;
 `;
 
 export const Perfil = styled.div`
-    margin-right: 1em;
-    padding-left: 2em;
+    margin-right: 1vw;
+    padding-left: 1vw;
     display: flex;
 
     span{
         font-size: 1em;
-        padding-left: 0.3em;
+        padding-left: 0.3vw;
     }
-
+    
     .iconePerfil{
         color: #FF914D;
     }
 `;
 
 export const Sair = styled.span`
-    margin-right: 2em;
+    margin-right: 2vw;
+    padding: 0.1em;
+    background-color: #D4D3D5;
+    width: 3em;
+    text-align: center;
+    border-radius: 0.8em;
     
     &:hover{
-        color: #FF914D;
+        background-color: #FFAC79;
         cursor: pointer;
     }
-
 `

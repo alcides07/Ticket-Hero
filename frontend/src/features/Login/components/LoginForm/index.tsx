@@ -1,4 +1,4 @@
-import { FormLogin, Container } from "./styles";
+import { FormLogin, Container, InputLogin } from "./styles";
 import Logo from "../../../../assets/logo.png";
 import {Login} from "../../services/auth";
 import { useNavigate } from "react-router-dom";
@@ -29,11 +29,11 @@ export default function LoginForm() {
         <FormLogin onSubmit={handleSubmit}>
             <img src={Logo} alt="Logo do sistema" />
             <Container>
-                <input type="text" placeholder="Email" required/>
-                <input type="password" placeholder="Senha" required/>
+                <InputLogin type="text" placeholder="Email" required/>
+                <InputLogin type="password" placeholder="Senha" required/>
                 <a href="#">Esqueceu a senha?</a>
                 <button className="button-form orange">ENTRAR</button>
-                <button className="button-form blue" onClick={goToRegister}>REGISTRE-SE</button>
+                <button className="button-form grey" onClick={goToRegister}>REGISTRE-SE</button>
             </Container>
             <ToastContainer />
         </FormLogin>
