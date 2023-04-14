@@ -37,18 +37,21 @@ export default function EventosParaHoje() {
         }
         
     }, []);
-    eventos.map((evento)=>{
-        let dados: ICard = {
-            id: evento.id,
-            title: evento.nome,
-            description: evento.descricao,
-            data: evento.data,
-            valorIngresso: evento.valorIngresso,
-            pathImg: 'https://img.freepik.com/psd-gratuitas/modelo-de-banner-horizontal-de-neon-para-musica-eletronica-com-dj-feminina_23-2148979684.jpg?w=900&t=st=1679342315~exp=1679342915~hmac=664278eca29bfcbda4f23c171f99897a3a90ec386c3dd4a8f92fd34d6141b644'
-        }
-        let item = <CustomCard infos={dados} />;
-        cards.push(item);
-    });
+    if(eventos != undefined || eventos != null){
+        eventos.map((evento)=>{
+            let dados: ICard = {
+                id: evento.id,
+                title: evento.nome,
+                description: evento.descricao,
+                data: evento.data,
+                valorIngresso: evento.valorIngresso,
+                pathImg: 'https://img.freepik.com/psd-gratuitas/modelo-de-banner-horizontal-de-neon-para-musica-eletronica-com-dj-feminina_23-2148979684.jpg?w=900&t=st=1679342315~exp=1679342915~hmac=664278eca29bfcbda4f23c171f99897a3a90ec386c3dd4a8f92fd34d6141b644'
+            }
+            let item = <CustomCard infos={dados} />;
+            cards.push(item);
+        });
+    }
+    
     return (
         <>
             <Navbar />
@@ -57,9 +60,16 @@ export default function EventosParaHoje() {
                 <TituloPagina> O que tem para hoje </TituloPagina>
             </ContainerTituloPagina>
             <ContainerGeral>
-                {cards.map(evento => (
-                    evento
-                ))}
+                { eventos ?
+                    
+                    cards.map(evento => (
+                    
+                        evento 
+                    ))
+
+                :
+                    <p>Sem eventos para data atual.</p>
+                }
             </ContainerGeral>
             <Footer/>
         </>

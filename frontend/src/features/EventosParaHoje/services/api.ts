@@ -16,11 +16,13 @@ export const getIngressosParaHoje = (Headers: {}) => {
     return api
         .get("/compra/minhasComprasDeEventosDeHoje/", { headers: Headers })
         .then((response) => {
-            console.log("Novo teste", response.data[0].evento);
             const eventosDeHoje: Array<IEvento> = [];
-            response.data.map((ingresso: any)=>{
-                eventosDeHoje.push(ingresso.evento);
-            });
+            if(response.data != undefined || response.data != null){
+                response.data.map((ingresso: any)=>{
+                    eventosDeHoje.push(ingresso.evento);
+                });
+            }
+            
             return eventosDeHoje;
         })
         .catch((err) => {
