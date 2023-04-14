@@ -9,6 +9,14 @@ import { useNavigate } from "react-router-dom";
 import { IUserRegistro } from "../../../../types/IUserRegistro";
 
 export default function RegisterForm() {
+    const navigate = useNavigate();
+
+    const goToLogin = () => {
+        setTimeout(() => {
+            navigate("/");
+        }, 2000)
+    }
+    
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         const body: IUserRegistro = {
@@ -23,13 +31,12 @@ export default function RegisterForm() {
             senha: event.target[8].value,
             confirmacaoSenha: event.target[9].value,
         };
-        
-        Register(body);
+        Register(body)
+        .then(() => {
+            goToLogin();
+        })
     };
-    const navigate = useNavigate();
-    function goToLogin() {
-        navigate("/");
-    }
+    
     return (
         <FormRegister onSubmit={handleSubmit}>
             <img src={Logo} alt="Logo do sistema" />
