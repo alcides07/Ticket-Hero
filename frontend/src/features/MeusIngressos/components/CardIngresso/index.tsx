@@ -14,12 +14,9 @@ export default function CardIngresso(){
     let i = 1;
     const navigate = useNavigate();
     const [compras, setCompras] = useState<ICompra[]>([]);
-    const headers = {
-        'Authorization': 'Token ' + localStorage.getItem("token")
-      };
 
     useEffect(() => {
-        meusIngressos(headers)
+        meusIngressos()
         .then((data) => {
             setCompras(data);
         })

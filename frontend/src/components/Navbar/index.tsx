@@ -7,12 +7,8 @@ import { logout } from "./services/logout";
 
 export default function Navbar(){
     const navigate = useNavigate();
-    const headers = {
-        'Authorization': 'Token ' + localStorage.getItem("token")
-    };
-
     function Logout() {
-        logout(headers)
+        logout()
         .then((response) => {
             localStorage.clear();
             navigate("/");

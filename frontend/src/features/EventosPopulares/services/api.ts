@@ -1,8 +1,8 @@
-import api from "../../../services/api";
+import {api, headers} from "../../../services/api";
 
-export const getEventosPopulares = (Headers: {}) => {
+export const getEventosPopulares = () => {
     return api
-        .get("/evento/eventosPopulares", { headers: Headers })
+        .get("/evento/eventosPopulares", { headers: headers })
         .then((response) => {
             return response.data;
         })

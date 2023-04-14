@@ -1,7 +1,7 @@
-import api from "../../../services/api";
+import {api, headers} from "../../../services/api";
 
-export const getMeusEventos = (Headers: {}) => {
-    return api.get("/evento/meusEventos", { headers: Headers })
+export const getMeusEventos = () => {
+    return api.get("/evento/meusEventos", { headers: headers })
     .then((response) => {
         return response.data;
     })

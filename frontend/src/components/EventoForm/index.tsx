@@ -28,13 +28,9 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
     const [idadeMinima, setIdadeMinima] = useState(0);
     const [pathImg, setPathImg] = useState("");
 
-    const headers = {
-        'Authorization': 'Token ' + localStorage.getItem("token")
-    };
-
     useEffect(() => {
         if (id){
-            getEventoId(headers, id)
+            getEventoId(id)
             .then((data) => {
                 setEvento(data);
                 setNome(data.nome);
@@ -73,13 +69,13 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
             pathImg: ''
         };
         if (id && buy){
-            handle(headers, quantidadeDesejada, localStorage.getItem("userId"), id); // Comprando ingresso
+            handle(quantidadeDesejada, localStorage.getItem("userId"), id); // Comprando ingresso
         }
         else if (id && !buy){
-            handle(headers, id, dadosEvento); // Editando evento
+            handle(id, dadosEvento); // Editando evento
         }
         else{
-            handle(headers, dadosEvento); // Criando evento
+            handle(dadosEvento); // Criando evento
         }
     };
 
