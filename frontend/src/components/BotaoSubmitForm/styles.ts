@@ -6,15 +6,16 @@ export const BotaoForm = styled.button<IBotaoSubmitForm>`
     margin-right: ${props => props.mr};
     margin-bottom: ${props => props.mb};
     margin-top: ${props => props.mt};
-    width: 10em;
-    padding: 0.5em;
     display: flex;
-    border: 0.1em solid black;
-    border-radius: 0.5em;
-    background-color: #FFCEB0;
-    justify-content: center;
-
+    justify-content: center; 
+    border: none;
+    padding: 0.5em;
+    border-radius: 2vw;
+    width: 20%;
+    color: white;
+    background-color: #FA9C62;
+    
     &:hover{
-        background-color: #FCB88E;
+        background-color: #ff914d;
     }
 `

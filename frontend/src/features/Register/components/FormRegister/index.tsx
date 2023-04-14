@@ -1,4 +1,4 @@
-import { FormRegister, ContainerInputs } from "./styled";
+import { FormRegister, ContainerInputs, InputCadastro } from "./styled";
 import Logo from "../../../../assets/horizontal-logo.png";
 import { Register } from "../../services/auth";
 import Container from 'react-bootstrap/Container';
@@ -9,6 +9,14 @@ import { useNavigate } from "react-router-dom";
 import { IUserRegistro } from "../../../../types/IUserRegistro";
 
 export default function RegisterForm() {
+    const navigate = useNavigate();
+
+    const goToLogin = () => {
+        setTimeout(() => {
+            navigate("/");
+        }, 2000)
+    }
+    
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         const body: IUserRegistro = {
@@ -23,32 +31,31 @@ export default function RegisterForm() {
             senha: event.target[8].value,
             confirmacaoSenha: event.target[9].value,
         };
-        
-        Register(body);
+        Register(body)
+        .then(() => {
+            goToLogin();
+        })
     };
-    const navigate = useNavigate();
-    function goToLogin() {
-        navigate("/");
-    }
+    
     return (
         <FormRegister onSubmit={handleSubmit}>
             <img src={Logo} alt="Logo do sistema" />
             <ContainerInputs>
                 <Container>
                     <Row>
-                        <Col><input type="text" placeholder="Email" required/></Col>
-                        <Col><input type="text" placeholder="Usuário" required/></Col>
+                        <Col><InputCadastro type="text" placeholder="Email" required/></Col>
+                        <Col><InputCadastro type="text" placeholder="Nome de usuário" required/></Col>
                     </Row>
                     <Row>
-                        <Col><input type="text" placeholder="Nome completo" required/></Col>
-                        <Col><input type="date" placeholder="Nascimento" required/></Col>
+                        <Col><InputCadastro type="text" placeholder="Nome completo" required/></Col>
+                        <Col><InputCadastro type="date" placeholder="Nascimento" required/></Col>
                     </Row>
                     <Row>
-                        <Col><input type="text" placeholder="RG" /></Col>
-                        <Col><input type="text" placeholder="CPF" /></Col>
+                        <Col><InputCadastro type="text" placeholder="RG" /></Col>
+                        <Col><InputCadastro type="text" placeholder="CPF" /></Col>
                     </Row>
                     <Row>
-                        <Col><input type="text" placeholder="Instagram" /></Col>
+                        <Col><InputCadastro type="text" placeholder="Instagram" /></Col>
                         <Col>
                             <select name="Tipo" required>
                                 <option value="Selecione">Selecione</option>
@@ -58,13 +65,13 @@ export default function RegisterForm() {
                         </Col>
                     </Row>
                     <Row>
-                        <Col><input type="password" placeholder="Senha" required/></Col>
-                        <Col><input type="password" placeholder="Confirme a senha" required/></Col>
+                        <Col><InputCadastro type="password" placeholder="Senha" required/></Col>
+                        <Col><InputCadastro type="password" placeholder="Confirme a senha" required/></Col>
                     </Row>
                 </Container>                
 
-                <button className="button-form green">REGISTRE-SE</button>
-                <button className="button-form blue" onClick={goToLogin}>Já possui registro?</button>
+                <button className="button-form orange">REGISTRAR</button>
+                <button className="button-form grey" onClick={goToLogin}>Já possui registro?</button>
             </ContainerInputs>
             <ToastContainer />
         </FormRegister>
