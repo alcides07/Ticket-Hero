@@ -10,7 +10,6 @@ export interface ICustomCardProps {
 }
 
 function CustomCard(props: ICustomCardProps) {
-  console.log(props);
   const navigate = useNavigate();
   return (
     <Card style={{ width: '25rem' }} onClick={() => navigate(`/evento/${props.infos.id}/compra`)}>
