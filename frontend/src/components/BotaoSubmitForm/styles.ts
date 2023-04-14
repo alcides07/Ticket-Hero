@@ -9,9 +9,8 @@ export const BotaoForm = styled.button<IBotaoSubmitForm>`
     display: flex;
     justify-content: center; 
     border: none;
-    margin-top: 1em;
     padding: 0.5em;
-    border-radius: 20px;
+    border-radius: 2vw;
     width: 20%;
     color: white;
     background-color: #FA9C62;

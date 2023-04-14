@@ -99,7 +99,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
             </ContainerTituloForm>
             }
             <ContainerItem>
-                <Labelitem> Nome do evento </Labelitem>
+                <Labelitem className = {readOnly ? "requiredGrey" : "requiredRed"}> Nome do evento </Labelitem>
                 <InputItem
                     type = "text"
                     placeholder = "Ex: Aniversário de 15 anos de Fernanda"
@@ -111,7 +111,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
             </ContainerItem>
             
             <ContainerItem>
-                <Labelitem> Data e horário do evento </Labelitem>
+                <Labelitem className = {readOnly ? "requiredGrey" : "requiredRed"}> Data e horário do evento </Labelitem>
                 <InputItem 
                     type = "datetime-local" required
                     onChange = {(e) => setData(e.target.value)}
@@ -123,7 +123,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
             </ContainerItem>
 
             <ContainerItem>
-                <Labelitem> Categoria do evento </Labelitem>
+                <Labelitem className = {readOnly ? "requiredGrey" : "requiredRed"}> Categoria do evento </Labelitem>
                 <InputItem 
                     type = "text"
                     placeholder = "Ex: Festa"
@@ -135,7 +135,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
             </ContainerItem>
 
             <ContainerItem>
-                <Labelitem> Descrição do evento </Labelitem>
+                <Labelitem className = {readOnly ? "requiredGrey" : "requiredRed"}> Descrição do evento </Labelitem>
                 <DescricaoItem
                     placeholder = "Ex: O evento é repleto de música, dança, comida e momentos memoráveis ​​para a debutante e seus convidados." 
                     onChange = {(e) => setDescricao(e.target.value)}
@@ -147,7 +147,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
             </ContainerItem>
 
             <ContainerItem>
-                <Labelitem> Local do evento </Labelitem>
+                <Labelitem className = {readOnly ? "requiredGrey" : "requiredRed"}> Local do evento </Labelitem>
                 <InputItem 
                     type = "text"
                     placeholder = "Ex: Rua Padre Joao Damasceno." 
@@ -159,7 +159,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
             </ContainerItem>
 
             <ContainerItem>
-                <Labelitem> Valor do ingresso (R$) </Labelitem>
+                <Labelitem className = {readOnly ? "requiredGrey" : "requiredRed"}> Valor do ingresso (R$) </Labelitem>
                 <InputItem
                     type = "number"
                     placeholder = "0.00"
@@ -175,7 +175,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
             <ContainerItem>
                 { buy ? 
                     <>
-                        <Labelitem> Ingressos disponíveis </Labelitem>
+                        <Labelitem className = {readOnly ? "requiredGrey" : "requiredRed"}> Ingressos disponíveis </Labelitem>
                         <InputItem
                             type = "number"
                             name = "ingressoDisponivel"
@@ -185,8 +185,8 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                     </>
                 :
                     <>
-                        <Labelitem> Total de ingressos </Labelitem>
-                        <InputItem
+                        <Labelitem className = {readOnly ? "requiredGrey" : "requiredRed"}> Total de ingressos </Labelitem>
+                        <InputItem 
                             type = "number"
                             placeholder = "0"
                             name = "ingressoTotal"
@@ -199,10 +199,10 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                 }
             </ContainerItem>
             <ContainerItem>
-                <Labelitem> Idade mínima para a compra </Labelitem>
-                <InputItem 
+                <Labelitem className = {readOnly ? "requiredGrey" : "requiredRed"}> Idade mínima necessária </Labelitem>
+                <InputItem className = "required"
                     type = "number"
-                    placeholder = "Ex: 18"
+                    placeholder = "3"
                     name = "idadeMinima" required 
                     min = "0" 
                     onChange = {(e) => setIdadeMinima(parseInt(e.target.value))}
@@ -220,11 +220,10 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                 />
             </ContainerItem>
             
-
             { buy && (
                 <> 
                 <ContainerItem>
-                    <Labelitem> Ingressos desejados </Labelitem>
+                    <Labelitem className = "requiredRed"> Ingressos desejados </Labelitem>
                     <InputCompra
                         type = "number"
                         required
@@ -249,7 +248,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                 </>
             )}
             { handle && (
-                <BotaoForm textoBotao = {textoBotao} mt="1.5em" ml = "auto" mr="20vw"/>
+                <BotaoForm textoBotao = {textoBotao} mt="2em" ml = "auto" mr="20vw"/>
             ) }
 
             <ToastContainer />

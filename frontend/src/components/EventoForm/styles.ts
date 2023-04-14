@@ -32,6 +32,16 @@ export const ContainerItem = styled.div`
     margin: auto;
     text-align: center;
     margin-top: 2em;
+
+    .requiredRed::after{
+        content: "*";
+        color: red;
+    }
+
+    .requiredGrey::after{
+        content: "*";
+        color: grey;
+    }
 `
 
 export const ContainerCompra = styled.div`
