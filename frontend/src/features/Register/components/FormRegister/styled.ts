@@ -39,13 +39,19 @@ export const FormRegister = styled.form`
         border-radius: 20px;
         width: 100%;
         color: white;
-        background-color: #ff914d;
-    }
-    .green{
-        background-color: #34b985;
     }
     .orange{
+        margin-top: 2em;
+        background-color: #FA9C62;
+    }
+    .orange:hover{
         background-color: #ff914d;
+    }
+    .grey{
+        background-color: #A9A9A9;
+    }
+    .grey:hover{
+        background-color: #959595
     }
 `;
 export const ContainerInputs = styled.div`
@@ -55,3 +61,10 @@ export const ContainerInputs = styled.div`
         flex-wrap: inherit;
     }
 `;
+
+export const InputCadastro = styled.input`
+    &:focus{
+        caret-color: #FF914D;
+        border-bottom: 0.1em solid #FF914D;
+    }
+`

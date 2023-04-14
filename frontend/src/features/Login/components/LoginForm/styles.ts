@@ -31,17 +31,22 @@ export const FormLogin = styled.form`
         border-radius: 20px;
         width: 100%;
         color: white;
-        background-color: #ff914d;
     }
-    .blue{
-        background-color: #646cff;
+    .grey{
+        background-color: #A9A9A9;
     }
+    
+    .grey:hover{
+        background-color: #959595
+    }
+
     .orange{
-        background-color: #ff914d;
+        margin-top: 2em;
+        background-color: #FA9C62;
     }
 
     .orange:hover{
-        background-color: #FA9C62
+        background-color: #ff914d;
     }
 `;
 export const Container = styled.div`
@@ -49,3 +54,10 @@ export const Container = styled.div`
     flex-direction: column;
     width: 35%;
 `;
+
+export const InputLogin = styled.input`
+    &:focus{
+        caret-color: #FF914D;
+        border-bottom: 0.1em solid #FF914D;
+    }
+`
