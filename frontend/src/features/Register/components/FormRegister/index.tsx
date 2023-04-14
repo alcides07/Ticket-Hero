@@ -11,10 +11,10 @@ import { IUserRegistro } from "../../../../types/IUserRegistro";
 export default function RegisterForm() {
     const navigate = useNavigate();
 
-    const goToLogin = () => {
+    const goToLogin = (time:number) => {
         setTimeout(() => {
             navigate("/");
-        }, 2000)
+        }, time)
     }
     
     const handleSubmit = async (event: any) => {
@@ -33,7 +33,7 @@ export default function RegisterForm() {
         };
         Register(body)
         .then(() => {
-            goToLogin();
+            goToLogin(2000);
         })
     };
     
@@ -71,7 +71,7 @@ export default function RegisterForm() {
                 </Container>                
 
                 <button className="button-form orange">REGISTRAR</button>
-                <button className="button-form grey" onClick={goToLogin}>Já possui registro?</button>
+                <button className="button-form grey" onClick={(e) => {goToLogin(0)}}>Já possui registro?</button>
             </ContainerInputs>
             <ToastContainer />
         </FormRegister>
