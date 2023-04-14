@@ -68,7 +68,7 @@ export const Perfil = styled.div`
         font-size: 1em;
         padding-left: 0.3vw;
     }
-
+    
     .iconePerfil{
         color: #FF914D;
     }
@@ -80,11 +80,10 @@ export const Sair = styled.span`
     background-color: #D4D3D5;
     width: 3em;
     text-align: center;
-    border-radius: 0.5em;
+    border-radius: 0.8em;
     
     &:hover{
         background-color: #FFAC79;
         cursor: pointer;
     }
-
 `
