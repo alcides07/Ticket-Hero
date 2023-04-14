@@ -1,9 +1,9 @@
-import api from "../../../services/api";
+import {api, headers} from "../../../services/api";
 import { IEvento } from "../../../types/IEvento";
 
-export const getEventosParaHoje = (Headers: {}) => {
+export const getEventosParaHoje = () => {
     return api
-        .get("/evento/meusEventosHoje", { headers: Headers })
+        .get("/evento/meusEventosHoje", { headers: headers })
         .then((response) => {
             return response.data;
         })
@@ -12,9 +12,9 @@ export const getEventosParaHoje = (Headers: {}) => {
             return err;
         });
 };
-export const getIngressosParaHoje = (Headers: {}) => {
+export const getIngressosParaHoje = () => {
     return api
-        .get("/compra/minhasComprasDeEventosDeHoje/", { headers: Headers })
+        .get("/compra/minhasComprasDeEventosDeHoje/", { headers: headers })
         .then((response) => {
             const eventosDeHoje: Array<IEvento> = [];
             if(response.data != undefined || response.data != null){

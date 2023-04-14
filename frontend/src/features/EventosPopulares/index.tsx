@@ -13,11 +13,9 @@ function EventosPopulares() {
     const navigate = useNavigate();
     const [eventos, setEventos] = useState<IEvento[]>([]);
     const cards: JSX.Element[] = [];
-    const headers = {
-        'Authorization': 'Token ' + localStorage.getItem("token")
-    };
+
     useEffect(() => {
-        getEventosPopulares(headers)
+        getEventosPopulares()
         .then((data) => {
           setEventos(data);
         })

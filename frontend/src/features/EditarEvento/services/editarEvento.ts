@@ -1,9 +1,9 @@
-import api from "../../../services/api";
+import {api, headers} from "../../../services/api";
 import { IEvento } from './../../../types/IEvento';
 import {notify} from "../../../components/Toastify";
 import { IToast } from "../../../types/IToast";
 
-export const editarEvento = (Headers: {}, id:string, dadosEvento:IEvento) => {
+export const editarEvento = (id:string, dadosEvento:IEvento) => {
     return api.put(`/evento/${id}/`, 
     {
         id:id,
@@ -18,7 +18,7 @@ export const editarEvento = (Headers: {}, id:string, dadosEvento:IEvento) => {
         idadeMinima: dadosEvento["idadeMinima"],
         pathImg: dadosEvento["pathImg"]
     },
-    {headers: Headers}
+    {headers: headers}
     )
     .then((response) => {
         const toast: IToast = {

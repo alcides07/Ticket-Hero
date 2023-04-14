@@ -1,7 +1,7 @@
-import api from "../../../services/api";
+import {api, headers} from "../../../services/api";
 
-export const logout = (Headers: {}) => {
-    return api.delete(`/auth/logout/`, { headers: Headers })
+export const logout = () => {
+    return api.delete(`/auth/logout/`, { headers: headers })
     .then((response) => {
         return response.data;
     })

@@ -1,8 +1,8 @@
-import api from "../../../services/api";
+import {api, headers} from "../../../services/api";
 
-export const getEventsCliente = (Headers: {}) => {
+export const getEventsCliente = () => {
     return api
-        .get("/compra/minhasCompras", { headers: Headers })
+        .get("/compra/minhasCompras", { headers: headers })
         .then((response) => {
             return response.data;
         })
@@ -12,9 +12,9 @@ export const getEventsCliente = (Headers: {}) => {
         });
 };
 
-export const getEventsOrganizador = (Headers: {}) => {
+export const getEventsOrganizador = () => {
     
-    return api.get("/evento/meusEventos", { headers: Headers })
+    return api.get("/evento/meusEventos", { headers: headers })
     .then((response) => {
         return response.data;
     })

@@ -11,12 +11,9 @@ import { getMeusEventos } from "../../services/meusEventos";
 export default function ContainerEventos(){
     const navigate = useNavigate();
     const [eventos, setEventos] = useState<IEvento[]>([]);
-    const headers = {
-      'Authorization': 'Token ' + localStorage.getItem("token")
-    };
-    
+  
     useEffect(() => {
-      getMeusEventos(headers)
+      getMeusEventos()
       .then((data) => {
         setEventos(data);
       })
@@ -35,7 +32,7 @@ export default function ContainerEventos(){
                     <ContainerBotao>
                       <Botao> 
                         <ImagemBotao onClick = {() =>
-                          deletarEvento(evento.id, headers, (idDeletado) =>  
+                          deletarEvento(evento.id, (idDeletado) =>  
                           {
                             setEventos(estadoAnterior => estadoAnterior.filter(evento => evento.id !== idDeletado))
                           }

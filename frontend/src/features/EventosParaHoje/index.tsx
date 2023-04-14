@@ -11,14 +11,11 @@ import { useNavigate } from 'react-router-dom';
 
 export default function EventosParaHoje() {
     const navigate = useNavigate();
-    const headers = {
-        'Authorization': 'Token ' + localStorage.getItem("token")
-    };
     const [eventos, setEventos] = useState<IEvento[]>([]);
     const cards: JSX.Element[] = [];
     useEffect(() => {
         if(localStorage.getItem("typeUser") == "cliente"){
-            getIngressosParaHoje(headers)
+            getIngressosParaHoje()
             .then((data: IEvento[]) => {
               
               setEventos(data);
@@ -27,7 +24,7 @@ export default function EventosParaHoje() {
               console.log('erro: ', error);
             });
         }else{
-            getEventosParaHoje(headers)
+            getEventosParaHoje()
             .then((data: IEvento[]) => {
               setEventos(data);
             })

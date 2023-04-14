@@ -4,9 +4,6 @@ import { userData } from "./services/userData";
 
 export default function RouteProtection({ tipoUsuario, children }: { tipoUsuario: string, children: React.ReactNode | React.PropsWithChildren }) {
     const navigate = useNavigate();
-    const headers = {
-        'Authorization': 'Token ' + localStorage.getItem("token")
-    };
 
     const [ success, setSuccess ] = useState(false);
 
@@ -17,7 +14,7 @@ export default function RouteProtection({ tipoUsuario, children }: { tipoUsuario
             return;
         }
 
-        userData(headers)
+        userData()
         .then((response) => {
             if (tipoUsuario != "any" && response.usuario.tipoUsuario != tipoUsuario){
                 navigate(-1);
