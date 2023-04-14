@@ -8,6 +8,7 @@ import EditarEvento from './features/EditarEvento';
 import VisualizarEvento from './features/VisualizarEvento';
 import MeusIngressos from './features/MeusIngressos';
 import MeusEventos from './features/MeusEventos';
+import EventosParaHoje from './features/EventosParaHoje';
 import EventosPopulares from './features/EventosPopulares';
 import PageNotFound from './components/PageNotFound';
 import RouteProtection from './components/RouteProtection';
@@ -43,7 +44,14 @@ const Rotas = () => {
                         </RouteProtection>
                     } 
                 />
-                
+                <Route 
+                    path = "/eventosParaHoje" 
+                    element = {
+                        <RouteProtection tipoUsuario = 'any'>
+                            <EventosParaHoje/>
+                        </RouteProtection>
+                    } 
+                />
                 <Route
                     path = "/evento/:id/compra" 
                     element = {

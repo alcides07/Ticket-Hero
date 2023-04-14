@@ -4,7 +4,6 @@ import {notify} from "../../../components/Toastify";
 import { IToast } from "../../../types/IToast";
 
 export const criarEvento = (Headers:{}, dadosEvento:IEvento) => {
-    console.log('ccc', dadosEvento["idadeMinima"]);
     return api.post("/evento/", 
     {
         nome:dadosEvento["nome"], 
@@ -28,6 +27,6 @@ export const criarEvento = (Headers:{}, dadosEvento:IEvento) => {
         return response.data;
     })
     .catch((error) => {
-        console.log('sos', error);
+        console.log('erro', error);
     });
 };
