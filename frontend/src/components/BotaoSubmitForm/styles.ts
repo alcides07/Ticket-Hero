@@ -13,9 +13,10 @@ export const BotaoForm = styled.button<IBotaoSubmitForm>`
     padding: 0.5em;
     border-radius: 20px;
     width: 20%;
-    background-color: #ff914d;
+    color: white;
+    background-color: #FA9C62;
     
     &:hover{
-        background-color: #FA9C62;
+        background-color: #ff914d;
     }
 `
