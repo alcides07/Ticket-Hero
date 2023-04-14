@@ -10,6 +10,8 @@ import { IUserRegistro } from "../../../../types/IUserRegistro";
 
 export default function RegisterForm() {
     const navigate = useNavigate();
+    const today = new Date(); 
+    const dataMaxima = `${today.getFullYear()}-${('0' + (today.getMonth()+1)).slice(-2)}-${('0' + today.getDate()).slice(-2)}`;
 
     const goToLogin = (time:number) => {
         setTimeout(() => {
@@ -48,7 +50,7 @@ export default function RegisterForm() {
                     </Row>
                     <Row>
                         <Col><InputCadastro type="text" placeholder="Nome completo" required/></Col>
-                        <Col><InputCadastro type="date" placeholder="Nascimento" required/></Col>
+                        <Col><InputCadastro max = {dataMaxima} type="date" placeholder="Nascimento" required/></Col>
                     </Row>
                     <Row>
                         <Col><InputCadastro type="text" placeholder="RG" /></Col>
