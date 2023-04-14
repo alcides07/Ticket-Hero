@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 import { useParams, useNavigate } from "react-router-dom";
 import { getEventoId } from "./services/getEventoId";
 import { EventoFormProps } from "../../types/IEventoFormProps";
-import formataEmReal from "../../services/FormatacaoEmReal";
+import formataEmReal from "../../utils/FormatacaoEmReal";
 import Form from 'react-bootstrap/Form';
 
 export default function EventoForm({ textoBotao, handle, readOnly, buy }: EventoFormProps) {

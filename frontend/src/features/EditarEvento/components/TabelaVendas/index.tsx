@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { vendasEvento } from "../../services/vendasEvento"
 import { useParams } from "react-router-dom";
 import { IVenda } from "../../../../types/IVenda"
-import formataEmReal from "../../../../services/FormatacaoEmReal";
+import formataEmReal from "../../../../utils/FormatacaoEmReal";
 import { ContainerTabela, TituloTabela } from "./styles";
 import Table from 'react-bootstrap/Table';
 
