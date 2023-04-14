@@ -17,8 +17,11 @@ export default function LoginForm() {
        await
        Login(body)
        .then(() => {
-           navigate("/home");
-       });
+            navigate("/home");
+       })
+       .catch((erro) => {
+            console.log("erro;", erro);
+       })
     };
     
     function goToRegister() {
