@@ -101,10 +101,18 @@ class OrganizadorViewSet(viewsets.ModelViewSet):
 #     descricao = filters.CharFilter(field_name="descricao", lookup_expr='icontains')
 
 class EventoViewSet(viewsets.ModelViewSet):
-    queryset = Evento.objects.all()
+    queryset = Evento.objects.none()
     serializer_class = EventoSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['nome', 'descricao']
+
+    def get_queryset(self):
+        modo = self.request.query_params.get('modo')
+        if modo == 'meusEventos':
+            queryset = Evento.objects.filter(organizador=self.request.user.organizador)
+        else:
+            queryset = Evento.objects.filter(publico=True)
+        return queryset
 
     def create(self, request):
         self.permission_classes = [permissions.IsAuthenticated, EhOrganizador]
