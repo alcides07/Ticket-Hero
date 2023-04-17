@@ -110,9 +110,20 @@ class EventoViewSet(viewsets.ModelViewSet):
         modo = self.request.query_params.get('modo')
         if modo == 'meusEventos':
             queryset = Evento.objects.filter(organizador=self.request.user.organizador)
-        else:
+        elif(modo == 'publicos'):
             queryset = Evento.objects.filter(publico=True)
+        else:
+            queryset = Evento.objects.all()
         return queryset
+    
+    def retrieve(self, request, pk):
+        evento = Evento.objects.filter(pk=pk)
+        if (len(evento) > 0):
+            evento = evento.first()
+        if (evento.publico != True and (hasattr(request.user, "cliente") or evento.organizador != request.user.organizador)):
+            return Response({"Erro": "Sem permissão para visualizar este evento!"}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = EventoSerializer(evento)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def create(self, request):
         self.permission_classes = [permissions.IsAuthenticated, EhOrganizador]
@@ -218,7 +229,7 @@ class EventoViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"], permission_classes=[permissions.IsAuthenticated])
     def eventosPopulares(self, request):
-        queryset = Evento.objects.order_by(
+        queryset = Evento.objects.filter(publico=True).order_by(
             F("ingressoTotal") - F("ingressoDisponivel")).reverse()[:5]
         serializer = EventoSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
