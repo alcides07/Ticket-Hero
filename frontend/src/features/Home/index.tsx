@@ -1,7 +1,7 @@
 import Navbar from "../../components/Navbar";
-import { ContainerHome } from "./styles";
+import { ContainerCards, Container } from "./styles";
+import BarraPesquisa from '../../components/BarraPesquisa';
 import Button from 'react-bootstrap/Button';
-import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import CustomCard from "../../components/Card";
 import { IEvento } from '../../types/IEvento';
@@ -14,7 +14,8 @@ import Footer from "../../components/Footer";
 export default function Home() {
     const navigate = useNavigate();
     const [eventos, setEventos] = useState<IEvento[]>([]);
-    const carroselCards: JSX.Element[] = [];
+    const cards: JSX.Element[] = [];
+
 
     if(localStorage.getItem("typeUser") === "organizador"){
         useEffect(() => {
@@ -27,26 +28,17 @@ export default function Home() {
           });
           }, []);
     }else{
-        
         useEffect(() => {
             getEventsCliente()
             .then((data) => {
                 const arrCompras = Object.entries(data);
-                console.log(arrCompras);
-                
-                
+                console.log(arrCompras);                
             })
             .catch((error) => {
               console.log('erro: ', error);
           });
           }, []);
     }
-
-    const responsive = {
-        0: { items: 1 },
-        568: { items: 3 },
-        1024: { items: 4 },
-    };
     
     eventos.map((evento)=>{
         let dados: ICard = {
@@ -58,16 +50,22 @@ export default function Home() {
             pathImg: 'https://img.freepik.com/psd-gratuitas/modelo-de-banner-horizontal-de-neon-para-musica-eletronica-com-dj-feminina_23-2148979684.jpg?w=900&t=st=1679342315~exp=1679342915~hmac=664278eca29bfcbda4f23c171f99897a3a90ec386c3dd4a8f92fd34d6141b644'
         }
         let item = <CustomCard infos={dados} />;
-        carroselCards.push(item);
+        cards.push(item);
     });
     
     return (
         <>
             <Navbar />
-            <ContainerHome>
+            <Container>
                 <Button variant="outline-dark" onClick={() => navigate('/eventosParaHoje')}>Meus eventos para hoje</Button>
-                <AliceCarousel mouseTracking items={carroselCards} responsive={responsive} />
-            </ContainerHome>
+                <BarraPesquisa />
+                <ContainerCards>
+                    {cards.map(evento => (
+                        evento
+                    ))}
+                </ContainerCards>
+                
+            </Container>
             <Footer/>
         </>
     )
