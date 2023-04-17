@@ -17,7 +17,7 @@ export default function RouteProtection({ tipoUsuario, children }: { tipoUsuario
         userData()
         .then((response) => {
             if (tipoUsuario != "any" && response.usuario.tipoUsuario != tipoUsuario){
-                navigate(-1);
+                navigate("*");
             }
             else{
                 setSuccess(true);
