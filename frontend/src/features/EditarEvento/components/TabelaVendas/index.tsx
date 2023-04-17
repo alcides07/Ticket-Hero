@@ -7,15 +7,12 @@ import { ContainerTabela, TituloTabela } from "./styles";
 import Table from 'react-bootstrap/Table';
 
 export default function TabelaVendas(){
-    const headers = {
-        'Authorization': 'Token ' + localStorage.getItem("token")
-    };
     let { id } = useParams();
     const [vendas, setVendas] = useState([]);
 
     useEffect(() => {
         if (id){
-            vendasEvento(headers, id)
+            vendasEvento(id)
             .then((data) => {
                 setVendas(data);
             })
