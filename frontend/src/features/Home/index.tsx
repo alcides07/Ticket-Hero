@@ -15,12 +15,10 @@ export default function Home() {
     const navigate = useNavigate();
     const [eventos, setEventos] = useState<IEvento[]>([]);
     const carroselCards: JSX.Element[] = [];
-    const headers = {
-        'Authorization': 'Token ' + localStorage.getItem("token")
-    };
+
     if(localStorage.getItem("typeUser") === "organizador"){
         useEffect(() => {
-            getEventsOrganizador(headers)
+            getEventsOrganizador()
             .then((data) => {
               setEventos(data);
             })
@@ -31,7 +29,7 @@ export default function Home() {
     }else{
         
         useEffect(() => {
-            getEventsCliente(headers)
+            getEventsCliente()
             .then((data) => {
                 const arrCompras = Object.entries(data);
                 console.log(arrCompras);
