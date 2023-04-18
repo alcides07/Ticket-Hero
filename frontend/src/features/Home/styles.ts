@@ -5,6 +5,7 @@ export const ContainerCards = styled.div`
     display: flex;
     flex-wrap: wrap; 
     min-height: 78vh;
+    min-width: 100vw;
     .card{
         margin: 1em;
         height: 310px;
@@ -12,7 +13,16 @@ export const ContainerCards = styled.div`
     }
 `;
 export const Container = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    .input-group{
+        display: flex;
+        width: 30%;
+        margin-left: 1em;
+        margin-top: 2em;
+    }    
     .btn-outline-dark{
+        height: 40px;
         margin-top: 2em;
         margin-left: 4em;
     }

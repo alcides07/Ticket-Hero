@@ -1,21 +1,31 @@
 import Navbar from "../../components/Navbar";
 import { ContainerCards, Container } from "./styles";
-import BarraPesquisa from '../../components/BarraPesquisa';
+// import BarraPesquisa from '../../components/BarraPesquisa';
 import Button from 'react-bootstrap/Button';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import CustomCard from "../../components/Card";
 import { IEvento } from '../../types/IEvento';
 import { useEffect, useState } from 'react';
-import {getEventsOrganizador, getEventsCliente} from "./services/api";
+import {getEventsOrganizador, getEventsCliente, buscarEventoPublico} from "./services/api";
 import { useNavigate } from 'react-router-dom';
-
 import { ICard } from '../../types/IComponents';
 import Footer from "../../components/Footer";
+import {InputGroup, Form} from "react-bootstrap";
+
 export default function Home() {
     const navigate = useNavigate();
     const [eventos, setEventos] = useState<IEvento[]>([]);
     const cards: JSX.Element[] = [];
+    const tipoUsuario = localStorage.getItem("typeUser");
 
+    function busca(texto:string){
+        setTimeout(() => {
+            buscarEventoPublico(texto)
+            .then((response) => {
+                setEventos(response);
+            })
+        }, 1000)
+    }
 
     if(localStorage.getItem("typeUser") === "organizador"){
         useEffect(() => {
@@ -58,13 +68,29 @@ export default function Home() {
             <Navbar />
             <Container>
                 <Button variant="outline-dark" onClick={() => navigate('/eventosParaHoje')}>Meus eventos para hoje</Button>
-                <BarraPesquisa />
-                <ContainerCards>
-                    {cards.map(evento => (
-                        evento
-                    ))}
-                </ContainerCards>
+                {
+                    tipoUsuario != "cliente" ? 
+                        <InputGroup className="mb-3">
+                            <Form.Control
+                                aria-label="Recipient's username"
+                                aria-describedby="basic-addon2"
+                                onChange = {(e:any) => busca(e.target.value)}
+                            />
+                            <InputGroup.Text id="basic-addon2">Buscar</InputGroup.Text>
+                        </InputGroup>
+                    : <></>                        
+                }
                 
+                {/* <BarraPesquisa /> */}
+                <ContainerCards>
+                    { cards ?
+                        cards.map(evento => (
+                            evento
+                        ))
+                    :
+                    <p>Não há ingressos comprados.</p>
+                    }
+                </ContainerCards>
             </Container>
             <Footer/>
         </>
