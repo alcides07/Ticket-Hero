@@ -1,24 +1,50 @@
 import styled from "styled-components";
+import { Form, Field, ErrorMessage } from "formik";
 
 export const ContainerPerfil = styled.section`
-    padding-top: 2em;
+    padding: 2em 0;
     margin: auto;
     width: 80%;
     text-align: center;
 `
 
+export const FormPerfil = styled(Form)`
+    margin-left: auto;
+    width: 75%;
+`
+
 export const TituloPerfil = styled.h1`
     color: #FF914D;
+    padding: 0.5em 0;
+    text-align: left;
 `
 
 export const ContainerInput = styled.div`
-    padding-top: 5em;
+    display: flex;
+    flex-direction: column;
+    margin: 1.5em 0;
 `
 
 export const LabelItemPerfil = styled.label`
-
+    font-weight: 500;
+    margin-right: auto;
 `
 
-export const InputItemPerfil = styled.input`
+export const InputItemPerfil = styled(Field)`
+    margin-right: auto;
+    padding: 0.5em;
+    caret-color: #FF914D;
+    border: 0.1em solid #BCBCBC;
+    border-radius: 0.3em;
+    width: 50%;
+    outline: none;
 
+   &:focus{
+    border: 0.1em solid #FF914D;
+   }
+`
+
+export const MensagemValidacao = styled(ErrorMessage)`
+    color: red;
+    margin-right: auto;
 `
