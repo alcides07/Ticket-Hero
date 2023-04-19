@@ -35,7 +35,7 @@ export const ContainerItem = styled.div`
 
     .requiredRed::after{
         content: "*";
-        color: red;
+        color: #D10000;
     }
 
     .requiredGrey::after{
