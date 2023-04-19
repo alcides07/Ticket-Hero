@@ -28,6 +28,7 @@ class LoginSerializer(serializers.Serializer):
             tipoUsuario = "organizador"
             contexto["rg"] = request.organizador.rg
             contexto["cpf"] = request.organizador.cpf
+            contexto["instagram"] = request.organizador.instagram
 
         elif hasattr(request, "cliente"):
             tipoUsuario = "cliente"
