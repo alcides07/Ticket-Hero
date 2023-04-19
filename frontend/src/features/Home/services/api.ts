@@ -2,11 +2,10 @@ import {api, headers} from "../../../services/api";
 import { IEvento } from "../../../types/IEvento";
 
 export const getEventsCliente = () => {
+    const eventos: Array<IEvento> = [];
     return api
         .get("/compra/minhasCompras", { headers: headers })
         .then((response) => {
-            console.log('Objeto esquisito:', response.data);
-            let eventos:IEvento[];
             response.data.map((ingresso:any)=>{
                 eventos.push(ingresso.evento);
             })

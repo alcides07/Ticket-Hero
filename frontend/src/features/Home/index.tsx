@@ -41,8 +41,7 @@ export default function Home() {
         useEffect(() => {
             getEventsCliente()
             .then((data) => {
-                const arrCompras = Object.entries(data);
-                console.log(arrCompras);                
+                setEventos(data);               
             })
             .catch((error) => {
               console.log('erro: ', error);
