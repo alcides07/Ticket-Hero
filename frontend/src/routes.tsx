@@ -13,11 +13,8 @@ import EventosPopulares from './features/EventosPopulares';
 import PageNotFound from './components/PageNotFound';
 import RouteProtection from './components/RouteProtection';
 
-import Evento from './contexts/EventoContext';
-
 const Rotas = () => {
     return (
-        <Evento.Provider value={{user: "teste "}}>
         <BrowserRouter>
             <Routes>
                 <Route 
@@ -116,7 +113,6 @@ const Rotas = () => {
                 />
             </Routes>
         </BrowserRouter>
-        </Evento.Provider>
     );
   };
 
