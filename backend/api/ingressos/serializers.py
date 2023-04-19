@@ -22,25 +22,26 @@ class LoginSerializer(serializers.Serializer):
     usuario = serializers.SerializerMethodField()
 
     def get_usuario(self, request):
+        contexto = {}
+        tipoUsuario = ""
         if hasattr(request, "organizador"):
-            id = request.organizador.id
-            nomeCompleto = request.organizador.nomeCompleto
             tipoUsuario = "organizador"
-            nascimento = request.organizador.nascimento
+            contexto["rg"] = request.organizador.rg
+            contexto["cpf"] = request.organizador.cpf
+            contexto["instagram"] = request.organizador.instagram
 
         elif hasattr(request, "cliente"):
-            id = request.cliente.id
-            nomeCompleto = request.cliente.nomeCompleto
             tipoUsuario = "cliente"
-            nascimento = request.cliente.nascimento
 
-        return {
-            "id": id,
+        contexto.update({
+            "id": getattr(request, tipoUsuario).id,
             "username": request.username,
             "tipoUsuario": tipoUsuario,
-            "nomeCompleto": nomeCompleto,
-            "nascimento": nascimento
-        }
+            "nomeCompleto": getattr(request, tipoUsuario).nomeCompleto,
+            "nascimento": getattr(request, tipoUsuario).nascimento,
+            "email": request.email,   
+        })
+        return contexto
 
 class ClienteSerializer(serializers.ModelSerializer):
     class Meta:

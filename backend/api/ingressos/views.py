@@ -79,7 +79,37 @@ class Auth(viewsets.ViewSet):
     
     @action(detail=False, methods=['get'], permission_classes=[permissions.IsAuthenticated])
     def user(self, request):
-        return Response(LoginSerializer(request.user).data)
+        return Response(LoginSerializer(request.user).data, status=status.HTTP_200_OK)
+    
+    @action(detail=False, methods=['put'], permission_classes=[permissions.IsAuthenticated])
+    def userUpdate(self, request):
+        nomeCompleto = request.data.get("nomeCompleto")
+        username = request.data.get("username")
+        email = request.data.get("email")
+        nascimento = request.data.get("nascimento")
+        cpf = request.data.get("cpf")
+        rg = request.data.get("rg")
+        instagram = request.data.get("instagram")
+
+        user = request.user
+        user.email = email
+        user.username = username
+        if (hasattr(user, "organizador")):
+            user.organizador.cpf = cpf
+            user.organizador.rg = rg
+            user.organizador.nomeCompleto = nomeCompleto
+            user.organizador.nascimento = nascimento
+            user.organizador.instagram = instagram
+            user.organizador.save()
+
+        elif (hasattr(user, "cliente")):
+            user.cliente.nomeCompleto = nomeCompleto
+            user.cliente.nascimento = nascimento
+            user.cliente.save()
+
+        user.save()
+        serializer = LoginSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class ClienteViewSet(viewsets.ModelViewSet):

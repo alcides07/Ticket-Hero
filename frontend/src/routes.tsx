@@ -12,6 +12,7 @@ import EventosParaHoje from './features/EventosParaHoje';
 import EventosPopulares from './features/EventosPopulares';
 import PageNotFound from './components/PageNotFound';
 import RouteProtection from './components/RouteProtection';
+import PerfilUsuario from './features/PerfilUsuario';
 
 const Rotas = () => {
     return (
@@ -103,6 +104,15 @@ const Rotas = () => {
                     element = {
                         <RouteProtection tipoUsuario = 'organizador'>
                             <MeusEventos/>
+                        </RouteProtection> 
+                    }
+                />
+
+                <Route
+                    path = "/perfil" 
+                    element = {
+                        <RouteProtection tipoUsuario = 'any'>
+                            <PerfilUsuario/>
                         </RouteProtection> 
                     }
                 />
