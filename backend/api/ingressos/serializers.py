@@ -65,8 +65,11 @@ class EventoSerializer(serializers.ModelSerializer):
         return request.categoria.nome
     
     def get_nomeOrganizador(self, request):
-        return request.organizador.nomeCompleto
-
+        if(hasattr(request.organizador, "nomeCompleto")):
+            return request.organizador.nomeCompleto
+        else:
+            return ""
+        
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categoria
