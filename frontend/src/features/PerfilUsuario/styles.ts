@@ -23,6 +23,11 @@ export const ContainerInput = styled.div`
     display: flex;
     flex-direction: column;
     margin: 1.5em 0;
+
+    .required::after{
+        content: "*";
+        color: #D10000;
+    }
 `
 
 export const LabelItemPerfil = styled.label`
@@ -36,7 +41,7 @@ export const InputItemPerfil = styled(Field)`
     caret-color: #FF914D;
     border: 0.1em solid #BCBCBC;
     border-radius: 0.3em;
-    width: 50%;
+    width: 35vw;
     outline: none;
 
    &:focus{
@@ -45,6 +50,6 @@ export const InputItemPerfil = styled(Field)`
 `
 
 export const MensagemValidacao = styled(ErrorMessage)`
-    color: red;
+    color: #D10000;
     margin-right: auto;
 `
