@@ -44,7 +44,8 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                 setPublico(data.publico);
             })
             .catch((error) => {
-                console.log("erro: ", error)
+                console.log("erro: ", error);
+                navigate("*");
             });
     }}, [id]);
 
