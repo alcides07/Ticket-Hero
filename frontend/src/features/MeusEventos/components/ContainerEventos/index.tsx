@@ -6,7 +6,8 @@ import IconeDeletar from "../../assets/deletar.svg";
 import { deletarEvento } from "../../../DeletarEvento/services/deletarEvento";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import { getMeusEventos } from "../../services/meusEventos";
+import { getMeusEventos, buscarEventoPublico } from "../../services/meusEventos";
+import {InputGroup, Form} from "react-bootstrap";
 
 export default function ContainerEventos(){
     const navigate = useNavigate();
@@ -21,9 +22,26 @@ export default function ContainerEventos(){
         console.log('erro: ', error);
     });
     }, []);
+    function busca(texto:string){
+      setTimeout(() => {
+          buscarEventoPublico(texto)
+          .then((response) => {
+              setEventos(response);
+          })
+      }, 1000)
+    }
 
     return (
+      
         <ListGroup>
+          <InputGroup className="mb-3">
+            <Form.Control
+              aria-label="Recipient's username"
+              aria-describedby="basic-addon2"
+              onChange = {(e:any) => busca(e.target.value)}
+            />
+              <InputGroup.Text id="basic-addon2">Buscar</InputGroup.Text>
+            </InputGroup>
         {eventos && eventos.length > 0 ? eventos.map((evento: IEvento) => (
           <ContainerGeral key = {evento.id}>
             <ListGroupItem>

@@ -12,7 +12,7 @@ export interface ICustomCardProps {
 function CustomCard(props: ICustomCardProps) {
   const navigate = useNavigate();
   return (
-    <Card style={{ width: '25rem' }} onClick={() => navigate(`/evento/${props.infos.id}/compra`)}>
+    <Card onClick={() => navigate(`/evento/${props.infos.id}/compra`)}>
       <Card.Img variant="top" src={props.infos.pathImg} />
       <Card.Body>
         <Card.Title> {props.infos.title} </Card.Title>

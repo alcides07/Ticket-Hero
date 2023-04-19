@@ -1,13 +1,29 @@
 import styled from "styled-components";
 
-export const ContainerHome = styled.div`
-    padding: 4em;
+export const ContainerCards = styled.div`
+    padding: 3em;
+    display: flex;
+    flex-wrap: wrap; 
     min-height: 78vh;
+    min-width: 100vw;
     .card{
         margin: 1em;
-        
+        height: 310px;
+        width: 400px; 
     }
-    .btn{
-        margin: 1em;
+`;
+export const Container = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    .input-group{
+        display: flex;
+        width: 30%;
+        margin-left: 1em;
+        margin-top: 2em;
+    }    
+    .btn-outline-dark{
+        height: 40px;
+        margin-top: 2em;
+        margin-left: 4em;
     }
 `;
