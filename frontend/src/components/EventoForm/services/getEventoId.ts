@@ -1,4 +1,4 @@
-import {api, headers} from "../../../services/api";
+import {api, } from "../../../services/api";
 
 export const getEventoId = (id: string) => {
     return api.get(`/evento/${id}`, { headers: headers })

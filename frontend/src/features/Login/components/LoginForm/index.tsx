@@ -17,7 +17,8 @@ export default function LoginForm() {
        await
        Login(body)
        .then(() => {
-            navigate("/home");
+            console.log("teste");
+            navigate("/home"); 
        })
        .catch((erro) => {
             console.log("erro;", erro);

@@ -1,6 +1,5 @@
 import Navbar from "../../components/Navbar";
 import { ContainerCards, Container } from "./styles";
-// import BarraPesquisa from '../../components/BarraPesquisa';
 import Button from 'react-bootstrap/Button';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import CustomCard from "../../components/Card";
@@ -17,19 +16,22 @@ export default function Home() {
     const [eventos, setEventos] = useState<IEvento[]>([]);
     const cards: JSX.Element[] = [];
     const tipoUsuario = localStorage.getItem("typeUser");
-
+    const headers = {
+        'Authorization': 'Token ' + localStorage.getItem("token")
+    };
     function busca(texto:string){
         setTimeout(() => {
-            buscarEventoPublico(texto)
+            buscarEventoPublico(texto, headers)
             .then((response) => {
                 setEventos(response);
             })
         }, 1000)
     }
-
-    if(localStorage.getItem("typeUser") === "organizador"){
+    console.log('CHEGUEI NA HOME', localStorage.getItem("token"));
+    
+    if(localStorage.getItem("typeUser") === "organizador" && localStorage.getItem("token") != null){
         useEffect(() => {
-            getEventsOrganizador()
+            getEventsOrganizador(headers)
             .then((data) => {
               setEventos(data);
             })
@@ -39,7 +41,7 @@ export default function Home() {
           }, []);
     }else{
         useEffect(() => {
-            getEventsCliente()
+            getEventsCliente(headers)
             .then((data) => {
                 setEventos(data);               
             })

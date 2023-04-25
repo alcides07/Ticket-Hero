@@ -1,7 +1,7 @@
-import {api, headers} from "../../../services/api";
+import {api} from "../../../services/api";
 import { IEvento } from "../../../types/IEvento";
 
-export const getEventsCliente = () => {
+export const getEventsCliente = (headers:any) => {
     const eventos: Array<IEvento> = [];
     return api
         .get("/compra/minhasCompras", { headers: headers })
@@ -17,18 +17,17 @@ export const getEventsCliente = () => {
         });
 };
 
-export const getEventsOrganizador = () => {
-    
+export const getEventsOrganizador = (headers:any) => {
     return api.get("/evento/meusEventos", { headers: headers })
     .then((response) => {
         return response.data;
     })
     .catch((error) => {
-        console.log('erro: ', error);
+        console.log('erro de eventos do organizador: ', error);
     });
 };
 
-export const buscarEventoPublico = (texto:string) => {
+export const buscarEventoPublico = (texto:string, headers:any) => {
     return api.get(`/evento?search=${texto}`, { headers: headers })
     .then((response) => {
         return response.data;

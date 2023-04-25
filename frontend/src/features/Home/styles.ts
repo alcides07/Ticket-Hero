@@ -4,8 +4,8 @@ export const ContainerCards = styled.div`
     padding: 3em;
     display: flex;
     flex-wrap: wrap; 
-    min-height: 78vh;
-    min-width: 100vw;
+    min-height: 70vh;
+    min-width: 99vw;
     .card{
         margin: 1em;
         height: 310px;

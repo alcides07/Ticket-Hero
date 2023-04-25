@@ -1,5 +1,6 @@
 import {api, headers} from "../../../services/api";
 
+
 export const meusIngressos = () => {
     return api.get("/compra/minhasCompras", { headers: headers })
     .then((response) => {

@@ -1,4 +1,5 @@
 import {api, headers} from "../../../services/api";
+
 import { IEvento } from "../../../types/IEvento";
 
 export const getEventosParaHoje = () => {
