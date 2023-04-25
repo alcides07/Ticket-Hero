@@ -12,6 +12,13 @@ import {InputGroup, Form} from "react-bootstrap";
 export default function ContainerEventos(){
     const navigate = useNavigate();
     const [eventos, setEventos] = useState<IEvento[]>([]);
+    const [eventosPorPagina, setEventosPorPagina] = useState(2);
+    const [paginaAtual, setPaginaAtual] = useState(0);
+
+    const inicioEventos = paginaAtual * eventosPorPagina;
+    const fimEventos = inicioEventos + eventosPorPagina;
+    const eventosAtuais = eventos.slice(inicioEventos, fimEventos);
+    const quantidadePaginas = Math.ceil(eventos.length / eventosPorPagina);  
   
     useEffect(() => {
       getMeusEventos()
@@ -32,7 +39,6 @@ export default function ContainerEventos(){
     }
 
     return (
-      
         <ListGroup>
           <InputGroup className="mb-3">
             <Form.Control
@@ -67,10 +73,24 @@ export default function ContainerEventos(){
               </ContainerItem>
             </ListGroupItem>
           </ContainerGeral>
+          
       ))
-        :
-        <p> Você não possui eventos cadastrados!</p>
+      :
+      <p> Você não possui eventos cadastrados!</p>
     }
+      <nav className="br-pagination" aria-label="Paginação de resultados" data-total="4" data-current="1">
+        <ul>
+            <li>
+            <button onClick={() => setPaginaAtual(paginaAtual != 0 ? paginaAtual - 1 : paginaAtual)} className="br-button circle" type="button" data-previous-page="data-previous-page" aria-label="Página anterior"><i className="fas fa-angle-left" aria-hidden="true"></i></button>
+            </li>
+            { Array.from(Array(quantidadePaginas), (_, index:number) => {
+                return <li key = {index}><a onClick={(e) => setPaginaAtual(index)} className={index == paginaAtual ? "page active" : "page"} href="#">{index + 1}</a></li>
+            })}
+            <li>
+            <button onClick={() => setPaginaAtual(paginaAtual + 1 < quantidadePaginas ? paginaAtual + 1 : paginaAtual)} className="br-button circle" type="button" data-next-page="data-next-page" aria-label="Página seguinte"><i className="fas fa-angle-right" aria-hidden="true"></i></button>
+            </li>
+        </ul>
+      </nav>
       </ListGroup>
     )
 }
