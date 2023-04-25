@@ -11,6 +11,7 @@ from django.db.models import F
 from .permissions import AllowAny, EhCliente, EhOrganizador
 from .models import Cliente, Organizador, Evento, Categoria, Compra
 from .serializers import ClienteSerializer, OrganizadorSerializer, EventoSerializer, CategoriaSerializer, CompraSerializer, CadastroSerializer, LoginSerializer
+from rest_framework.pagination import LimitOffsetPagination
 
 
 class Auth(viewsets.ViewSet):
@@ -135,6 +136,7 @@ class EventoViewSet(viewsets.ModelViewSet):
     serializer_class = EventoSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['nome', 'descricao']
+    pagination_class = LimitOffsetPagination
 
     def get_queryset(self):
         modo = self.request.query_params.get('modo')
