@@ -11,6 +11,7 @@ from django.db.models import F
 from .permissions import AllowAny, EhCliente, EhOrganizador
 from .models import Cliente, Organizador, Evento, Categoria, Compra
 from .serializers import ClienteSerializer, OrganizadorSerializer, EventoSerializer, CategoriaSerializer, CompraSerializer, CadastroSerializer, LoginSerializer
+from rest_framework.pagination import LimitOffsetPagination
 
 
 class Auth(viewsets.ViewSet):
@@ -135,7 +136,16 @@ class EventoViewSet(viewsets.ModelViewSet):
     serializer_class = EventoSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['nome', 'descricao']
+    pagination_class = LimitOffsetPagination
 
+    def eventoPagination(self, queryset):
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+    
     def get_queryset(self):
         modo = self.request.query_params.get('modo')
         if modo == 'meusEventos':
@@ -245,8 +255,8 @@ class EventoViewSet(viewsets.ModelViewSet):
         if max is not None: max = int(max)
 
         queryset = Evento.objects.filter(
-            organizador=request.user.organizador).order_by("data")[:max]
-        serializer = EventoSerializer(queryset, many=True)
+            organizador=request.user.organizador).order_by("data")[:max] 
+        serializer = self.eventoPagination(queryset)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=["get"], permission_classes = [permissions.IsAuthenticated, EhOrganizador])
@@ -261,7 +271,7 @@ class EventoViewSet(viewsets.ModelViewSet):
     def eventosPopulares(self, request):
         queryset = Evento.objects.filter(publico=True).order_by(
             F("ingressoTotal") - F("ingressoDisponivel")).reverse()[:5]
-        serializer = EventoSerializer(queryset, many=True)
+        serializer = self.eventoPagination(queryset)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
