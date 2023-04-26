@@ -1,8 +1,8 @@
 import {api} from "../../../services/api";
 
 
-export const getMeusEventos = () => {
-    return api.get("/evento/meusEventos")
+export const getMeusEventos = (eventosPorPagina:number, paginaAtual:number) => {
+    return api.get(`/evento/meusEventos/?limit=${eventosPorPagina}&offset=${paginaAtual}`, { headers: headers })
     .then((response) => {
         return response.data;
     })
@@ -10,8 +10,8 @@ export const getMeusEventos = () => {
         console.log('erro: ', error);
     });
 };
-export const buscarEventoPublico = (texto:string) => {
-    return api.get(`/evento?search=${texto}`)
+export const buscarEventoPublico = (texto:string, eventosPorPagina:number, paginaAtual:number) => {
+    return api.get(`/evento?limit=${eventosPorPagina}&offset=${paginaAtual}&search=${texto}&modo=publicos`, { headers: headers })
     .then((response) => {
         return response.data;
     })

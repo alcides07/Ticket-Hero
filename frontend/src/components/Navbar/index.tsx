@@ -1,9 +1,10 @@
-import { Nav, Perfil, Logo, Header, Sair } from "./styles"
+import { Nav, Perfil, Logo, Header, DropdownPerfil } from "./styles"
 import {Link} from 'react-router-dom' 
 import logo from "../../assets/horizontal-logo.svg"
 import { BsFillPersonFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { logout } from "./services/logout";
+import Dropdown from 'react-bootstrap/Dropdown';
 
 export default function Navbar(){
     const navigate = useNavigate();
@@ -45,11 +46,17 @@ export default function Navbar(){
 
                     <Perfil>
                         <BsFillPersonFill size={"25"} className = "iconePerfil" />
-                        <span>
-                            {localStorage.getItem("username")}
-                        </span>
                     </Perfil>
-                    <Sair onClick = {Logout}> Sair </Sair>
+                    <DropdownPerfil>
+                        <Dropdown.Toggle variant="" id="dropdown-basic">
+                            {localStorage.getItem("username")}
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            <Dropdown.Item onClick = {(e) => navigate("/perfil")}>Editar Perfil</Dropdown.Item>
+                            <Dropdown.Item onClick = {Logout}>Sair</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </DropdownPerfil>
                 </Header>
 
             </Nav>

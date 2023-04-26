@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Dropdown from 'react-bootstrap/Dropdown';
 
 export const Nav = styled.nav`
     height: 10vh;
@@ -60,7 +61,6 @@ export const Logo = styled.img`
 `;
 
 export const Perfil = styled.div`
-    margin-right: 1vw;
     padding-left: 1vw;
     display: flex;
 
@@ -86,4 +86,15 @@ export const Sair = styled.span`
         background-color: #FFAC79;
         cursor: pointer;
     }
+`
+
+export const DropdownPerfil = styled(Dropdown)`
+    .dropdown-toggle{
+        border: none;
+    }
+
+    .dropdown-item:active{
+        background-color: transparent;
+    }
+
 `

@@ -57,3 +57,15 @@ export const ImagemBotao = styled.img`
     cursor: pointer;
   }
 `;
+
+export const ContainerPaginacao = styled.section`
+  display: flex;
+  margin-top: 3em;
+
+  .selectPaginacao{
+    padding-left: 0.5em;
+    width: 5em;
+    height: 2.3em;
+    margin-right: auto;
+  }
+`
