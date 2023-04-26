@@ -1,4 +1,4 @@
-import {api, headers} from "../../../services/api";
+import {api} from "../../../services/api";
 
 import { IEvento } from './../../../types/IEvento';
 import {notify} from "../../../components/Toastify";
@@ -18,8 +18,7 @@ export const editarEvento = (id:string, dadosEvento:IEvento) => {
         publico: dadosEvento["publico"],
         idadeMinima: dadosEvento["idadeMinima"],
         pathImg: dadosEvento["pathImg"]
-    },
-    {headers: headers}
+    }
     )
     .then((response) => {
         const toast: IToast = {

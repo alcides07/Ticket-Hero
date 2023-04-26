@@ -1,10 +1,10 @@
 import {api} from "../../../services/api";
 import { IEvento } from "../../../types/IEvento";
 
-export const getEventsCliente = (headers:any) => {
+export const getEventsCliente = () => {
     const eventos: Array<IEvento> = [];
     return api
-        .get("/compra/minhasCompras", { headers: headers })
+        .get("/compra/minhasCompras")
         .then((response) => {
             response.data.map((ingresso:any)=>{
                 eventos.push(ingresso.evento);
@@ -17,8 +17,8 @@ export const getEventsCliente = (headers:any) => {
         });
 };
 
-export const getEventsOrganizador = (headers:any) => {
-    return api.get("/evento/meusEventos", { headers: headers })
+export const getEventsOrganizador = () => {
+    return api.get("/evento/meusEventos")
     .then((response) => {
         return response.data;
     })
@@ -27,8 +27,8 @@ export const getEventsOrganizador = (headers:any) => {
     });
 };
 
-export const buscarEventoPublico = (texto:string, headers:any) => {
-    return api.get(`/evento?search=${texto}`, { headers: headers })
+export const buscarEventoPublico = (texto:string) => {
+    return api.get(`/evento?search=${texto}`)
     .then((response) => {
         return response.data;
     })

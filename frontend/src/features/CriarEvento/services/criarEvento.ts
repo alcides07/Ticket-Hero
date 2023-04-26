@@ -1,5 +1,5 @@
 import { IEvento } from './../../../types/IEvento';
-import {api, headers} from "../../../services/api";
+import {api} from "../../../services/api";
 
 import {notify} from "../../../components/Toastify";
 import { IToast } from "../../../types/IToast";
@@ -17,8 +17,7 @@ export const criarEvento = (dadosEvento:IEvento) => {
         publico: dadosEvento["publico"],
         idadeMinima: dadosEvento["idadeMinima"],
         pathImg: dadosEvento["pathImg"]
-    }, 
-    {headers: headers})
+    })
     .then((response) => {
         const toast: IToast = {
             message: "Evento criado com sucesso!",

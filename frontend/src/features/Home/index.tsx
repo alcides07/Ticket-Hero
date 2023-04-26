@@ -16,22 +16,19 @@ export default function Home() {
     const [eventos, setEventos] = useState<IEvento[]>([]);
     const cards: JSX.Element[] = [];
     const tipoUsuario = localStorage.getItem("typeUser");
-    const headers = {
-        'Authorization': 'Token ' + localStorage.getItem("token")
-    };
+
     function busca(texto:string){
         setTimeout(() => {
-            buscarEventoPublico(texto, headers)
+            buscarEventoPublico(texto)
             .then((response) => {
                 setEventos(response);
             })
         }, 1000)
     }
-    console.log('CHEGUEI NA HOME', localStorage.getItem("token"));
     
     if(localStorage.getItem("typeUser") === "organizador" && localStorage.getItem("token") != null){
         useEffect(() => {
-            getEventsOrganizador(headers)
+            getEventsOrganizador()
             .then((data) => {
               setEventos(data);
             })
@@ -41,7 +38,7 @@ export default function Home() {
           }, []);
     }else{
         useEffect(() => {
-            getEventsCliente(headers)
+            getEventsCliente()
             .then((data) => {
                 setEventos(data);               
             })

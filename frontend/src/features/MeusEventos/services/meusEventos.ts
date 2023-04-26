@@ -1,9 +1,8 @@
-import {api, headers} from "../../../services/api";
+import {api} from "../../../services/api";
 
 
 export const getMeusEventos = () => {
-    console.log('toquinho dos MEUS EVENTOS', headers);
-    return api.get("/evento/meusEventos", { headers: headers })
+    return api.get("/evento/meusEventos")
     .then((response) => {
         return response.data;
     })
@@ -12,7 +11,7 @@ export const getMeusEventos = () => {
     });
 };
 export const buscarEventoPublico = (texto:string) => {
-    return api.get(`/evento?search=${texto}`, { headers: headers })
+    return api.get(`/evento?search=${texto}`)
     .then((response) => {
         return response.data;
     })
