@@ -6,29 +6,36 @@ export default function RouteProtection({ tipoUsuario, children }: { tipoUsuario
     const navigate = useNavigate();
 
     const [ success, setSuccess ] = useState(false);
-
-    useEffect(() => {
-        if (localStorage.getItem("token") == null) {
-            localStorage.clear();
-            navigate("/");
-            return;
-        }
-
-        userData()
-        .then((response) => {
-            if (tipoUsuario != "any" && response.usuario.tipoUsuario != tipoUsuario){
+    const verificaUsuario = async (header:any) => {
+        await userData(header)
+        .then((response) => { 
+            if (tipoUsuario != "any" && response.usuario.tipoUsuario != tipoUsuario ){
                 navigate("*");
             }
             else{
                 setSuccess(true);
             }
         })
-        .catch((erro) => {
-            console.log("erro: ", erro);
+        .catch((error) => {
+            console.log(error);
         })
+    }
+
+    useEffect(() => {
+        const toquinho = localStorage.getItem("token");
+        if (!toquinho) {
+            localStorage.clear();
+            navigate("/");
+            return;
+        }else{
+            const headers = {
+                'Authorization': 'Token ' + localStorage.getItem("token")
+            };
+            verificaUsuario(headers);
+        }
+        
+        
     }, [])
-
-
     return (
         <>
             { success && children }

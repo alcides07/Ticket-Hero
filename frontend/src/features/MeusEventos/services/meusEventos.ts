@@ -1,4 +1,5 @@
-import {api, headers} from "../../../services/api";
+import {api} from "../../../services/api";
+
 
 export const getMeusEventos = (eventosPorPagina:number, paginaAtual:number) => {
     return api.get(`/evento/meusEventos/?limit=${eventosPorPagina}&offset=${paginaAtual}`, { headers: headers })

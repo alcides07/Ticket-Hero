@@ -1,10 +1,10 @@
-import {api} from "../../../services/api";
+import {api, headers} from "../../../services/api";
 import {notify} from "../../../components/Toastify";
 import { IToast } from "../../../types/IToast";
 import { IUserLogin } from "../../../types/IUserLogin";
 
-export const Login = (body:IUserLogin) => {
-        return api
+export const Login = async (body:IUserLogin) => {
+        await api
         .post("/auth/login/", body)
         .then((response:any) => {
             localStorage.setItem("token", response.data.token);

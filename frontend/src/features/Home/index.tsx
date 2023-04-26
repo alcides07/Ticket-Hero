@@ -1,6 +1,5 @@
 import Navbar from "../../components/Navbar";
 import { ContainerCards, Container } from "./styles";
-// import BarraPesquisa from '../../components/BarraPesquisa';
 import Button from 'react-bootstrap/Button';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import CustomCard from "../../components/Card";
@@ -26,8 +25,8 @@ export default function Home() {
             })
         }, 1000)
     }
-
-    if(localStorage.getItem("typeUser") === "organizador"){
+    
+    if(localStorage.getItem("typeUser") === "organizador" && localStorage.getItem("token") != null){
         useEffect(() => {
             getEventsOrganizador()
             .then((data) => {

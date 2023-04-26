@@ -1,7 +1,7 @@
-import {api, headers} from "../../../services/api";
+import {api} from "../../../services/api";
 
 export const deletarEvento = (id:string, onSuccess: (id: string) => void) => {
-    return api.delete(`/evento/${id}`, { headers: headers })
+    return api.delete(`/evento/${id}`)
     .then((response) => {
         onSuccess(id);
         return response.data;

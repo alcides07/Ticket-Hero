@@ -1,5 +1,6 @@
 import {api, headers} from "../../../services/api";
 
+
 export const buscarEventoPublico = (texto:string) => {
     return api.get(`/evento?search=${texto}`, { headers: headers })
     .then((response) => {
