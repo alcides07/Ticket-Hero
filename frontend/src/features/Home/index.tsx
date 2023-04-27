@@ -14,9 +14,10 @@ import {InputGroup, Form} from "react-bootstrap";
 export default function Home() {
     const navigate = useNavigate();
     const [eventos, setEventos] = useState<IEvento[]>([]);
+    //const [tipoUrl, setTipoUrl] = useState<string >('');
     const cards: JSX.Element[] = [];
     const tipoUsuario = localStorage.getItem("typeUser");
-
+    let funcaoCard = "";
     function busca(texto:string){
         setTimeout(() => {
             buscarEventoPublico(texto)
@@ -24,9 +25,10 @@ export default function Home() {
                 setEventos(response);
             })
         }, 1000)
-    }
+    } 
     
     if(localStorage.getItem("typeUser") === "organizador" && localStorage.getItem("token") != null){
+        funcaoCard = 'visualizar';
         useEffect(() => {
             getEventsOrganizador()
             .then((data) => {
@@ -37,6 +39,7 @@ export default function Home() {
           });
           }, []);
     }else{
+        funcaoCard = 'comprar';
         useEffect(() => {
             getEventsCliente()
             .then((data) => {
@@ -55,6 +58,7 @@ export default function Home() {
             description: evento.descricao,
             data: evento.data,
             valorIngresso: evento.valorIngresso,
+            tipo_url: funcaoCard,
             pathImg: 'https://img.freepik.com/psd-gratuitas/modelo-de-banner-horizontal-de-neon-para-musica-eletronica-com-dj-feminina_23-2148979684.jpg?w=900&t=st=1679342315~exp=1679342915~hmac=664278eca29bfcbda4f23c171f99897a3a90ec386c3dd4a8f92fd34d6141b644'
         }
         let item = <CustomCard infos={dados} />;

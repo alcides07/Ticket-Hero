@@ -5,4 +5,5 @@ export interface ICard{
     pathImg: string;
     valorIngresso: number;
     data: string;
+    tipo_url: string;
 }
