@@ -11,8 +11,15 @@ export interface ICustomCardProps {
 
 function CustomCard(props: ICustomCardProps) {
   const navigate = useNavigate();
+  function verificacaoDeLinks(id:string){
+    if(props.infos.tipo_url == "comprar"){
+      return navigate(`/evento/${id}/compra`)
+    }else{
+      return navigate(`/evento/${id}`)
+    }
+  }
   return (
-    <Card onClick={() => navigate(`/evento/${props.infos.id}/compra`)}>
+    <Card onClick={() => verificacaoDeLinks(props.infos.id)}>
       <Card.Img variant="top" src={props.infos.pathImg} />
       <Card.Body>
         <Card.Title> {props.infos.title} </Card.Title>
