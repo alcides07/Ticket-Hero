@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col';
 import { ToastContainer } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { IUserRegistro } from "../../../../types/IUserRegistro";
+import { IMaskInput } from "react-imask";
 
 export default function RegisterForm() {
     const navigate = useNavigate();
@@ -53,8 +54,20 @@ export default function RegisterForm() {
                         <Col><InputCadastro max = {dataMaxima} type="date" placeholder="Nascimento" required/></Col>
                     </Row>
                     <Row>
-                        <Col><InputCadastro type="text" placeholder="RG" /></Col>
-                        <Col><InputCadastro type="text" placeholder="CPF" /></Col>
+                        <Col>
+                            <InputCadastro 
+                            as={IMaskInput}
+                            mask="000.000.000" 
+                            type="text" 
+                            placeholder="RG" />
+                        </Col>
+                        <Col>
+                            <InputCadastro  
+                                as={IMaskInput}
+                                mask="000.000.000-00" 
+                                type="text" 
+                                placeholder="CPF" />
+                        </Col>
                     </Row>
                     <Row>
                         <Col><InputCadastro type="text" placeholder="Instagram" /></Col>
@@ -63,7 +76,7 @@ export default function RegisterForm() {
                                 <option value="Selecione">Selecione</option>
                                 <option value="C">Cliente</option>
                                 <option value="O">Organizador</option>
-                            </select>
+                            </select>  
                         </Col>
                     </Row>
                     <Row>
