@@ -6,8 +6,8 @@ export default function RouteProtection({ tipoUsuario, children }: { tipoUsuario
     const navigate = useNavigate();
 
     const [ success, setSuccess ] = useState(false);
-    const verificaUsuario = async (header:any) => {
-        await userData(header)
+    const verificaUsuario = async () => {
+        await userData()
         .then((response) => { 
             if (tipoUsuario != "any" && response.usuario.tipoUsuario != tipoUsuario ){
                 navigate("*");
@@ -28,10 +28,7 @@ export default function RouteProtection({ tipoUsuario, children }: { tipoUsuario
             navigate("/");
             return;
         }else{
-            const headers = {
-                'Authorization': 'Token ' + localStorage.getItem("token")
-            };
-            verificaUsuario(headers);
+            verificaUsuario();
         }
         
         

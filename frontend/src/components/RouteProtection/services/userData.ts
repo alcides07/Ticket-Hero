@@ -1,8 +1,8 @@
-import {api, headers} from "../../../services/api";
+import {api} from "../../../services/api";
 
 
-export const userData = (header: any) => {
-    return api.get(`/auth/user/`, { headers: header }) 
+export const userData = () => {
+    return api.get(`/auth/user/`) 
     .then((response) => {
         return response.data;
     })
