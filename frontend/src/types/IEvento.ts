@@ -1,4 +1,6 @@
-export interface IEvento{
+import { FormikValues } from "formik";
+
+export interface IEvento extends FormikValues{
     id: string;
     categoria: string;
     vendidos?: number;

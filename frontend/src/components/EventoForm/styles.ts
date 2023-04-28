@@ -1,26 +1,12 @@
 import styled from "styled-components";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import { Form, Field, ErrorMessage, Formik } from "formik";
 
-export const ContainerForm = styled.form`
+export const ContainerForm = styled(Formik)`
     width: 80vw;
     margin: auto;
     margin-top: -3em;
     padding-bottom: 2em;
-    .form-switch{
-        text-align: start;
-        margin: auto;
-        width: 50%;
-    }
-    .form-check-input{
-        height: 1.5em;
-        margin-right: 6px;
-        width: 2.5em;
-    }
-    .form-check-input:checked{
-        background-color: rgb(255, 145, 77);
-        border-color: rgb(255, 145, 77);
-    }
-    
 `
 
 export const ValorVariavel = styled.span`
@@ -29,9 +15,10 @@ export const ValorVariavel = styled.span`
 `
 
 export const ContainerItem = styled.div`
-    margin: auto;
-    text-align: center;
+    /* margin: auto; */
+
     margin-top: 2em;
+    
 
     .requiredRed::after{
         content: "*";
@@ -71,40 +58,41 @@ export const InputCompra = styled.input`
     }
 `
 
-export const InputItem = styled.input`
+export const InputItem = styled(Field)`
    padding: 0.5em;
    caret-color: #FF914D;
    border: 0.1em solid #BCBCBC;
    border-radius: 0.3em;
    width: 50%;
    outline: none;
+   /* margin: auto; */
 
    &:focus{
     border: 0.1em solid #FF914D;
    }
 `
 
-export const DescricaoItem = styled.textarea`
-   width: 50%;
-   padding: 0.5em;
-   caret-color: #FF914D;
-   height: 25vh;
-   border: 0.1em solid #BCBCBC;
-   border-radius: 0.3em;
-   resize: none;
-   outline: none;
+export const DescricaoItem = styled(Field)`
+    width: 50%;
+    padding: 0.5em;
+    caret-color: #FF914D;
+    height: 25vh;
+    border: 0.1em solid #BCBCBC;
+    border-radius: 0.3em;
+    resize: none;
+    outline: none;
 
     &:focus{
-    border: 0.1em solid #FF914D;
+        border: 0.1em solid #FF914D;
     }
 `
 
 export const Labelitem = styled.span`
     display: flex;
+    /* margin: auto; */
     padding-bottom: 0.5em;
-    margin: auto;
     font-weight: 500;
-    width: 50%;
+    /* width: 50%; */
 `
 
 export const BotaoVoltar = styled(BsFillArrowLeftCircleFill)`
@@ -123,7 +111,6 @@ export const BotaoVoltar = styled(BsFillArrowLeftCircleFill)`
 
 export const ContainerTituloForm = styled.section`
     text-align: center;
-    align-items: center;
 `
 
 export const TituloForm = styled.span`
@@ -132,8 +119,38 @@ export const TituloForm = styled.span`
     display: block;
 `
 
+
 export const NumeroIngressosVendidos = styled.span`
     font-size: 1.5em;
     font-weight: 500;
     color: #FF914D;
+    `
+
+export const ContainerItemMensagem = styled.span`
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+`
+
+export const MensagemValidacao = styled(ErrorMessage)`
+    color: #D10000;
+`
+
+export const FormEvento = styled(Form)`
+    margin: auto;
+    width: 75%;
+
+    .form-switch{
+        text-align: start;
+        width: 50%;
+    }
+    .form-check-input{
+        height: 1.5em;
+        margin-right: 6px;
+        width: 2.5em;
+    }
+    .form-check-input:checked{
+        background-color: rgb(255, 145, 77);
+        border-color: rgb(255, 145, 77);
+    }
 `
