@@ -19,6 +19,13 @@ export const ContainerItem = styled.div`
 
     margin-top: 2em;
     
+    .requiredRed{
+        color: #000;
+    }
+
+    .requiredGrey{
+        color: #797979;
+    }
 
     .requiredRed::after{
         content: "*";
@@ -45,7 +52,7 @@ export const TituloCompra = styled.span`
     font-weight: 500;
 `
 
-export const InputCompra = styled.input`
+export const InputCompra = styled(Field)`
     padding: 0.5em;
     border: 0.1em solid #FF914D;
     caret-color: #FF914D;

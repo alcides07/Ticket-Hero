@@ -18,17 +18,9 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
     const dataMinima = `${today.getFullYear()}-${('0' + (today.getMonth()+1)).slice(-2)}-${('0' + today.getDate()).slice(-2)}T${('0' + today.getHours()).slice(-2)}:${('0' + today.getMinutes()).slice(-2)}`;
     const navigate = useNavigate();
     const [evento, setEvento] = useState<IEvento>();
-    const [nome, setNome] = useState("");
-    const [categoria, setCategoria] = useState("");
-    const [data, setData] = useState("");
-    const [valorIngresso, setValorIngresso] = useState(0);
-    const [ingressoTotal, setIngressoTotal] = useState(0);
-    const [quantidadeDesejada, setQuantidadeDesejada] = useState(0);
-    const [descricao, setDescricao] = useState("");
-    const [local, setLocal] = useState("");
+    // const [valorIngresso, setValorIngresso] = useState(0);
+    // const [quantidadeDesejada, setQuantidadeDesejada] = useState(0);
     const [publico, setPublico] = useState(false); //Referencia a privacidade
-    const [idadeMinima, setIdadeMinima] = useState(0);
-    const [pathImg, setPathImg] = useState("");
 
     const valoresIniciais = {
         "id": "",
@@ -45,7 +37,8 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
         "publico": false,
         "nomeOrganizador": "",
         "imagem" : "",
-        "pathImg" : ""
+        "pathImg" : "",
+        "quantidadeDesejada": ""
     };
 
     useEffect(() => {
@@ -63,6 +56,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                 valoresIniciais["local"] = data.local; 
                 valoresIniciais["idadeMinima"] = data.idadeMinima; 
                 valoresIniciais["publico"] = data.publico; 
+                valoresIniciais["ingressoDisponivel"] = data.ingressoDisponivel;
             })
             .catch((error) => {
                 console.log("erro: ", error);
@@ -72,7 +66,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
 
     function handleSubmit(values:IEvento){
         if (id && buy){
-            handle(quantidadeDesejada, localStorage.getItem("userId"), id); // Comprando ingresso
+            handle(values.quantidadeDesejada, localStorage.getItem("userId"), id); // Comprando ingresso
              // toast aqui
         }
         else if (id && !buy){
@@ -113,7 +107,10 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
             .required("Campo obrigatório!"),
 
         publico: Yup.string()
-            .required("Campo obrigatório!")
+            .required("Campo obrigatório!"),
+
+        quantidadeDesejada: Yup.string()
+            .required("Campo obrigatório!"),
     });
 
 
@@ -143,9 +140,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                     <InputItem
                         type = "text"
                         placeholder = "Ex: Aniversário de 15 anos de Fernanda"
-                        // onChange = {(e:any) => setNome(e.target.value)}
                         name = "nome" required
-                        // value={nome}
                         disabled = {readOnly}
                     />
                     <MensagemValidacao component = "label" name = "nome"/>
@@ -157,10 +152,8 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                 <ContainerItemMensagem>
                     <InputItem 
                         type = "datetime-local" required
-                        // onChange = {(e:any) => setData(e.target.value)}
                         name = "data"
                         min = {dataMinima}
-                        // value = {data}
                         disabled = {readOnly}
                     />
                     <MensagemValidacao component = "label" name = "data"/>
@@ -174,8 +167,6 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                         type = "text"
                         placeholder = "Ex: Festa"
                         name = "categoria" required 
-                        // onChange = {(e:any) => setCategoria(e.target.value)}
-                        // value = {categoria}
                         disabled = {readOnly}
                     />
                     <MensagemValidacao component = "label" name = "categoria"/>
@@ -202,9 +193,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                     <InputItem 
                         type = "text"
                         placeholder = "Ex: Rua Padre Joao Damasceno." 
-                        name = "local" required 
-                        // onChange = {(e:any) => setLocal(e.target.value)}
-                        // value = {local}
+                        name = "local" required
                         disabled = {readOnly}
                     />
                     <MensagemValidacao component = "label" name = "local"/>
@@ -220,8 +209,6 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                         step = "0.01"
                         name = "valorIngresso"
                         min = "0" required
-                        // onChange = {(e:any) => setValorIngresso(parseFloat(e.target.value))}
-                        // value = {valorIngresso ? valorIngresso : ""}
                         disabled = {readOnly}
                     />
                     <MensagemValidacao component = "label" name = "valorIngresso"/>
@@ -232,12 +219,13 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                 { buy ? 
                     <>
                         <Labelitem className = {readOnly ? "requiredGrey" : "requiredRed"}> Ingressos disponíveis </Labelitem>
-                        <InputItem
-                            type = "number"
-                            name = "ingressoDisponivel"
-                            // value = {evento?.ingressoDisponivel ? evento.ingressoDisponivel : 0}
-                            disabled = {readOnly}
-                        />
+                        <ContainerItemMensagem>
+                            <InputItem
+                                type = "number"
+                                name = "ingressoDisponivel"
+                                disabled = {readOnly}
+                            />
+                         </ContainerItemMensagem>
                     </>
                 :
                 <>
@@ -248,8 +236,6 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                                 placeholder = "0"
                                 name = "ingressoTotal"
                                 min = "1" required
-                                // onChange = {(e:any) => setIngressoTotal(parseInt(e.target.value))}
-                                // value = {ingressoTotal ? ingressoTotal : ""}
                                 disabled = {readOnly}
                             />
                             <MensagemValidacao component = "label" name = "ingressoTotal"/>
@@ -265,8 +251,6 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                         placeholder = "3"
                         name = "idadeMinima" required 
                         min = "0" 
-                        // onChange = {(e:any) => setIdadeMinima(parseInt(e.target.value))}
-                        // value = {idadeMinima ? idadeMinima : ""}
                         disabled = {readOnly}
                     />
                     <MensagemValidacao component = "label" name = "idadeMinima"/>
@@ -287,25 +271,27 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                 <> 
                 <ContainerItem>
                     <Labelitem className = "requiredRed"> Ingressos desejados </Labelitem>
-                    <InputCompra
-                        type = "number"
-                        required
-                        // onChange = {(e:any) => setQuantidadeDesejada(parseInt(e.target.value))}
-                        name = "totalCompra"
-                        min = "1" 
-                        max={evento?.ingressoDisponivel ? evento.ingressoDisponivel : 1}
-                        placeholder = "0"
-                    />
+                    <ContainerItemMensagem>
+                        <InputItem
+                            type = "number"
+                            required
+                            name="quantidadeDesejada"
+                            min="1" 
+                            max={evento?.ingressoDisponivel ? evento.ingressoDisponivel : 1}
+                            placeholder = "0"
+                        />
+                        <MensagemValidacao component = "label" name = "quantidadeDesejada"/>
+                    </ContainerItemMensagem>
                 </ContainerItem>
                     <ContainerCompra>
                         <CardCompra>
                             <TituloCompra> Ingressos: </TituloCompra>
-                            <ValorVariavel> {quantidadeDesejada? quantidadeDesejada : 0} </ValorVariavel> 
+                            {/* <ValorVariavel> {values.quantidadeDesejada} </ValorVariavel>  */}
                         </CardCompra>
                         
                         <CardCompra>
                             <TituloCompra> Total a pagar: </TituloCompra>
-                            <ValorVariavel> {quantidadeDesejada? formataEmReal((quantidadeDesejada * valorIngresso)) : 0} </ValorVariavel> 
+                            {/* <ValorVariavel> { valoresIniciais["valorIngresso"] ? formataEmReal((quantidadeDesejada * evento.valorIngresso)) : 0} </ValorVariavel>  */}
                         </CardCompra>
                     </ContainerCompra>
                 </>
