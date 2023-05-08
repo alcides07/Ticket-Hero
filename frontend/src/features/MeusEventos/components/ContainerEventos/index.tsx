@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { getMeusEventos, buscarEventoPublico } from "../../services/meusEventos";
 import {InputGroup, Form} from "react-bootstrap";
+import Pagination from 'react-bootstrap/Pagination';
 
 export default function ContainerEventos(){
     const navigate = useNavigate();
@@ -94,7 +95,14 @@ export default function ContainerEventos(){
           <option value="15">15</option>
           <option value="20">20</option>
         </Form.Select>
-        <nav className="br-pagination" aria-label="Paginação de resultados" data-total="4" data-current="1">
+        <Pagination>
+          <Pagination.Prev onClick={() => setPaginaAtual(paginaAtual != 0 ? paginaAtual - 1 : paginaAtual)} data-previous-page="data-previous-page"/>
+          { Array.from(Array(quantidadePaginas), (_, index:number) => {
+            return <Pagination.Item key={index}  onClick={(e) => setPaginaAtual(index)}><a style={{cursor:"pointer"}} className={index == paginaAtual ? "page active" : "page"}>{index + 1}</a></Pagination.Item>
+          })}
+          <Pagination.Next onClick={() => setPaginaAtual(paginaAtual + 1 < quantidadePaginas ? paginaAtual + 1 : paginaAtual)} data-next-page="data-next-page" />
+        </Pagination>
+        {/* <nav className="br-pagination" aria-label="Paginação de resultados" data-total="4" data-current="1">
           <ul>
               <li>
               <button onClick={() => setPaginaAtual(paginaAtual != 0 ? paginaAtual - 1 : paginaAtual)} className="br-button circle" type="button" data-previous-page="data-previous-page" aria-label="Página anterior"><i className="fas fa-angle-left" aria-hidden="true"></i></button>
@@ -106,7 +114,7 @@ export default function ContainerEventos(){
               <button onClick={() => setPaginaAtual(paginaAtual + 1 < quantidadePaginas ? paginaAtual + 1 : paginaAtual)} className="br-button circle" type="button" data-next-page="data-next-page" aria-label="Página seguinte"><i className="fas fa-angle-right" aria-hidden="true"></i></button>
               </li>
           </ul>
-        </nav>
+        </nav> */}
       </ContainerPaginacao>
       </ListGroup>
     )
