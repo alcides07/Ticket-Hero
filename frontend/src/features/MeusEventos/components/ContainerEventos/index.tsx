@@ -102,19 +102,6 @@ export default function ContainerEventos(){
           })}
           <Pagination.Next onClick={() => setPaginaAtual(paginaAtual + 1 < quantidadePaginas ? paginaAtual + 1 : paginaAtual)} data-next-page="data-next-page" />
         </Pagination>
-        {/* <nav className="br-pagination" aria-label="Paginação de resultados" data-total="4" data-current="1">
-          <ul>
-              <li>
-              <button onClick={() => setPaginaAtual(paginaAtual != 0 ? paginaAtual - 1 : paginaAtual)} className="br-button circle" type="button" data-previous-page="data-previous-page" aria-label="Página anterior"><i className="fas fa-angle-left" aria-hidden="true"></i></button>
-              </li>
-              { Array.from(Array(quantidadePaginas), (_, index:number) => {
-                return <li key = {index}><a style={{cursor:"pointer"}} onClick={(e) => setPaginaAtual(index)} className={index == paginaAtual ? "page active" : "page"}>{index + 1}</a></li>
-              })}
-              <li>
-              <button onClick={() => setPaginaAtual(paginaAtual + 1 < quantidadePaginas ? paginaAtual + 1 : paginaAtual)} className="br-button circle" type="button" data-next-page="data-next-page" aria-label="Página seguinte"><i className="fas fa-angle-right" aria-hidden="true"></i></button>
-              </li>
-          </ul>
-        </nav> */}
       </ContainerPaginacao>
       </ListGroup>
     )
