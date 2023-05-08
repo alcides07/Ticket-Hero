@@ -61,11 +61,16 @@ export const ImagemBotao = styled.img`
 export const ContainerPaginacao = styled.section`
   display: flex;
   margin-top: 3em;
-
+  a{
+    text-decoration: none;
+  }
   .selectPaginacao{
     padding-left: 0.5em;
     width: 5em;
     height: 2.3em;
     margin-right: auto;
+    color: #0d6efd;
+    font-weight: 500;
+
   }
 `
