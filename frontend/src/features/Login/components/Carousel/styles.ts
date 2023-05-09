@@ -13,4 +13,9 @@ export const ContainerCarousel = styled.div`
         width: initial;
         height: 100vh;
     }
+    @media (max-width: 1000px)
+    {
+        display: none;
+    }
+    
 `;
