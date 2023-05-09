@@ -8,6 +8,10 @@ export const FormLogin = styled.form`
     align-items: center;
     flex-direction: column;
     background-color: white;
+    @media (max-width: 1000px)
+    {
+        width: 100vw;
+    }
     img{
         height: 20%;
     }
