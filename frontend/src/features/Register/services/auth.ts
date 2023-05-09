@@ -1,4 +1,4 @@
-import {api, headers} from "../../../services/api";
+import {api} from "../../../services/api";
 import { notify } from "../../../components/Toastify";
 import { IToast } from "../../../types/IToast";
 import { IUserRegistro } from "../../../types/IUserRegistro";
@@ -19,5 +19,6 @@ export const Register = (body:IUserRegistro) => {
             variant: 'error',
         }; 
         notify(toast);
+        throw new Error("Erro!");
     });
 };
