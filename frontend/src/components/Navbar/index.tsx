@@ -22,7 +22,7 @@ export default function Navbar(){
     return (
         <>
             <Nav>
-                <Link to = "/home" > <Logo src = { logo } alt = "Ticket-Hero"></Logo> </Link>
+                <Link to = "/home" > <Logo/></Link>
                 <Header>
                     <ul>
                         {localStorage.getItem("typeUser") == "organizador" && (

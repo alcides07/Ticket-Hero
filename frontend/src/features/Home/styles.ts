@@ -11,6 +11,10 @@ export const ContainerCards = styled.div`
         height: 310px;
         width: 400px; 
     }
+    @media (max-width: 1000px)
+    {
+        padding: 1em;
+    }
 `;
 export const Container = styled.div`
     display: flex;
@@ -20,10 +24,20 @@ export const Container = styled.div`
         width: 30%;
         margin-left: 1em;
         margin-top: 2em;
+        @media (max-width: 1000px)
+        {
+            width: 90%;
+            margin-top: 1em;
+        }
     }    
     .btn-outline-dark{
         height: 40px;
         margin-top: 2em;
         margin-left: 4em;
+        @media (max-width: 1000px)
+        {
+            margin-top: 1em;
+            margin-left: 1em;
+        }
     }
 `;

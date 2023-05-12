@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { ICard } from '../../types/IComponents';
 import Footer from "../../components/Footer";
 import {InputGroup, Form} from "react-bootstrap";
+import { NavInferior } from "../../components/NavInferior/styles";
 
 export default function Home() {
     const navigate = useNavigate();
@@ -93,6 +94,7 @@ export default function Home() {
                     <p>Não há ingressos comprados.</p>
                     }
                 </ContainerCards>
+                <NavInferior/>  
             </Container>
             <Footer/>
         </>

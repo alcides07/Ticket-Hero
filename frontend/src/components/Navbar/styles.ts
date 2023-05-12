@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import logo from "../../assets/horizontal-logo.svg";
+import logo2 from "../../assets/vertical-logo.svg";
 import Dropdown from 'react-bootstrap/Dropdown';
 
 export const Nav = styled.nav`
@@ -7,6 +9,10 @@ export const Nav = styled.nav`
     width: 100%;
     align-items: center;
     display: flex;
+    @media (max-width: 1000px)
+    {
+        font-size: 12px;
+    }
 `;
 
 export const Header = styled.header`
@@ -27,12 +33,21 @@ export const Header = styled.header`
         list-style: none;
         margin: 0;
         padding: 0;
+        @media (max-width: 1000px)
+        {
+            margin-left: 1em;
+        }
     }
     
     li{
         font-size: 1em;
         margin-left: 1.5vw; 
         transition: 0.5s;
+        @media (max-width: 1000px)
+        {
+            margin-left: 0;
+            width: 50px;
+        }
     }
 
     a:hover {
@@ -42,6 +57,10 @@ export const Header = styled.header`
 
     .border{
         position: relative;
+        @media (max-width: 1000px)
+        {
+            width: 2px;
+        }
     }
 
     .border::after{
@@ -51,13 +70,28 @@ export const Header = styled.header`
         width: 1px;
         height: 24px;
         background: #B4B4B4;
+        @media (max-width: 1000px)
+        {
+            height: 34px;
+        }
+        
     }
 `;
 
-export const Logo = styled.img`
+export const Logo = styled.div`
+    background-image: url(${logo});
+    background-repeat: no-repeat;
+    background-size: 160px auto;
+    background-position: center;
     margin-left: 3vw;
     width: 10em;
     height: 3em;
+    @media (max-width: 1000px)
+    {
+        background-image: url(${logo2});
+        background-size: 60px;
+        width: 6em;
+    }
 `;
 
 export const Perfil = styled.div`
