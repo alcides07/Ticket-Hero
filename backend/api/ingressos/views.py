@@ -34,7 +34,7 @@ class Auth(viewsets.ViewSet):
         serializer = LoginSerializer(usuario).data
         serializer['token'] = token.key
         return Response(serializer, status=status.HTTP_200_OK)
-    
+
     @action(detail=False, methods=["delete"], basename="auth", permission_classes=[permissions.IsAuthenticated])
     def logout(self, request):
         request.user.auth_token.delete()
@@ -77,11 +77,11 @@ class Auth(viewsets.ViewSet):
 
         serializer = CadastroSerializer(usuario)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    
+
     @action(detail=False, methods=['get'], permission_classes=[permissions.IsAuthenticated])
     def user(self, request):
         return Response(LoginSerializer(request.user).data, status=status.HTTP_200_OK)
-    
+
     @action(detail=False, methods=['put'], permission_classes=[permissions.IsAuthenticated])
     def userUpdate(self, request):
         nomeCompleto = request.data.get("nomeCompleto")
@@ -140,22 +140,23 @@ class EventoViewSet(viewsets.ModelViewSet):
 
     def eventoPagination(self, queryset):
         page = self.paginate_queryset(queryset)
-        if page is not None:
+        if (page is not None):
             serializer = self.get_serializer(page, many=True)
             return self.get_paginated_response(serializer.data)
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
-    
+
     def get_queryset(self):
         modo = self.request.query_params.get('modo')
-        if modo == 'meusEventos':
-            queryset = Evento.objects.filter(organizador=self.request.user.organizador)
-        elif(modo == 'publicos'):
+        if (modo == 'meusEventos'):
+            queryset = Evento.objects.filter(
+                organizador=self.request.user.organizador)
+        elif (modo == 'publicos'):
             queryset = Evento.objects.filter(publico=True)
         else:
             queryset = Evento.objects.all()
         return queryset
-    
+
     def retrieve(self, request, pk):
         evento = Evento.objects.filter(pk=pk)
         if (len(evento) > 0):
@@ -182,19 +183,19 @@ class EventoViewSet(viewsets.ModelViewSet):
             categoria = Categoria.objects.create(nome=nomeCategoria)
 
         evento = Evento.objects.create(
-            nome = request.data.get("nome"),
-            descricao = request.data.get("descricao"),
-            data = request.data.get("data"),
-            valorIngresso = valorIngresso,
-            ingressoTotal = ingressoTotal,
-            vendidos = 0,
-            ingressoDisponivel = ingressoTotal,
-            organizador = request.user.organizador,
-            categoria = categoria,
-            local = request.data.get("local"),
-            publico = request.data.get("publico"),
-            idadeMinima = request.data.get("idadeMinima"),
-            pathImg = request.data.get("pathImg"),
+            nome=request.data.get("nome"),
+            descricao=request.data.get("descricao"),
+            data=request.data.get("data"),
+            valorIngresso=valorIngresso,
+            ingressoTotal=ingressoTotal,
+            vendidos=0,
+            ingressoDisponivel=ingressoTotal,
+            organizador=request.user.organizador,
+            categoria=categoria,
+            local=request.data.get("local"),
+            publico=request.data.get("publico"),
+            idadeMinima=request.data.get("idadeMinima"),
+            pathImg=request.data.get("pathImg"),
         )
 
         serializer = EventoSerializer(evento)
@@ -208,25 +209,26 @@ class EventoViewSet(viewsets.ModelViewSet):
         ingressoTotal = request.data.get("ingressoTotal")
 
         if (valorIngresso < 0):
-            return Response({"Erro":"Valor do ingresso não pode ser negativo!"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"Erro": "Valor do ingresso não pode ser negativo!"}, status=status.HTTP_400_BAD_REQUEST)
 
         if (ingressoTotal < 0):
-            return Response({"Erro":"Não é possível ter um evento com essa quantidade de ingressos!"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"Erro": "Não é possível ter um evento com essa quantidade de ingressos!"}, status=status.HTTP_400_BAD_REQUEST)
 
         evento = Evento.objects.filter(id=idEvento).first()
-        categoria = Categoria.objects.filter(nome = nomeCategoria).first()
-        
-        if not(categoria):
-            categoria = Categoria.objects.create(nome = nomeCategoria)
-        
+        categoria = Categoria.objects.filter(nome=nomeCategoria).first()
+
+        if not (categoria):
+            categoria = Categoria.objects.create(nome=nomeCategoria)
+
         evento.categoria = categoria
-        if (ingressoTotal > evento.ingressoTotal): # Quero mais ingressos ainda
+        if (ingressoTotal > evento.ingressoTotal):  # Quero mais ingressos ainda
             evento.ingressoDisponivel += (ingressoTotal - evento.ingressoTotal)
             evento.ingressoTotal = ingressoTotal
 
-        elif (ingressoTotal < evento.ingressoTotal): # Quero diminuir a quantidade de ingressos do evento
+        # Quero diminuir a quantidade de ingressos do evento
+        elif (ingressoTotal < evento.ingressoTotal):
             if (ingressoTotal < evento.vendidos):
-                return Response({"Erro":"Não é possível diminuir ainda mais a quantidade de eventos!"}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"Erro": "Não é possível diminuir ainda mais a quantidade de eventos!"}, status=status.HTTP_400_BAD_REQUEST)
 
             evento.ingressoTotal = ingressoTotal
             evento.ingressoDisponivel = ingressoTotal - evento.vendidos
@@ -241,29 +243,32 @@ class EventoViewSet(viewsets.ModelViewSet):
         evento.save()
         serializer = EventoSerializer(evento)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
-    @action(detail=True, methods=["get"], permission_classes = [permissions.IsAuthenticated, EhOrganizador])
+
+    @action(detail=True, methods=["get"], permission_classes=[permissions.IsAuthenticated, EhOrganizador])
     def vendas(self, request, pk):
-        evento = get_object_or_404(Evento, id = pk)
+        evento = get_object_or_404(Evento, id=pk)
         vendas = Compra.objects.filter(evento=evento)
         serializer = CompraSerializer(vendas, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    @action(detail=False, methods=["get"], permission_classes = [permissions.IsAuthenticated, EhOrganizador])
+    @action(detail=False, methods=["get"], permission_classes=[permissions.IsAuthenticated, EhOrganizador])
     def meusEventos(self, request):
         max = request.query_params.get('max', None)
-        if max is not None: max = int(max)
+        if (max is not None):
+            max = int(max)
 
         queryset = Evento.objects.filter(
-            organizador=request.user.organizador).order_by("data")[:max] 
+            organizador=request.user.organizador).order_by("data")[:max]
         serializer = self.eventoPagination(queryset)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    @action(detail=False, methods=["get"], permission_classes = [permissions.IsAuthenticated, EhOrganizador])
+    @action(detail=False, methods=["get"], permission_classes=[permissions.IsAuthenticated, EhOrganizador])
     def meusEventosHoje(self, request):
-        dataAtual = timezone.localtime().date() # Data atual da máquina
-        dataTempoAtual = timezone.make_aware(datetime.datetime.combine(dataAtual, datetime.time.min)) # Data atual em formato de fuso horário do projeto
-        queryset = Evento.objects.filter(organizador=request.user.organizador, data__date=dataTempoAtual.date())
+        dataAtual = timezone.localtime().date()  # Data atual da máquina
+        dataTempoAtual = timezone.make_aware(datetime.datetime.combine(
+            dataAtual, datetime.time.min))  # Data atual em formato de fuso horário do projeto
+        queryset = Evento.objects.filter(
+            organizador=request.user.organizador, data__date=dataTempoAtual.date())
         serializer = EventoSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -285,9 +290,9 @@ class CompraViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     queryset = Compra.objects.all()
     serializer_class = CompraSerializer
-
     permission_classes = [EhCliente]
-    def create(self, request):  
+
+    def create(self, request):
         qtdIngresso = int(request.data.get("qtdIngresso"))
         evento = get_object_or_404(Evento, id=request.data.get("evento"))
 
@@ -311,15 +316,16 @@ class CompraViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"], permission_classes=[permissions.IsAuthenticated, EhCliente])
     def minhasCompras(self, request):
-            queryset = Compra.objects.filter(
-                cliente=request.user.cliente).order_by("data")
-            serializer = CompraSerializer(queryset, many = True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-    
-    @action(detail=False, methods=["get"], permission_classes = [permissions.IsAuthenticated, EhCliente])
+        queryset = Compra.objects.filter(
+            cliente=request.user.cliente).order_by("data")
+        serializer = CompraSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["get"], permission_classes=[permissions.IsAuthenticated, EhCliente])
     def minhasComprasDeEventosDeHoje(self, request):
-        dataAtual = timezone.localtime().date() # Data atual da máquina
-        dataTempoAtual = timezone.make_aware(datetime.datetime.combine(dataAtual, datetime.time.min)) # Data atual em formato de fuso horário do projeto
+        dataAtual = timezone.localtime().date()  # Data atual da máquina
+        dataTempoAtual = timezone.make_aware(datetime.datetime.combine(
+            dataAtual, datetime.time.min))  # Data atual em formato de fuso horário do projeto
         eventosHoje = Evento.objects.filter(data__date=dataTempoAtual.date())
         minhasCompras = Compra.objects.filter(cliente=request.user.cliente)
         comprasHoje = []
