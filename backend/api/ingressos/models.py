@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+
 class Organizador(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nomeCompleto = models.CharField(max_length=200)
@@ -15,6 +16,7 @@ class Organizador(models.Model):
     class Meta:
         verbose_name_plural = "Organizadores"
 
+
 class Cliente(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nomeCompleto = models.CharField(max_length=200)
@@ -23,12 +25,14 @@ class Cliente(models.Model):
     def __str__(self):
         return self.nomeCompleto
 
+
 class Categoria(models.Model):
     nome = models.CharField(max_length=200)
     descricao = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.nome
+
 
 class Evento(models.Model):
     nome = models.CharField(max_length=300)
@@ -38,8 +42,10 @@ class Evento(models.Model):
     publico = models.BooleanField()
     local = models.CharField(max_length=200)
     idadeMinima = models.PositiveIntegerField()
-    organizador = models.ForeignKey(Organizador, on_delete=models.SET_NULL, null=True)
-    categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)
+    organizador = models.ForeignKey(
+        Organizador, on_delete=models.SET_NULL, null=True)
+    categoria = models.ForeignKey(
+        Categoria, on_delete=models.SET_NULL, null=True)
     valorIngresso = models.FloatField()
     ingressoTotal = models.PositiveIntegerField()
     ingressoDisponivel = models.PositiveIntegerField()
@@ -47,6 +53,7 @@ class Evento(models.Model):
 
     def __str__(self):
         return self.nome
+
 
 class Compra(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.SET_NULL, null=True)
