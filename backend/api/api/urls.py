@@ -11,12 +11,12 @@ router = routers.DefaultRouter()
 
 schema_view = swagger_get_schema_view(
     openapi.Info(
-        title = "Ingressos API",
-        default_version = '1.0.0',
-        description = "API para o projeto Ingressos",
+        title="Ingressos API",
+        default_version='1.0.0',
+        description="API para o projeto Ingressos",
     ),
-    public = True,
-    permission_classes = (AllowAny,),   
+    public=True,
+    permission_classes=(AllowAny,),
 )
 
 router.register(r'cliente', views.ClienteViewSet)
@@ -30,6 +30,8 @@ urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('swagger/', schema_view.with_ui('swagger',
+         cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc',
+         cache_timeout=0), name='schema-redoc'),
 ]

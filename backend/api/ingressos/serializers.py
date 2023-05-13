@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import (Cliente, Organizador, Evento, Categoria, Compra)
 
+
 class CadastroSerializer(serializers.ModelSerializer):
     nomeCompleto = serializers.CharField()
     nascimento = serializers.DateField()
@@ -13,10 +14,11 @@ class CadastroSerializer(serializers.ModelSerializer):
         fields = ["username", "nomeCompleto", "nascimento", "email"]
 
     def get_username(self, request):
-         return request.user.username
-    
+        return request.user.username
+
     def get_email(self, request):
         return request.user.email
+
 
 class LoginSerializer(serializers.Serializer):
     usuario = serializers.SerializerMethodField()
@@ -39,19 +41,22 @@ class LoginSerializer(serializers.Serializer):
             "tipoUsuario": tipoUsuario,
             "nomeCompleto": getattr(request, tipoUsuario).nomeCompleto,
             "nascimento": getattr(request, tipoUsuario).nascimento,
-            "email": request.email,   
+            "email": request.email,
         })
         return contexto
+
 
 class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
         fields = "__all__"
 
+
 class OrganizadorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organizador
         fields = "__all__"
+
 
 class EventoSerializer(serializers.ModelSerializer):
     categoria = serializers.SerializerMethodField()
@@ -63,17 +68,19 @@ class EventoSerializer(serializers.ModelSerializer):
 
     def get_categoria(self, request):
         return request.categoria.nome
-    
+
     def get_nomeOrganizador(self, request):
-        if(hasattr(request.organizador, "nomeCompleto")):
+        if (hasattr(request.organizador, "nomeCompleto")):
             return request.organizador.nomeCompleto
         else:
             return ""
-        
+
+
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categoria
         fields = "__all__"
+
 
 class CompraSerializer(serializers.ModelSerializer):
     nomeCliente = serializers.SerializerMethodField()
