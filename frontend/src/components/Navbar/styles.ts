@@ -35,8 +35,9 @@ export const Header = styled.header`
         padding: 0;
         @media (max-width: 1000px)
         {
-            margin-left: 1em;
+            display: none;
         }
+       
     }
     
     li{
