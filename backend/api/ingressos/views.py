@@ -12,7 +12,15 @@ from .permissions import AllowAny, EhCliente, EhOrganizador
 from .models import Cliente, Organizador, Evento, Categoria, Compra
 from .serializers import ClienteSerializer, OrganizadorSerializer, EventoSerializer, CategoriaSerializer, CompraSerializer, CadastroSerializer, LoginSerializer
 from rest_framework.pagination import LimitOffsetPagination
+import base64
+from rest_framework.parsers import MultiPartParser, FormParser
 
+
+def converte_base64(imagem):
+    with imagem.open("rb") as arquivo_imagem:
+        conteudo = arquivo_imagem.read()
+        imagem_base64 = base64.b64encode(conteudo).decode("utf-8")
+        return imagem_base64
 
 class Auth(viewsets.ViewSet):
     serializer_class = None
@@ -137,6 +145,7 @@ class EventoViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.SearchFilter]
     search_fields = ['nome', 'descricao']
     pagination_class = LimitOffsetPagination
+    parser_classes = [MultiPartParser, FormParser]
 
     def eventoPagination(self, queryset):
         page = self.paginate_queryset(queryset)
@@ -161,6 +170,9 @@ class EventoViewSet(viewsets.ModelViewSet):
         evento = Evento.objects.filter(pk=pk)
         if (len(evento) > 0):
             evento = evento.first()
+
+        print(converte_base64(evento.imagem))
+
         if (evento.publico != True and (hasattr(request.user, "cliente") or evento.organizador != request.user.organizador)):
             return Response({"Erro": "Sem permissão para visualizar este evento!"}, status=status.HTTP_400_BAD_REQUEST)
         serializer = EventoSerializer(evento)
@@ -168,8 +180,8 @@ class EventoViewSet(viewsets.ModelViewSet):
 
     def create(self, request):
         self.permission_classes = [permissions.IsAuthenticated, EhOrganizador]
-        valorIngresso = request.data.get("valorIngresso")
-        ingressoTotal = request.data.get("ingressoTotal")
+        valorIngresso = int(request.data.get("valorIngresso"))
+        ingressoTotal = int(request.data.get("ingressoTotal"))
         nomeCategoria = request.data.get("categoria")
 
         if (valorIngresso < 0):
@@ -188,6 +200,7 @@ class EventoViewSet(viewsets.ModelViewSet):
             data=request.data.get("data"),
             valorIngresso=valorIngresso,
             ingressoTotal=ingressoTotal,
+            imagem=request.data.get("imagem"),
             vendidos=0,
             ingressoDisponivel=ingressoTotal,
             organizador=request.user.organizador,
