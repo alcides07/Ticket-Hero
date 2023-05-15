@@ -5,6 +5,8 @@ from ingressos.permissions import AllowAny
 from drf_yasg.views import get_schema_view as swagger_get_schema_view
 from rest_framework import routers
 from ingressos import views
+from django.conf.urls.static import static
+from django.conf import settings
 
 app_name = "ingressos"
 router = routers.DefaultRouter()
@@ -35,3 +37,5 @@ urlpatterns = [
     path('redoc/', schema_view.with_ui('redoc',
          cache_timeout=0), name='schema-redoc'),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
