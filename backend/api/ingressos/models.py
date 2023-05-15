@@ -34,11 +34,17 @@ class Categoria(models.Model):
         return self.nome
 
 
+def upload_image_evento(instance, filename):
+    return f"eventos/{filename}"
+
+
 class Evento(models.Model):
     nome = models.CharField(max_length=300)
     descricao = models.TextField()
     data = models.DateTimeField()
     pathImg = models.TextField(blank=True, null=True)
+    imagem = models.ImageField(blank=True, null=True,
+                               upload_to=upload_image_evento)
     publico = models.BooleanField()
     local = models.CharField(max_length=200)
     idadeMinima = models.PositiveIntegerField()
