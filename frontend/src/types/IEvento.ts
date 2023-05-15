@@ -6,7 +6,7 @@ export interface IEvento{
     descricao: string;
     nomeOrganizador: string;
     data: string;
-    imagem: string;
+    imagem: File;
     valorIngresso: number;
     ingressoTotal: number;
     ingressoDisponivel: number;

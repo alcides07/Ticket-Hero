@@ -18,6 +18,7 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
     const [evento, setEvento] = useState<IEvento>();
     const [nome, setNome] = useState("");
     const [categoria, setCategoria] = useState("");
+    const [imagem, setImagem] = useState();
     const [data, setData] = useState("");
     const [valorIngresso, setValorIngresso] = useState(0);
     const [ingressoTotal, setIngressoTotal] = useState(0);
@@ -27,6 +28,16 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
     const [publico, setPublico] = useState(false); //Referencia a privacidade
     const [idadeMinima, setIdadeMinima] = useState(0);
     const [pathImg, setPathImg] = useState("");
+
+    const handleImagem = (e:React.ChangeEvent<HTMLInputElement>) => {
+        console.log("veio aq sim");
+        const files = e.target.files;
+        console.log("veio aq", files);
+
+        if (files && files.length > 0){
+            setImagem(files[0]);
+        }
+    }
 
     useEffect(() => {
         if (id){
@@ -51,13 +62,15 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
 
     const handleSubmit = async (event : any) => {
         event.preventDefault();
+        console.log("img: ", imagem);
         const dadosEvento: IEvento = {
             id:"",
             nomeOrganizador:"",
-            imagem:"",
+            // imagem:"",
             vendidos:0,
             ingressoDisponivel:0,
             organizador:"",
+            imagem:imagem,
             nome: nome,
             categoria:categoria,
             data:data,
@@ -104,6 +117,26 @@ export default function EventoForm({ textoBotao, handle, readOnly, buy }: Evento
                     name = "nome" required
                     value={nome}
                     disabled = {readOnly}
+                />
+            </ContainerItem>
+            
+
+            { evento && (
+                <img src = {evento.imagem}>
+                
+                </img>
+            ) }
+
+                
+
+            <ContainerItem>
+                <Labelitem> Imagem para o evento </Labelitem>
+                <InputItem
+                    // accept="imagem/*"
+                    type = "file"
+                    onChange = {handleImagem}
+                    name = "imagem"
+                    // value={imagem}
                 />
             </ContainerItem>
             
